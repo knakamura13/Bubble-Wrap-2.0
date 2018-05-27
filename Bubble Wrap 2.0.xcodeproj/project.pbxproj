@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB610F20BAA704007DC098 /* AppDelegate.swift */; };
-		BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* SearchVC.swift */; };
+		BFEB611220BAA704007DC098 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* HomeVC.swift */; };
 		BFEB611920BAA704007DC098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611720BAA704007DC098 /* Main.storyboard */; };
 		BFEB611B20BAA705007DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611A20BAA705007DC098 /* Assets.xcassets */; };
 		BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 /* Begin PBXFileReference section */
 		BFEB610C20BAA704007DC098 /* Bubble Wrap 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubble Wrap 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEB610F20BAA704007DC098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BFEB611120BAA704007DC098 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		BFEB611120BAA704007DC098 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		BFEB611820BAA704007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BFEB611A20BAA705007DC098 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFEB611D20BAA705007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 			children = (
 				BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */,
 				BFEB610F20BAA704007DC098 /* AppDelegate.swift */,
-				BFEB611120BAA704007DC098 /* SearchVC.swift */,
+				BFEB611120BAA704007DC098 /* HomeVC.swift */,
 				BFEB611720BAA704007DC098 /* Main.storyboard */,
 				BFEB611A20BAA705007DC098 /* Assets.xcassets */,
 				BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */,
@@ -173,7 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
+				BFEB611220BAA704007DC098 /* HomeVC.swift in Sources */,
 				BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
