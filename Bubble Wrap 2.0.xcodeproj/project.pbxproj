@@ -12,13 +12,13 @@
 		BFDF14FD20BAB26000CD4BBB /* OffersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */; };
 		BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */; };
 		BFDF150120BAB2D800CD4BBB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF150020BAB2D800CD4BBB /* Constants.swift */; };
+		BFDF150320BAB85800CD4BBB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDF150220BAB85800CD4BBB /* MapKit.framework */; };
 		BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB610F20BAA704007DC098 /* AppDelegate.swift */; };
 		BFEB611220BAA704007DC098 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* HomeVC.swift */; };
 		BFEB611920BAA704007DC098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611720BAA704007DC098 /* Main.storyboard */; };
 		BFEB611B20BAA705007DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611A20BAA705007DC098 /* Assets.xcassets */; };
 		BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */; };
 		BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEB612920BAA76A007DC098 /* StoreKit.framework */; };
-		BFEB612C20BAA76D007DC098 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEB612B20BAA76D007DC098 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +27,7 @@
 		BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersVC.swift; sourceTree = "<group>"; };
 		BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		BFDF150020BAB2D800CD4BBB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BFDF150220BAB85800CD4BBB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BFEB610C20BAA704007DC098 /* Bubble Wrap 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubble Wrap 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEB610F20BAA704007DC098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFEB611120BAA704007DC098 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		BFEB611F20BAA705007DC098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Bubble Wrap 2.0.entitlements"; sourceTree = "<group>"; };
 		BFEB612920BAA76A007DC098 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		BFEB612B20BAA76D007DC098 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFEB612C20BAA76D007DC098 /* MapKit.framework in Frameworks */,
+				BFDF150320BAB85800CD4BBB /* MapKit.framework in Frameworks */,
 				BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,7 +123,7 @@
 		BFEB612620BAA74E007DC098 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BFEB612B20BAA76D007DC098 /* MapKit.framework */,
+				BFDF150220BAB85800CD4BBB /* MapKit.framework */,
 				BFEB612920BAA76A007DC098 /* StoreKit.framework */,
 			);
 			name = Frameworks;
@@ -163,10 +163,10 @@
 						CreatedOnToolsVersion = 9.3.1;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -175,7 +175,7 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Wallet = {
 								enabled = 0;
@@ -370,10 +370,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Bubble Wrap 2.0/Bubble Wrap 2.0.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
-				INFOPLIST_FILE = "Bubble Wrap 2.0/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Utility/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -390,10 +389,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Bubble Wrap 2.0/Bubble Wrap 2.0.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
-				INFOPLIST_FILE = "Bubble Wrap 2.0/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Utility/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
