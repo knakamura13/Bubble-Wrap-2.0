@@ -1,5 +1,5 @@
 //
-//  SearchVC.swift
+//  MessengerVC.swift
 //  Bubble Wrap 2.0
 //
 //  Created by Kyle Nakamura on 5/27/18.
@@ -8,15 +8,14 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
-
+class MessengerVC: UIViewController {
+    
     // Constants
     
     // Variables
     
     // Outlets
     
-
     override func viewDidLoad() {
         
     }
@@ -24,10 +23,11 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         
     }
     
     // Actions
+    
 }
