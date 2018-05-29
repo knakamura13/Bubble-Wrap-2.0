@@ -1,5 +1,5 @@
 //
-//  SearchVC.swift
+//  HomeVC.swift
 //  Bubble Wrap 2.0
 //
 //  Created by Kyle Nakamura on 5/27/18.
@@ -8,26 +8,60 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
-
-    // Constants
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    // Variables
+    let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     
-    // Outlets
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+    
+    // outlets
+    @IBOutlet weak var collectionView: UICollectionView?
     
     override func viewDidLoad() {
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
         
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
+        layout.itemSize = CGSize(width: screenWidth/1.5, height: screenWidth/1.5)
+        layout.minimumInteritemSpacing = 0  // column spacing
+        layout.minimumLineSpacing = 50      // row spacing
+        collectionView!.collectionViewLayout = layout
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        print("Hello Kyle")
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
+        
+        cell.myLabel.text = self.items[indexPath.item]
 
-    override func viewDidAppear(_ animated: Bool) {
+        cell.layer.cornerRadius = 2
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor.clear.cgColor
+        cell.layer.backgroundColor = UIColor.white.cgColor
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.2
+        cell.layer.shadowRadius = 4
+        cell.layer.shadowOffset = CGSize(width: 2, height: 2)
+        cell.layer.masksToBounds = false
         
+        return cell
     }
     
-    // Actions
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // handle tap events
+        print("You selected cell #\(indexPath.item)!")
+    }
 }

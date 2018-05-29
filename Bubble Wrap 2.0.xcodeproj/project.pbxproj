@@ -19,6 +19,7 @@
 		BFEB611B20BAA705007DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611A20BAA705007DC098 /* Assets.xcassets */; };
 		BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */; };
 		BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEB612920BAA76A007DC098 /* StoreKit.framework */; };
+		BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		BFEB611F20BAA705007DC098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Bubble Wrap 2.0.entitlements"; sourceTree = "<group>"; };
 		BFEB612920BAA76A007DC098 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		BFDF14F720BAB10B00CD4BBB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			files = (
 				BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */,
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
+				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
 				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
 				BFEB611220BAA704007DC098 /* HomeVC.swift in Sources */,
 				BFDF150120BAB2D800CD4BBB /* Constants.swift in Sources */,
