@@ -19,7 +19,7 @@ struct Constants {
     }
     
     struct Colors {
-        static let appPrimaryColor =  UIColor(red: 99, green: 213, blue: 255, alpha: Alphas.Opaque)  // light blue
+        static let appPrimaryColor =  UIColor(red: 99/255, green: 213/255, blue: 255/255, alpha: Alphas.Opaque)  // light blue
         static let appSecondaryColor =  UIColor.blue.withAlphaComponent(Alphas.Opaque)
         
         private struct Alphas {
@@ -40,5 +40,12 @@ struct Constants {
             static let Selected = UIColor.white
             static let NotSelected = appPrimaryColor
         }
+    }
+}
+
+// Customization to UIColor to allow for hexadecimals instead of regular RGB values
+extension UIColor {
+    convenience init(rgb: Int, alpha: CGFloat = 1.0) {
+        self.init(red: CGFloat((rgb & 0xFF0000) >> 16) / 255.0, green: CGFloat((rgb & 0xFF00) >> 8) / 255.0, blue: CGFloat(rgb & 0xFF) / 255.0, alpha: alpha)
     }
 }
