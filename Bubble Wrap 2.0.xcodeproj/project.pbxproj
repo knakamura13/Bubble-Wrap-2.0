@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF25B8A120BF31AC0086048E /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF25B8A020BF31AC0086048E /* Icon.xcassets */; };
 		BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */; };
 		BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */; };
 		BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */; };
@@ -17,13 +18,13 @@
 		BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB610F20BAA704007DC098 /* AppDelegate.swift */; };
 		BFEB611220BAA704007DC098 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* HomeVC.swift */; };
 		BFEB611920BAA704007DC098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611720BAA704007DC098 /* Main.storyboard */; };
-		BFEB611B20BAA705007DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611A20BAA705007DC098 /* Assets.xcassets */; };
 		BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */; };
 		BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEB612920BAA76A007DC098 /* StoreKit.framework */; };
 		BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF25B8A020BF31AC0086048E /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
 		BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemVC.swift; sourceTree = "<group>"; };
 		BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerVC.swift; sourceTree = "<group>"; };
 		BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemVC.swift; sourceTree = "<group>"; };
@@ -35,7 +36,6 @@
 		BFEB610F20BAA704007DC098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFEB611120BAA704007DC098 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		BFEB611820BAA704007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BFEB611A20BAA705007DC098 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFEB611D20BAA705007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BFEB611F20BAA705007DC098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Bubble Wrap 2.0.entitlements"; sourceTree = "<group>"; };
@@ -68,9 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				BFEB611F20BAA705007DC098 /* Info.plist */,
-				BFEB611A20BAA705007DC098 /* Assets.xcassets */,
 				BFEB610F20BAA704007DC098 /* AppDelegate.swift */,
 				BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */,
+				BF25B8A020BF31AC0086048E /* Icon.xcassets */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -214,7 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */,
-				BFEB611B20BAA705007DC098 /* Assets.xcassets in Resources */,
+				BF25B8A120BF31AC0086048E /* Icon.xcassets in Resources */,
 				BFEB611920BAA704007DC098 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,7 +386,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap-2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -405,7 +405,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap-2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
