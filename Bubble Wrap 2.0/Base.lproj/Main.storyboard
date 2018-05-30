@@ -13,7 +13,7 @@
         <!--Chat-->
         <scene sceneID="vi5-4R-7EI">
             <objects>
-                <viewController title="Chat" id="xYb-DI-Tml" sceneMemberID="viewController">
+                <viewController title="Chat" id="xYb-DI-Tml" customClass="MessengerVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VKE-dJ-pmk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                         <viewLayoutGuide key="safeArea" id="0WW-Qp-6Q6"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Chat" id="3oq-p5-hWK"/>
-                    <navigationItem key="navigationItem" id="mYq-Jf-wP5"/>
+                    <navigationItem key="navigationItem" title="Chat" id="mYq-Jf-wP5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyT-Mx-JOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -30,7 +30,7 @@
         <!--Create Item-->
         <scene sceneID="sLZ-t8-f2i">
             <objects>
-                <viewController id="k4m-kT-xqT" sceneMemberID="viewController">
+                <viewController id="k4m-kT-xqT" customClass="CreateItemVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HQG-yh-xvb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,7 +38,7 @@
                         <viewLayoutGuide key="safeArea" id="GOs-HO-eY1"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Create Item" id="jeK-kg-jTC"/>
-                    <navigationItem key="navigationItem" id="xwv-OZ-RF5"/>
+                    <navigationItem key="navigationItem" title="Create Item" id="xwv-OZ-RF5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtv-Fw-2pK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -47,7 +47,7 @@
         <!--Offers-->
         <scene sceneID="lT2-BF-GeY">
             <objects>
-                <viewController id="cFj-Qc-7dt" sceneMemberID="viewController">
+                <viewController id="cFj-Qc-7dt" customClass="OffersVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="shZ-P1-X0c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
                         <viewLayoutGuide key="safeArea" id="cSn-fK-apg"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Offers" id="dvf-KB-7Dj"/>
-                    <navigationItem key="navigationItem" id="DVm-IZ-guG"/>
+                    <navigationItem key="navigationItem" title="Offers" id="DVm-IZ-guG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6sh-HS-owW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -64,7 +64,7 @@
         <!--Profile-->
         <scene sceneID="kuZ-E6-lOs">
             <objects>
-                <viewController id="1i1-iU-akE" sceneMemberID="viewController">
+                <viewController id="1i1-iU-akE" customClass="ProfileVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Ed-Lg-hd3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,7 +72,7 @@
                         <viewLayoutGuide key="safeArea" id="2I3-83-5iE"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="QAB-O4-H4C"/>
-                    <navigationItem key="navigationItem" id="NJf-Cb-gE9"/>
+                    <navigationItem key="navigationItem" title="Profile" id="NJf-Cb-gE9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uzo-d2-W5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -174,14 +174,30 @@
                         <viewLayoutGuide key="safeArea" id="VEk-Sf-th6"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="Rcy-hR-dLx"/>
-                    <navigationItem key="navigationItem" id="a30-70-gnV"/>
+                    <navigationItem key="navigationItem" title="Home" id="a30-70-gnV"/>
                     <connections>
                         <outlet property="collectionView" destination="o4c-rx-uip" id="gI1-lz-Rt9"/>
+                        <segue destination="mdn-hF-nsd" kind="show" identifier="singleItemSegue" id="cH9-Sz-9bC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATK-9j-ugE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-639.20000000000005" y="-1292.2038980509747"/>
+        </scene>
+        <!--Item Name-->
+        <scene sceneID="yhQ-0q-Rou">
+            <objects>
+                <viewController title="Item Name" id="mdn-hF-nsd" customClass="SingleItemVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XJc-nI-6xq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="cZT-xq-0ZU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C7X-hj-KLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="215" y="-1292"/>
         </scene>
         <!--Tab Bar-->
         <scene sceneID="TF6-kO-iwr">

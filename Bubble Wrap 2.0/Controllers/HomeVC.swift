@@ -15,7 +15,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
-    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+    var items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
     
     // outlets
     @IBOutlet weak var collectionView: UICollectionView?
@@ -24,6 +24,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
+        
+        navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
         
         // Apply a custom spacing layout to the CollectionView
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -47,7 +49,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
         
         // Stylize the cell
-        cell.cellLbl.text = self.items[indexPath.item]
+        cell.cellLbl.text = self.items[indexPath.item] 
         cell.layer.cornerRadius = 2
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.clear.cgColor
@@ -62,7 +64,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("You selected cell #\(indexPath.item)")
-        //performSegue(withIdentifier: "", sender: nil)
+        print("You selected: \(items[indexPath.row])")
+        performSegue(withIdentifier: "singleItemSegue", sender: nil)
     }
 }

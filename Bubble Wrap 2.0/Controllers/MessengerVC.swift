@@ -17,7 +17,7 @@ class MessengerVC: UIViewController {
     // Outlets
     
     override func viewDidLoad() {
-        
+        navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
