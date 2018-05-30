@@ -8,21 +8,25 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
-    var items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+    var allItems = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+    var searchItems: [String] = []
     var selectedItem: String = ""
     
     // outlets
     @IBOutlet weak var collectionView: UICollectionView?
+    @IBOutlet weak var searchBar: UISearchBar!
     
     // viewDidLoad: runs only once when the scene loads for the first time
     override func viewDidLoad() {
+        searchBar.delegate = self
+        
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
@@ -46,16 +50,24 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
+    /*
+     MARK: COLLECTION VIEW
+     */
+    
     // Set how many cells should display
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.items.count
+        if searchBar.text!.count == 0 {
+            // if search bar is empty, display all items
+            searchItems = allItems
+        }
+        
+        return searchItems.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
         
         // Stylize the cell
-        cell.cellLbl.text = self.items[indexPath.item] 
+        cell.cellLbl.text = self.searchItems[indexPath.item]
         cell.layer.cornerRadius = 2
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.clear.cgColor
@@ -68,10 +80,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         return cell
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedItem = items[indexPath.row]
+        selectedItem = searchItems[indexPath.row]
         performSegue(withIdentifier: "singleItemSegue", sender: nil)
+    }
+    
+    /*
+     MARK: SEARCH BAR
+     */
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchItems = []
+        for item in allItems {
+            if item.lowercased().contains(searchText.lowercased()) {
+                searchItems.append(item)
+            }
+        }
+        
+        collectionView!.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

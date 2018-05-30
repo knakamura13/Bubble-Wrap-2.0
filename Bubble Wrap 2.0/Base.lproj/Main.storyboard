@@ -178,6 +178,7 @@
                     <navigationItem key="navigationItem" title="Home" id="a30-70-gnV"/>
                     <connections>
                         <outlet property="collectionView" destination="o4c-rx-uip" id="gI1-lz-Rt9"/>
+                        <outlet property="searchBar" destination="ROH-hi-liR" id="paD-hS-Qmh"/>
                         <segue destination="mdn-hF-nsd" kind="show" identifier="singleItemSegue" id="cH9-Sz-9bC"/>
                     </connections>
                 </viewController>
