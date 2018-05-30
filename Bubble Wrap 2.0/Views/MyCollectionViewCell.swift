@@ -8,16 +8,18 @@
 
 import UIKit
 
-let highlightedColor = Constants.Colors.appPrimaryColor.withAlphaComponent(0.1)
+private let highlightedColor = Constants.Colors.appPrimaryColor.withAlphaComponent(0.1)
 
 class MyCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var myLabel: UILabel!
+    @IBOutlet weak var cellLbl: UILabel!
+    @IBOutlet weak var cellImg: UIImageView!
     
     override var isSelected: Bool {
         willSet {
             onSelected(newValue)
         }
     }
+    
     func onSelected(_ newValue: Bool) {
         guard selectedBackgroundView == nil else { return }
         contentView.backgroundColor = newValue ? highlightedColor : UIColor.clear

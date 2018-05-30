@@ -47,7 +47,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
         
         // Stylize the cell
-        cell.myLabel.text = self.items[indexPath.item]
+        cell.cellLbl.text = self.items[indexPath.item]
         cell.layer.cornerRadius = 2
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.clear.cgColor
@@ -63,5 +63,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("You selected cell #\(indexPath.item)")
+        //performSegue(withIdentifier: "", sender: nil)
     }
 }
