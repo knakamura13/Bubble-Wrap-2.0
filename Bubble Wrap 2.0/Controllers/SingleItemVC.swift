@@ -10,11 +10,11 @@ import UIKit
 
 class SingleItemVC: UIViewController {
 
-    var itemName: String = ""
+    var selectedItem: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = itemName
+        self.title = selectedItem
     }
 }

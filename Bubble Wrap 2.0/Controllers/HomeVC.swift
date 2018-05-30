@@ -16,10 +16,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
     var items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+    var selectedItem: String = ""
     
     // outlets
     @IBOutlet weak var collectionView: UICollectionView?
     
+    // viewDidLoad: runs only once when the scene loads for the first time
     override func viewDidLoad() {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
@@ -36,8 +38,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         collectionView!.collectionViewLayout = layout
     }
     
+    // viewWillAppear: runs every time the scene is about to appear
     override func viewWillAppear(_ animated: Bool) {
-        
+        // Deselect all cells
+        for selectedCell in (collectionView?.indexPathsForSelectedItems)! {
+            collectionView?.deselectItem(at: selectedCell, animated: false)
+        }
     }
     
     // Set how many cells should display
@@ -64,7 +70,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("You selected: \(items[indexPath.row])")
+        selectedItem = items[indexPath.row]
         performSegue(withIdentifier: "singleItemSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Pass data from this VC to the segue destination VC
+        let secondViewController = segue.destination as! SingleItemVC
+        secondViewController.selectedItem = selectedItem
     }
 }
