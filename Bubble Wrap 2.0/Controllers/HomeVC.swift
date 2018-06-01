@@ -15,7 +15,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
-    var allItems = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+    var allItemsNames: [String] = []
+    var allItemImages: [UIImage] = []
     var searchItems: [String] = []
     var selectedItem: String = ""
     
@@ -25,11 +26,17 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     // viewDidLoad: runs only once when the scene loads for the first time
     override func viewDidLoad() {
+        super.viewDidLoad()
         searchBar.delegate = self
         
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
+        
+        allItemsNames = ["Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor"]
+        for i in 1...10 {
+            allItemImages.append(UIImage(named: "item-img-\(i).jpg")!)
+        }
         
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
         
@@ -58,7 +65,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if searchBar.text!.count == 0 {
             // if search bar is empty, display all items
-            searchItems = allItems
+            searchItems = allItemsNames
         }
         
         return searchItems.count
@@ -66,17 +73,28 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
         
-        // Stylize the cell
+        // Populate the cell's data
         cell.cellLbl.text = self.searchItems[indexPath.item]
-        cell.layer.cornerRadius = 2
+        cell.cellImg.image = allItemImages[indexPath.item]
+        
+        // Stylize the cell
+        let cornerRadius = 5
+        cell.layer.cornerRadius = CGFloat(cornerRadius)
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.clear.cgColor
         cell.layer.backgroundColor = UIColor.white.cgColor
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowOpacity = 0.2
-        cell.layer.shadowRadius = 4
+        cell.layer.shadowRadius = CGFloat(cornerRadius)
         cell.layer.shadowOffset = CGSize(width: 2, height: 2)
         cell.layer.masksToBounds = false
+        
+        // Stylize the cell's imageView
+        let rectShape = CAShapeLayer()
+        rectShape.bounds = cell.cellImg.frame
+        rectShape.position = cell.cellImg.center
+        rectShape.path = UIBezierPath(roundedRect:  cell.cellImg.bounds,     byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+        cell.cellImg.layer.mask = rectShape
         
         return cell
     }
@@ -90,7 +108,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
      */
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchItems = []
-        for item in allItems {
+        for item in allItemsNames {
             if item.lowercased().contains(searchText.lowercased()) {
                 searchItems.append(item)
             }

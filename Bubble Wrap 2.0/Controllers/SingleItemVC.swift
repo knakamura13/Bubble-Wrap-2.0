@@ -10,11 +10,11 @@ import UIKit
 
 class SingleItemVC: UIViewController {
 
-    var selectedItem: String = ""
+    var selectedItem: String = ""   // variable is set in HomeVC
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = selectedItem
+        self.title = selectedItem   // update the title on the nav bar
     }
 }
