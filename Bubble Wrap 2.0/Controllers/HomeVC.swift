@@ -78,14 +78,14 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         cell.cellImg.image = allItemImages[indexPath.item]
         
         // Stylize the cell
-        let cornerRadius = 5
-        cell.layer.cornerRadius = CGFloat(cornerRadius)
+        let cornerRadius = CGFloat(10)
+        cell.layer.cornerRadius = cornerRadius
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.clear.cgColor
         cell.layer.backgroundColor = UIColor.white.cgColor
         cell.layer.shadowColor = UIColor.black.cgColor
         cell.layer.shadowOpacity = 0.2
-        cell.layer.shadowRadius = CGFloat(cornerRadius)
+        cell.layer.shadowRadius = cornerRadius
         cell.layer.shadowOffset = CGSize(width: 2, height: 2)
         cell.layer.masksToBounds = false
         

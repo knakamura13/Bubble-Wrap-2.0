@@ -49,7 +49,7 @@
                                                         <rect key="frame" x="0.0" y="-63" width="375" height="438"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MLQ-mz-kAV" userLabel="Images Stack">
-                                                        <rect key="frame" x="20" y="256.5" width="335" height="98.5"/>
+                                                        <rect key="frame" x="20" y="256" width="335" height="99"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxx-Pm-Xna">
                                                                 <rect key="frame" x="0.0" y="0.5" width="98.5" height="98"/>
@@ -58,7 +58,6 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="99" height="98"/>
                                                                     </imageView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="Fq6-Vf-kmf" firstAttribute="leading" secondItem="mxx-Pm-Xna" secondAttribute="leading" id="9iB-94-cXH"/>
                                                                     <constraint firstItem="Fq6-Vf-kmf" firstAttribute="top" secondItem="mxx-Pm-Xna" secondAttribute="top" id="XlE-89-dAb"/>
@@ -68,13 +67,12 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5B-1n-5cK">
-                                                                <rect key="frame" x="118.5" y="0.0" width="98" height="98.5"/>
+                                                                <rect key="frame" x="118.5" y="0.0" width="98" height="99"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="item-img-6" translatesAutoresizingMaskIntoConstraints="NO" id="mF5-8I-zqG">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="98" height="98.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="98" height="99"/>
                                                                     </imageView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="q5B-1n-5cK" secondAttribute="height" multiplier="1:1" id="3W6-yy-Yem"/>
                                                                     <constraint firstAttribute="trailing" secondItem="mF5-8I-zqG" secondAttribute="trailing" id="45u-lZ-fyW"/>
@@ -90,7 +88,6 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
                                                                     </imageView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="FhW-gx-Xm1" firstAttribute="leading" secondItem="3Pf-AS-hFp" secondAttribute="leading" id="69O-LZ-LMr"/>
                                                                     <constraint firstAttribute="width" secondItem="3Pf-AS-hFp" secondAttribute="height" multiplier="1:1" id="Pi3-pu-5Nm"/>
@@ -227,7 +224,11 @@
                     <navigationItem key="navigationItem" title="Create Item" id="xwv-OZ-RF5"/>
                     <size key="freeformSize" width="375" height="875"/>
                     <connections>
+                        <outlet property="mainImg" destination="pkD-4l-xJK" id="mVi-bU-clL"/>
                         <outlet property="scrollView" destination="hQ6-m9-EYQ" id="n83-LU-zSc"/>
+                        <outlet property="smallImg1" destination="Fq6-Vf-kmf" id="72X-bO-Bxo"/>
+                        <outlet property="smallImg2" destination="mF5-8I-zqG" id="Bch-nE-7SG"/>
+                        <outlet property="smallImg3" destination="FhW-gx-Xm1" id="YB1-sp-ZG4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtv-Fw-2pK" userLabel="First Responder" sceneMemberID="firstResponder"/>
