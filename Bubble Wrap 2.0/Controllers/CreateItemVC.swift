@@ -19,7 +19,7 @@ class CreateItemVC: UIViewController {
     
     override func viewDidLoad() {
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
-        scrollView.contentSize.height = 1000
+        scrollView.contentSize.height = 750 // arbitrary integer; increase value if content does not fit on screen
         
     }
     
