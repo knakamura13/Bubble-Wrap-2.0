@@ -268,11 +268,11 @@
             </objects>
             <point key="canvasLocation" x="-639" y="1604"/>
         </scene>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="q6L-cg-bb4">
             <objects>
                 <navigationController id="f2o-mp-aAW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="q8L-lO-BAN"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="icon-home" id="q8L-lO-BAN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RST-LQ-6wL">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -413,11 +413,11 @@
             </objects>
             <point key="canvasLocation" x="-2314" y="68"/>
         </scene>
-        <!--Item-->
+        <!--Chat-->
         <scene sceneID="fXO-mM-WKJ">
             <objects>
                 <navigationController id="kD7-RL-P4l" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="5Cx-SI-5BN"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="icon-chat" id="5Cx-SI-5BN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nKN-Fc-UHX">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -431,11 +431,11 @@
             </objects>
             <point key="canvasLocation" x="-1378" y="-784"/>
         </scene>
-        <!--Item-->
+        <!--Create Item-->
         <scene sceneID="3AP-GX-WEI">
             <objects>
                 <navigationController id="GQH-OT-ShR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="hQm-MI-ldP"/>
+                    <tabBarItem key="tabBarItem" title="Create Item" image="icon-camera" id="hQm-MI-ldP"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nfE-Q6-Gql">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -449,11 +449,11 @@
             </objects>
             <point key="canvasLocation" x="-1378" y="68"/>
         </scene>
-        <!--Item-->
+        <!--Offers-->
         <scene sceneID="uD5-fq-JST">
             <objects>
                 <navigationController id="xVf-fF-vV8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7cD-NX-mMb"/>
+                    <tabBarItem key="tabBarItem" title="Offers" image="icon-offers" id="7cD-NX-mMb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Owb-c2-sw7">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -467,11 +467,11 @@
             </objects>
             <point key="canvasLocation" x="-1378" y="917"/>
         </scene>
-        <!--Item-->
+        <!--Profile-->
         <scene sceneID="DzY-W1-GiB">
             <objects>
                 <navigationController id="jVC-Kh-Mzo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Rwd-ky-QGW"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="icon-profile" id="Rwd-ky-QGW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6ns-eE-oV8">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -487,6 +487,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon-camera" width="25" height="25"/>
+        <image name="icon-chat" width="25" height="25"/>
+        <image name="icon-home" width="25" height="25"/>
+        <image name="icon-offers" width="25" height="25"/>
+        <image name="icon-profile" width="25" height="25"/>
         <image name="item-img-1" width="3024" height="4032"/>
         <image name="item-img-6" width="3024" height="4032"/>
     </resources>
