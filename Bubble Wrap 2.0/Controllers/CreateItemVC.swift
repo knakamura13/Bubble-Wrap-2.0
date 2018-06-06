@@ -15,9 +15,12 @@ class CreateItemVC: UIViewController {
     // Variables
     
     // Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
+        scrollView.contentSize.height = 1000
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

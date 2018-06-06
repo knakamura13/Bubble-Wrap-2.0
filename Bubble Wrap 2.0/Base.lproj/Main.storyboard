@@ -34,15 +34,40 @@
                     <view key="view" contentMode="scaleToFill" id="HQG-yh-xvb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-m9-EYQ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fN-Up-2nz">
+                                        <rect key="frame" x="-0.5" y="0.0" width="375" height="554"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="4fN-Up-2nz" firstAttribute="centerX" secondItem="hQ6-m9-EYQ" secondAttribute="centerX" id="1Fy-Mo-eUG"/>
+                                    <constraint firstItem="4fN-Up-2nz" firstAttribute="width" secondItem="hQ6-m9-EYQ" secondAttribute="width" id="7BK-CS-3lm"/>
+                                    <constraint firstItem="4fN-Up-2nz" firstAttribute="height" secondItem="hQ6-m9-EYQ" secondAttribute="height" id="8Pn-LH-ri2"/>
+                                    <constraint firstItem="4fN-Up-2nz" firstAttribute="centerY" secondItem="hQ6-m9-EYQ" secondAttribute="centerY" id="gJF-fl-3mq"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hQ6-m9-EYQ" firstAttribute="bottom" secondItem="GOs-HO-eY1" secondAttribute="bottom" id="35P-0j-Lr6"/>
+                            <constraint firstItem="hQ6-m9-EYQ" firstAttribute="trailing" secondItem="GOs-HO-eY1" secondAttribute="trailing" id="ROn-AL-jEJ"/>
+                            <constraint firstItem="hQ6-m9-EYQ" firstAttribute="leading" secondItem="GOs-HO-eY1" secondAttribute="leading" id="jIj-Di-fbq"/>
+                            <constraint firstItem="hQ6-m9-EYQ" firstAttribute="top" secondItem="GOs-HO-eY1" secondAttribute="top" id="zGc-FQ-q2k"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="GOs-HO-eY1"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Create Item" id="jeK-kg-jTC"/>
                     <navigationItem key="navigationItem" title="Create Item" id="xwv-OZ-RF5"/>
+                    <connections>
+                        <outlet property="scrollView" destination="hQ6-m9-EYQ" id="n83-LU-zSc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtv-Fw-2pK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="68"/>
+            <point key="canvasLocation" x="-639.20000000000005" y="67.916041979010501"/>
         </scene>
         <!--Offers-->
         <scene sceneID="lT2-BF-GeY">
