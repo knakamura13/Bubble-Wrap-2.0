@@ -8,14 +8,13 @@
 
 import Foundation
 import UIKit
+import Firebase
+
 
 struct Constants {
     struct General {
-        
-    }
-    
-    struct Demo {
-        
+        static let DB_BASE = Database.database().reference()
+        static let ST_BASE = Storage.storage().reference()
     }
     
     struct Colors {
