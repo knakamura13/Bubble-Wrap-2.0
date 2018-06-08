@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		80D63B8B9EF5FC97762016EB /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */; };
 		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
-		BF25B8A120BF31AC0086048E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF25B8A020BF31AC0086048E /* Images.xcassets */; };
+		BFB7E6A920CA2F6300F32D2E /* TopCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopCardCell.swift */; };
+		BFB7E6AB20CA340300F32D2E /* BottomCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6AA20CA340300F32D2E /* BottomCardCell.swift */; };
 		BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */; };
 		BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */; };
 		BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */; };
@@ -18,10 +19,11 @@
 		BFDF150120BAB2D800CD4BBB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF150020BAB2D800CD4BBB /* Constants.swift */; };
 		BFDF150320BAB85800CD4BBB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDF150220BAB85800CD4BBB /* MapKit.framework */; };
 		BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB610F20BAA704007DC098 /* AppDelegate.swift */; };
-		BFEB611220BAA704007DC098 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* HomeVC.swift */; };
+		BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* SearchVC.swift */; };
 		BFEB611920BAA704007DC098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611720BAA704007DC098 /* Main.storyboard */; };
 		BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */; };
 		BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEB612920BAA76A007DC098 /* StoreKit.framework */; };
+		BFFA086E20CA7A4400D3679C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFFA086D20CA7A4400D3679C /* Images.xcassets */; };
 		BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +32,8 @@
 		6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BF25B8A020BF31AC0086048E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BFB7E6A820CA2F6300F32D2E /* TopCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCardCell.swift; sourceTree = "<group>"; };
+		BFB7E6AA20CA340300F32D2E /* BottomCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCardCell.swift; sourceTree = "<group>"; };
 		BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemVC.swift; sourceTree = "<group>"; };
 		BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerVC.swift; sourceTree = "<group>"; };
 		BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemVC.swift; sourceTree = "<group>"; };
@@ -40,12 +43,13 @@
 		BFDF150220BAB85800CD4BBB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BFEB610C20BAA704007DC098 /* Bubble Wrap 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubble Wrap 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEB610F20BAA704007DC098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BFEB611120BAA704007DC098 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		BFEB611120BAA704007DC098 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		BFEB611820BAA704007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BFEB611D20BAA705007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BFEB611F20BAA705007DC098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Bubble Wrap 2.0.entitlements"; sourceTree = "<group>"; };
 		BFEB612920BAA76A007DC098 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BFFA086D20CA7A4400D3679C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +81,7 @@
 				BFEB611F20BAA705007DC098 /* Info.plist */,
 				BFEB610F20BAA704007DC098 /* AppDelegate.swift */,
 				BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */,
-				BF25B8A020BF31AC0086048E /* Images.xcassets */,
+				BFFA086D20CA7A4400D3679C /* Images.xcassets */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -85,7 +89,7 @@
 		BFDF14F620BAB10800CD4BBB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BFEB611120BAA704007DC098 /* HomeVC.swift */,
+				BFEB611120BAA704007DC098 /* SearchVC.swift */,
 				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
 				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
 				BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */,
@@ -99,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */,
+				BFB7E6A820CA2F6300F32D2E /* TopCardCell.swift */,
+				BFB7E6AA20CA340300F32D2E /* BottomCardCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,8 +241,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */,
+				BFFA086E20CA7A4400D3679C /* Images.xcassets in Resources */,
 				BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */,
-				BF25B8A120BF31AC0086048E /* Images.xcassets in Resources */,
 				BFEB611920BAA704007DC098 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,7 +316,9 @@
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
 				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
 				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
-				BFEB611220BAA704007DC098 /* HomeVC.swift in Sources */,
+				BFB7E6A920CA2F6300F32D2E /* TopCardCell.swift in Sources */,
+				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
+				BFB7E6AB20CA340300F32D2E /* BottomCardCell.swift in Sources */,
 				BFDF150120BAB2D800CD4BBB /* Constants.swift in Sources */,
 				BFDF14FD20BAB26000CD4BBB /* OffersVC.swift in Sources */,
 				BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */,
@@ -462,7 +470,10 @@
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Utility/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -479,7 +490,10 @@
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Utility/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

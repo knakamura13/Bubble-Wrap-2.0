@@ -1,5 +1,5 @@
 //
-//  HomeVC.swift
+//  SearchVC.swift
 //  Bubble Wrap 2.0
 //
 //  Created by Kyle Nakamura on 5/27/18.
@@ -10,7 +10,9 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+var demoPicsumImages: [UIImage] = []
+
+class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     
@@ -18,6 +20,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
     var allItemsNames: [String] = []
+    var allItemPrices: [Int] = []
     var allItemImages: [UIImage] = []
     var searchItems: [String] = []
     var selectedItem: String = ""
@@ -45,11 +48,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         layout.minimumLineSpacing = 50      // row spacing
         collectionView!.collectionViewLayout = layout
         
-        // Set the data
-        allItemsNames = ["Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor"]
-        for i in 1...10 {
-            allItemImages.append(UIImage(named: "item-img-\(i).jpg")!)
-        }
+        allItemsNames = ["Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor"]
         
         let db = Firestore.firestore()
         
@@ -60,20 +59,22 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 if err != nil {
                     print(err!)
                 } else {
-                    print("\n\nNow printing all items\n")
                     for document in (snapshot?.documents)! {
                         if let title = document.data()["title"] as? String {
                             if let price = document.data()["price"] as? Int {
-                                if let images = document.data()["images"] as? [String] {
-                                    print(title)
-                                    print(price)
-                                    print()
-                                }
+                                self.allItemsNames.append(title)
+                                self.allItemPrices.append(price)
                             }
                         }
                     }
                 }
             }
+        for i in 1...100 {
+            if let image = UIImage(named: "picsum-\(i)") {
+                demoPicsumImages.append(image)
+            }
+        }
+//        demoPicsumImages
     }
     
     // viewWillAppear: runs every time the scene is about to appear
@@ -91,8 +92,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     // Set how many cells should display
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if searchBar.text!.count == 0 {
-            // if search bar is empty, display all items
-            searchItems = allItemsNames
+            // if search bar is empty
+            searchItems = allItemsNames // display every item
         }
         
         return searchItems.count
@@ -102,9 +103,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         // Populate the cell's data
         cell.cellLbl.text = self.searchItems[indexPath.item]
-        let data = try? Data(contentsOf: URL(string: "https://picsum.photos/250/?random")!) // pull a random image from the web
-        // TODO: Fetch image urls from Firestore
-        cell.cellImg.image = UIImage(data: data!)
+        cell.cellImg.image = demoPicsumImages.randomElement()
         
         // Stylize the cell
         let cornerRadius = CGFloat(10)
@@ -113,8 +112,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         cell.layer.borderColor = UIColor.clear.cgColor
         cell.layer.backgroundColor = UIColor.white.cgColor
         cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.2
-        cell.layer.shadowRadius = cornerRadius
+        cell.layer.shadowOpacity = 0.15
+        cell.layer.shadowRadius = 4
         cell.layer.shadowOffset = CGSize(width: 2, height: 2)
         cell.layer.masksToBounds = false
         
@@ -122,7 +121,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let rectShape = CAShapeLayer()
         rectShape.bounds = cell.cellImg.frame
         rectShape.position = cell.cellImg.center
-        rectShape.path = UIBezierPath(roundedRect:  cell.cellImg.bounds,     byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+        rectShape.path = UIBezierPath(roundedRect:  cell.cellImg.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
         cell.cellImg.layer.mask = rectShape
         
         return cell
