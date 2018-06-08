@@ -1,5 +1,5 @@
 //
-//  BottomCardCell.swift
+//  TopCardCell.swift
 //  Bubble Wrap 2.0
 //
 //  Created by Kyle Nakamura on 6/7/18.
@@ -10,7 +10,7 @@ import UIKit
 
 private let highlightedColor = Constants.Colors.appPrimaryColor.withAlphaComponent(0.1)
 
-class BottomCardCell: UICollectionViewCell {
+class TopOffersCell: UICollectionViewCell {
     
     @IBOutlet weak var cellLbl: UILabel!
     @IBOutlet weak var cellImg: UIImageView!

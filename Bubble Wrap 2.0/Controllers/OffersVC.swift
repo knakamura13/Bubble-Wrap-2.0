@@ -37,7 +37,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         var cell: UICollectionViewCell
         if collectionView == self.topCollectionView {
             // Populate the top collection view
-            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "TopCardCell", for: indexPath as IndexPath) as! TopCardCell
+            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "TopOffersCell", for: indexPath as IndexPath) as! TopOffersCell
             cell2.cellImg.image = demoPicsumImages.randomElement()
             cell2.cellLbl.text = allItemsNames[indexPath.item]
             
@@ -51,7 +51,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             cell = cell2
         } else {
             // Populate the bottom collection view
-            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "BottomCardCell", for: indexPath as IndexPath) as! BottomCardCell
+            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "BottomOffersCell", for: indexPath as IndexPath) as! BottomOffersCell
             cell2.cellImg.image = demoPicsumImages.randomElement()
             cell2.cellLbl.text = allItemsNames[indexPath.item]
             
