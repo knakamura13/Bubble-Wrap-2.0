@@ -255,7 +255,7 @@
                                     <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopCardCell" id="KrO-Ks-H3O" customClass="TopOffersCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopOffersCell" id="KrO-Ks-H3O" userLabel="Top Offers Cell" customClass="TopOffersCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
                                         <rect key="frame" x="16" y="12.5" width="167" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -316,7 +316,7 @@
                                     <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BottomCardCell" id="xBZ-UY-Dkm" customClass="BottomOffersCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BottomOffersCell" id="xBZ-UY-Dkm" userLabel="Bottom Offers Cell" customClass="BottomOffersCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
                                         <rect key="frame" x="16" y="12.5" width="167" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -492,7 +492,7 @@
                                                 </constraints>
                                             </view>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4ii-OF-9s9">
-                                                <rect key="frame" x="0.0" y="170" width="375" height="225"/>
+                                                <rect key="frame" x="0.0" y="198.5" width="375" height="225"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="225" id="SfD-SA-7fA"/>
@@ -504,7 +504,7 @@
                                                     <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopProfileCell" id="0dO-Ir-beF" customClass="TopProfileCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopProfileCell" id="0dO-Ir-beF" userLabel="Top Profile Cell" customClass="TopProfileCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
                                                         <rect key="frame" x="16" y="12.5" width="167" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -543,7 +543,7 @@
                                                 </cells>
                                             </collectionView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UmB-1R-8e6">
-                                                <rect key="frame" x="0.0" y="395" width="375" height="225"/>
+                                                <rect key="frame" x="0.0" y="452" width="375" height="225"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="225" id="Xrg-Yf-lbZ"/>
@@ -555,7 +555,7 @@
                                                     <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BottomProfileCell" id="V7g-Dn-UV5" customClass="BottomProfileCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BottomProfileCell" id="V7g-Dn-UV5" userLabel="Bottom Profile Cell" customClass="BottomProfileCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
                                                         <rect key="frame" x="16" y="12.5" width="167" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -593,18 +593,34 @@
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UE-M1-2qI">
+                                                <rect key="frame" x="16" y="178" width="100" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your items for sale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec2-pC-mYJ">
+                                                <rect key="frame" x="16" y="431.5" width="146" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="UmB-1R-8e6" firstAttribute="top" secondItem="4ii-OF-9s9" secondAttribute="bottom" id="0UX-eG-5aR"/>
-                                            <constraint firstItem="4ii-OF-9s9" firstAttribute="top" secondItem="o3T-bO-gba" secondAttribute="bottom" id="BDx-61-xH3"/>
                                             <constraint firstAttribute="trailing" secondItem="o3T-bO-gba" secondAttribute="trailing" id="FkJ-Kw-w0h"/>
+                                            <constraint firstItem="UmB-1R-8e6" firstAttribute="top" secondItem="ec2-pC-mYJ" secondAttribute="bottom" id="H2V-Wu-dFQ"/>
                                             <constraint firstAttribute="trailing" secondItem="UmB-1R-8e6" secondAttribute="trailing" id="Mxc-jc-UlY"/>
                                             <constraint firstAttribute="trailing" secondItem="4ii-OF-9s9" secondAttribute="trailing" id="NWg-jN-rje"/>
+                                            <constraint firstItem="ec2-pC-mYJ" firstAttribute="top" secondItem="4ii-OF-9s9" secondAttribute="bottom" constant="8" id="Q15-oW-si1"/>
+                                            <constraint firstItem="ec2-pC-mYJ" firstAttribute="leading" secondItem="QxA-wX-NE7" secondAttribute="leading" constant="16" id="Xvp-e8-6aS"/>
                                             <constraint firstItem="UmB-1R-8e6" firstAttribute="leading" secondItem="QxA-wX-NE7" secondAttribute="leading" id="djY-3Y-Uc3"/>
                                             <constraint firstItem="4ii-OF-9s9" firstAttribute="leading" secondItem="QxA-wX-NE7" secondAttribute="leading" id="eBd-6d-xDD"/>
+                                            <constraint firstItem="2UE-M1-2qI" firstAttribute="leading" secondItem="QxA-wX-NE7" secondAttribute="leading" constant="16" id="fOZ-1q-8vs"/>
+                                            <constraint firstItem="4ii-OF-9s9" firstAttribute="top" secondItem="2UE-M1-2qI" secondAttribute="bottom" id="hcX-jh-OMG"/>
                                             <constraint firstItem="o3T-bO-gba" firstAttribute="top" secondItem="QxA-wX-NE7" secondAttribute="top" id="pMb-dG-0T8"/>
                                             <constraint firstItem="o3T-bO-gba" firstAttribute="leading" secondItem="QxA-wX-NE7" secondAttribute="leading" id="qz8-SS-DhO"/>
+                                            <constraint firstItem="2UE-M1-2qI" firstAttribute="top" secondItem="o3T-bO-gba" secondAttribute="bottom" constant="8" id="uv2-5X-PM9"/>
                                         </constraints>
                                     </view>
                                 </subviews>
