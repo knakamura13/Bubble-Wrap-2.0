@@ -16,9 +16,12 @@ class ProfileVC: UIViewController {
     // Variables
     
     // Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
+        scrollView.contentSize.height = 800
     }
     
     override func viewWillAppear(_ animated: Bool) {
