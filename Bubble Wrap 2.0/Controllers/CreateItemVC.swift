@@ -23,12 +23,19 @@ class CreateItemVC: UIViewController {
     @IBOutlet weak var smallImg3: UIImageView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Customize the visuals
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
-        scrollView.contentSize.height = 750 // arbitrary integer; increase value if content does not fit on screen
+        scrollView.contentSize.height = 750 // arbitrary integer; increase if content does not fit in contentSize
         let cornerRadius = CGFloat(10)
         smallImg1.layer.cornerRadius = cornerRadius
         smallImg2.layer.cornerRadius = cornerRadius
         smallImg3.layer.cornerRadius = cornerRadius
+        mainImg.image = demoPicsumImages.randomElement()
+        smallImg1.image = demoPicsumImages.randomElement()
+        smallImg2.image = demoPicsumImages.randomElement()
+        smallImg3.image = demoPicsumImages.randomElement()
     }
     
     override func viewWillAppear(_ animated: Bool) {

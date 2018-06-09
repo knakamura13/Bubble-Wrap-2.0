@@ -21,6 +21,12 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     // Outlets
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var bottomCollectionView: UICollectionView!
+    @IBOutlet weak var signOutBtn: UIControl!
+    @IBOutlet weak var profileImgView: UIControl!
+    @IBOutlet weak var userProfileImg: UIImageView!
+    @IBOutlet weak var userNameLbl: UILabel!
+    @IBOutlet weak var userBubbleLbl: UILabel!
+    @IBOutlet weak var userEmailLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +35,16 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         bottomCollectionView.delegate = self
         bottomCollectionView.dataSource = self
         
+        // Customize visuals
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
+        signOutBtn.layer.cornerRadius = 5
+        profileImgView.layer.cornerRadius = CGFloat(self.profileImgView.frame.width/2)
         
+        // Set the initial data
         allItemsNames = ["Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor"]
+        userNameLbl.text = "Kyle Nakamura"
+        userBubbleLbl.text = "Azusa Pacific University"
+        userEmailLbl.text = "knakamura13@apu.edu"
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -85,5 +98,11 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     // Actions
+    @IBAction func signOutPressed(_ sender: Any) {
+        print("Btn: Sign out")
+    }
+    @IBAction func profileImgTapped(_ sender: Any) {
+        print("Btn: Profile image")
+    }
     
 }
