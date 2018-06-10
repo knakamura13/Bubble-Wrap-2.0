@@ -48,11 +48,13 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         layout.minimumLineSpacing = 50      // row spacing
         collectionView!.collectionViewLayout = layout
         
+        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
+        
+        // Set data on screen
         allItemsNames = ["Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor"]
         
-        let db = Firestore.firestore()
-        
         // Fetch data from all items
+        let db = Firestore.firestore()
         db.collection("items")
             .order(by: "title")
             .getDocuments { (snapshot, err) in
@@ -74,7 +76,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                 demoPicsumImages.append(image)
             }
         }
-//        demoPicsumImages
     }
     
     // viewWillAppear: runs every time the scene is about to appear
@@ -82,6 +83,21 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         // Deselect all cells
         for selectedCell in (collectionView?.indexPathsForSelectedItems)! {
             collectionView?.deselectItem(at: selectedCell, animated: false)
+        }
+    }
+    
+    /*
+     MARK: KEYBOARD AND SEARCH BAR
+     */
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        // Delay for 0.025 seconds
+        // Purpose: Cancel Button not dismissing keyboard immediately; forced delay required
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
+            self.searchBar.resignFirstResponder()   // Dismiss the keyboard
         }
     }
     

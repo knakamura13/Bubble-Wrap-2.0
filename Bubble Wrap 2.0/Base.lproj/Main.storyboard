@@ -44,7 +44,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiT-1C-yr9" userLabel="Parallax Container">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="item-img-1" translatesAutoresizingMaskIntoConstraints="NO" id="pkD-4l-xJK">
+                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pkD-4l-xJK">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MLQ-mz-kAV" userLabel="Images Stack">
@@ -53,7 +53,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxx-Pm-Xna">
                                                                 <rect key="frame" x="0.0" y="0.0" width="98.5" height="98.5"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="item-img-6" translatesAutoresizingMaskIntoConstraints="NO" id="Fq6-Vf-kmf">
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fq6-Vf-kmf">
                                                                         <rect key="frame" x="0.0" y="0.0" width="98.5" height="98.5"/>
                                                                     </imageView>
                                                                 </subviews>
@@ -68,7 +68,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5B-1n-5cK">
                                                                 <rect key="frame" x="118.5" y="0.0" width="98" height="98.5"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="item-img-6" translatesAutoresizingMaskIntoConstraints="NO" id="mF5-8I-zqG">
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mF5-8I-zqG">
                                                                         <rect key="frame" x="0.0" y="0.0" width="98" height="98.5"/>
                                                                     </imageView>
                                                                 </subviews>
@@ -83,7 +83,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Pf-AS-hFp">
                                                                 <rect key="frame" x="236.5" y="0.0" width="98.5" height="98.5"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="item-img-6" translatesAutoresizingMaskIntoConstraints="NO" id="FhW-gx-Xm1">
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FhW-gx-Xm1">
                                                                         <rect key="frame" x="0.0" y="0.0" width="98.5" height="98.5"/>
                                                                     </imageView>
                                                                 </subviews>
@@ -689,10 +689,10 @@
             </objects>
             <point key="canvasLocation" x="-1378" y="-1478"/>
         </scene>
-        <!--Home-->
+        <!--Search-->
         <scene sceneID="ECH-KY-RfV">
             <objects>
-                <viewController title="Home" id="34y-99-Arm" customClass="SearchVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Search" id="34y-99-Arm" customClass="SearchVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QVh-A8-Dhr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -895,8 +895,6 @@
         <image name="icon-offers" width="25" height="25"/>
         <image name="icon-profile" width="25" height="25"/>
         <image name="icon-search" width="25" height="25"/>
-        <image name="item-img-1" width="3024" height="4032"/>
-        <image name="item-img-6" width="3024" height="4032"/>
         <image name="picsum-1" width="500" height="500"/>
     </resources>
 </document>
