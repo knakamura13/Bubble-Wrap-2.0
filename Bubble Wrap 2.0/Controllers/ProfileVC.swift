@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     
     // Constants
     let cornerRadius = CGFloat(10)
@@ -39,6 +39,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
         signOutBtn.layer.cornerRadius = 5
         profileImgView.layer.cornerRadius = CGFloat(self.profileImgView.frame.width/2)
+        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
         
         // Set the initial data
         allItemsNames = ["Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor"]
@@ -46,6 +47,19 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         userBubbleLbl.text = "Azusa Pacific University"
         userEmailLbl.text = "knakamura13@apu.edu"
     }
+    
+    // Jump from usernameField to passwordField, then hide the keyboard
+    // TODO: Add an 'edit' button which temporarily replaces UILabels with UITextFields
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        if textField == textField1 {
+//            textField2.becomeFirstResponder()
+//        } else if textField == textField2 {
+//            textField3.becomeFirstResponder()
+//        } else {
+//            resignFirstResponder()
+//        }
+//        return true
+//    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allItemsNames.count
