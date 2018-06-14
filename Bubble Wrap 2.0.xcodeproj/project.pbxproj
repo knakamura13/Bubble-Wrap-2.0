@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		80D63B8B9EF5FC97762016EB /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */; };
 		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
+		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
 		BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */; };
 		BF3EE79320CB3D7500F6A24E /* BottomProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79220CB3D7500F6A24E /* BottomProfileCell.swift */; };
 		BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */; };
@@ -34,6 +35,7 @@
 		6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BF27037420D2506C00F89FFD /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
 		BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProfileCell.swift; sourceTree = "<group>"; };
 		BF3EE79220CB3D7500F6A24E /* BottomProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomProfileCell.swift; sourceTree = "<group>"; };
 		BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOffersCell.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		BFDF14F620BAB10800CD4BBB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BF27037420D2506C00F89FFD /* AuthenticationVC.swift */,
 				BFEB611120BAA704007DC098 /* SearchVC.swift */,
 				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
 				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
@@ -323,6 +326,7 @@
 				BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */,
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
 				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
+				BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */,
 				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
 				BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */,
 				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
@@ -480,7 +484,10 @@
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Utility/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -497,7 +504,10 @@
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Utility/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
