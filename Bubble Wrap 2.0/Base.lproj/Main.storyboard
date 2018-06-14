@@ -146,7 +146,7 @@
                                                                 <rect key="frame" x="0.0" y="30.5" width="335" height="30"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                             </textField>
                                                         </subviews>
                                                         <constraints>
@@ -223,11 +223,14 @@
                     <navigationItem key="navigationItem" title="Create Item" id="xwv-OZ-RF5"/>
                     <size key="freeformSize" width="375" height="875"/>
                     <connections>
+                        <outlet property="descriptionTextView" destination="AdK-dV-slM" id="q1S-lG-YVA"/>
                         <outlet property="mainImg" destination="pkD-4l-xJK" id="mVi-bU-clL"/>
+                        <outlet property="priceTextField" destination="zeQ-9D-cS0" id="fwt-FC-yeb"/>
                         <outlet property="scrollView" destination="hQ6-m9-EYQ" id="n83-LU-zSc"/>
                         <outlet property="smallImg1" destination="Fq6-Vf-kmf" id="72X-bO-Bxo"/>
                         <outlet property="smallImg2" destination="mF5-8I-zqG" id="Bch-nE-7SG"/>
                         <outlet property="smallImg3" destination="FhW-gx-Xm1" id="YB1-sp-ZG4"/>
+                        <outlet property="titleTextField" destination="GGW-KK-wZs" id="qdY-rS-Pu6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtv-Fw-2pK" userLabel="First Responder" sceneMemberID="firstResponder"/>
