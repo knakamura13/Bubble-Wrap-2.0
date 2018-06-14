@@ -413,29 +413,6 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chA-ld-KTZ" userLabel="Top View">
                                                         <rect key="frame" x="0.0" y="-2.5" width="375" height="172.5"/>
                                                         <subviews>
-                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lzF-6k-pkP" customClass="UIControl">
-                                                                <rect key="frame" x="16" y="16" width="66" height="35"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1In-q7-tl2">
-                                                                        <rect key="frame" x="6" y="8" width="54" height="19"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                                                        <color key="textColor" red="0.18392834550000001" green="0.1806997266" blue="0.21464669350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="trailing" secondItem="1In-q7-tl2" secondAttribute="trailing" constant="6" id="BN5-Ec-Pft"/>
-                                                                    <constraint firstItem="1In-q7-tl2" firstAttribute="leading" secondItem="lzF-6k-pkP" secondAttribute="leading" constant="6" id="CIy-FX-SWf"/>
-                                                                    <constraint firstAttribute="width" constant="66" id="Kev-Eq-U1S"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="1In-q7-tl2" secondAttribute="bottom" constant="8" id="Zyx-k8-WKD"/>
-                                                                    <constraint firstItem="1In-q7-tl2" firstAttribute="top" secondItem="lzF-6k-pkP" secondAttribute="top" constant="8" id="sER-Iu-zaa"/>
-                                                                    <constraint firstAttribute="height" constant="35" id="uX4-9c-rq2"/>
-                                                                </constraints>
-                                                                <connections>
-                                                                    <action selector="signOutPressed:" destination="1i1-iU-akE" eventType="valueChanged" id="WgH-cl-7Yo"/>
-                                                                </connections>
-                                                            </view>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6dj-cg-2DF" userLabel="Circular View" customClass="UIControl">
                                                                 <rect key="frame" x="147.5" y="16" width="80" height="80"/>
                                                                 <subviews>
@@ -484,16 +461,30 @@
                                                                     </stackView>
                                                                 </subviews>
                                                             </stackView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE8-Mi-AJL">
+                                                                <rect key="frame" x="16" y="16" width="85" height="35"/>
+                                                                <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="85" id="7hr-u5-aAO"/>
+                                                                    <constraint firstAttribute="height" constant="35" id="Ndr-r3-xN1"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Sign out">
+                                                                    <color key="titleColor" red="0.18392834550000001" green="0.1806997266" blue="0.21464669350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="signOutPressed:" destination="1i1-iU-akE" eventType="touchUpInside" id="YnQ-0K-Hgt"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.18392834550000001" green="0.1806997266" blue="0.21464669350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="6dj-cg-2DF" firstAttribute="centerX" secondItem="chA-ld-KTZ" secondAttribute="centerX" id="DhL-O1-6AF"/>
                                                             <constraint firstItem="2P8-au-wfV" firstAttribute="top" secondItem="6dj-cg-2DF" secondAttribute="bottom" constant="8" id="HWD-Tw-aKC"/>
-                                                            <constraint firstItem="lzF-6k-pkP" firstAttribute="leading" secondItem="chA-ld-KTZ" secondAttribute="leading" constant="16" id="Hb1-cf-7lr"/>
                                                             <constraint firstAttribute="bottom" secondItem="2P8-au-wfV" secondAttribute="bottom" constant="16" id="HgP-3N-zd7"/>
                                                             <constraint firstItem="6dj-cg-2DF" firstAttribute="top" secondItem="chA-ld-KTZ" secondAttribute="top" constant="16" id="Mdh-CS-r1i"/>
+                                                            <constraint firstItem="hE8-Mi-AJL" firstAttribute="leading" secondItem="chA-ld-KTZ" secondAttribute="leading" constant="16" id="TJ1-mU-Y8b"/>
                                                             <constraint firstItem="2P8-au-wfV" firstAttribute="centerX" secondItem="chA-ld-KTZ" secondAttribute="centerX" id="VHE-Vn-uRt"/>
-                                                            <constraint firstItem="lzF-6k-pkP" firstAttribute="top" secondItem="chA-ld-KTZ" secondAttribute="top" constant="16" id="pK8-uZ-wWK"/>
+                                                            <constraint firstItem="hE8-Mi-AJL" firstAttribute="top" secondItem="chA-ld-KTZ" secondAttribute="top" constant="16" id="Ysn-Ns-NhF"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -662,13 +653,12 @@
                     <connections>
                         <outlet property="bottomCollectionView" destination="UmB-1R-8e6" id="PlV-Ru-m0U"/>
                         <outlet property="profileImgView" destination="6dj-cg-2DF" id="6Y5-QS-kdb"/>
-                        <outlet property="signOutBtn" destination="lzF-6k-pkP" id="OjQ-nx-Q4S"/>
+                        <outlet property="signOutBtn" destination="hE8-Mi-AJL" id="yVc-KS-QbG"/>
                         <outlet property="topCollectionView" destination="4ii-OF-9s9" id="tgf-Dg-81N"/>
                         <outlet property="userBubbleLbl" destination="euh-HV-FNi" id="Znd-hz-YJl"/>
                         <outlet property="userEmailLbl" destination="1WK-0V-Cfi" id="DOc-Xa-U4A"/>
                         <outlet property="userNameLbl" destination="gtH-Xe-slc" id="WGM-po-R5M"/>
                         <outlet property="userProfileImg" destination="Spx-Vc-2FJ" id="a9G-Vi-f6b"/>
-                        <segue destination="081-gq-Fxe" kind="custom" id="Gg7-ar-nEh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uzo-d2-W5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -801,7 +791,7 @@
         <!--Authentication-->
         <scene sceneID="k3F-w9-HNk">
             <objects>
-                <viewController title="Authentication" id="081-gq-Fxe" customClass="AuthenticationVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthenticationVC" title="Authentication" id="081-gq-Fxe" customClass="AuthenticationVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X1y-PL-wiM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

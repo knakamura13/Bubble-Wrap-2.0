@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     
@@ -21,7 +22,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     // Outlets
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var bottomCollectionView: UICollectionView!
-    @IBOutlet weak var signOutBtn: UIControl!
+    @IBOutlet weak var signOutBtn: UIButton!
     @IBOutlet weak var profileImgView: UIControl!
     @IBOutlet weak var userProfileImg: UIImageView!
     @IBOutlet weak var userNameLbl: UILabel!
@@ -56,7 +57,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
 //        } else if textField == textField2 {
 //            textField3.becomeFirstResponder()
 //        } else {
-//            resignFirstResponder()
+//            textField3.resignFirstResponder()
 //        }
 //        return true
 //    }
@@ -113,10 +114,18 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     // Actions
     @IBAction func signOutPressed(_ sender: Any) {
-        print("Btn: Sign out")
+        do {
+            try Auth.auth().signOut()
+            let vc = storyboard?.instantiateViewController(withIdentifier: "AuthenticationVC")
+            self.present(vc!, animated: true, completion: nil)
+            print("User successfuly signed out")
+        } catch {
+            print("Firebase could not sign out")
+        }
     }
+    
     @IBAction func profileImgTapped(_ sender: Any) {
-        print("Btn: Profile image")
+
     }
     
 }
