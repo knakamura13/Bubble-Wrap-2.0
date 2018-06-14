@@ -27,6 +27,16 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        if let user = Auth.auth().currentUser {
+            // Wait for 1/1000th of a second to ensure performSegue is not interrupted
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+                self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+            }
+        } else {
+            print("KYLE: Not currently authenticated")
+        }
+    
+        
         logoImageView.image = logoImageView.image!.withRenderingMode(.alwaysTemplate)
         emailImageView.image = emailImageView.image!.withRenderingMode(.alwaysTemplate)
         passwordImageView.image = passwordImageView.image!.withRenderingMode(.alwaysTemplate)
@@ -53,7 +63,16 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
     // Perform authentication using Firebase
     func attemptSignIn() {
-        
+        let email = emailTextField.text!
+        let password = passwordTextField.text!
+        Auth.auth().signIn(withEmail: email, password: "password") { (result, error) in
+            if error != nil {
+                print("KYLE: Error with Firebase Sign In")
+            } else {
+                print("KYLE: Sign in successful. \nEmail: \(self.emailTextField.text!)")
+                self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+            }
+        }
     }
     
     // Actions
