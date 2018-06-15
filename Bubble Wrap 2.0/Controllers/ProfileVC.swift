@@ -118,9 +118,8 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
             try Auth.auth().signOut()
             let vc = storyboard?.instantiateViewController(withIdentifier: "AuthenticationVC")
             self.present(vc!, animated: true, completion: nil)
-            print("User successfuly signed out")
         } catch {
-            print("Firebase could not sign out")
+            // Handle error with sign out
         }
     }
     

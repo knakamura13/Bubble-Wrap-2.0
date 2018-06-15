@@ -51,7 +51,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         // Fetch data from all items
         datasource.itemsQuery().getDocuments { (snapshot, error) in
             if let error = error {
-                print(error)
+                // Handle error
             } else {
                 for document in (snapshot?.documents)! {
                     let item = Item(dictionary: document.data(), itemID: document.documentID)

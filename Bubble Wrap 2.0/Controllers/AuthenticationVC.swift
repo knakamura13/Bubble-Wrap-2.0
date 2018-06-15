@@ -32,8 +32,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
                 self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
             }
-        } else {
-            print("KYLE: Not currently authenticated")
         }
     
         
@@ -67,9 +65,8 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         let password = passwordTextField.text!
         Auth.auth().signIn(withEmail: email, password: "password") { (result, error) in
             if error != nil {
-                print("KYLE: Error with Firebase Sign In")
+                // Handle error
             } else {
-                print("KYLE: Sign in successful. \nEmail: \(self.emailTextField.text!)")
                 self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
             }
         }
