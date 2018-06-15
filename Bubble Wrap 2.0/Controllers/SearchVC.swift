@@ -10,8 +10,6 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 
-var demoPicsumImages: [UIImage] = []
-
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
@@ -19,11 +17,12 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
-    var allItemsNames: [String] = []
-    var allItemPrices: [Int] = []
-    var allItemImages: [UIImage] = []
-    var searchItems: [String] = []
-    var selectedItem: String = ""
+    
+    var allItems: [Item] = []
+    var searchItems: [Item] = []
+    var selectedItem: Item = Item(itemID: "", title: "", price: 0, imageURL: "")
+    
+    private(set) var datasource = DataSource()
     
     // outlets
     @IBOutlet weak var collectionView: UICollectionView?
@@ -39,6 +38,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
+        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
         
         // Apply a custom spacing layout to the CollectionView
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -48,32 +48,17 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         layout.minimumLineSpacing = 50      // row spacing
         collectionView!.collectionViewLayout = layout
         
-        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
-        
-        // Set data on screen
-        allItemsNames = ["Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor", "Apple Watch (Series 3)", "APU Year Book", "Razer Gaming Mouse", "2017 MacBook Pro", "24\" ASUS Monitor"]
-        
         // Fetch data from all items
-        let db = Firestore.firestore()
-        db.collection("items")
-            .order(by: "title")
-            .getDocuments { (snapshot, err) in
-                if err != nil {
-                    print(err!)
-                } else {
-                    for document in (snapshot?.documents)! {
-                        if let title = document.data()["title"] as? String {
-                            if let price = document.data()["price"] as? Int {
-                                self.allItemsNames.append(title)
-                                self.allItemPrices.append(price)
-                            }
-                        }
-                    }
+        datasource.itemsQuery().getDocuments { (snapshot, error) in
+            if let error = error {
+                print(error)
+            } else {
+                for document in (snapshot?.documents)! {
+                    let item = Item(dictionary: document.data(), itemID: document.documentID)
+                    self.allItems.append(item!)
+                    self.searchItems.append(item!)
+                    self.collectionView?.reloadData()
                 }
-            }
-        for i in 1...100 {
-            if let image = UIImage(named: "picsum-\(i)") {
-                demoPicsumImages.append(image)
             }
         }
     }
@@ -108,8 +93,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     // Set how many cells should display
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if searchBar.text!.count == 0 {
-            // if search bar is empty
-            searchItems = allItemsNames // display every item
+            searchItems = allItems      // display every item
         }
         
         return searchItems.count
@@ -118,8 +102,13 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
         
         // Populate the cell's data
-        cell.cellLbl.text = self.searchItems[indexPath.item]
-        cell.cellImg.image = demoPicsumImages.randomElement()
+        cell.cellLbl.text = self.searchItems[indexPath.item].title!
+        let url = URL(string: self.searchItems[indexPath.item].imageURL!)!  // using url from Firebase Storage
+        let data = try? Data(contentsOf: url)
+        if let imageData = data {
+            let image = UIImage(data: imageData)
+            cell.cellImg.image = image
+        }
         
         // Stylize the cell
         let cornerRadius = CGFloat(10)
@@ -152,8 +141,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
      */
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchItems = []
-        for item in allItemsNames {
-            if item.lowercased().contains(searchText.lowercased()) {
+        for item in allItems {
+            if item.title.lowercased().contains(searchText.lowercased()) {
                 searchItems.append(item)
             }
         }
@@ -161,8 +150,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         collectionView!.reloadData()
     }
     
+    // Pass data from this VC to the segue destination VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Pass data from this VC to the segue destination VC
         let secondViewController = segue.destination as! SingleItemVC
         secondViewController.selectedItem = selectedItem
     }

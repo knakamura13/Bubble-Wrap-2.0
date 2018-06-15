@@ -11,11 +11,11 @@ import Firebase
 
 class SingleItemVC: UIViewController {
 
-    var selectedItem: String = ""   // variable is set in HomeVC
+    var selectedItem: Item? = nil   // variable is set in HomeVC
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = selectedItem   // update the title on the nav bar
+        self.title = selectedItem?.title   // update the title on the nav bar
     }
 }
