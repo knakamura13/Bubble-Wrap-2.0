@@ -9,13 +9,15 @@
 import Foundation
 import UIKit
 
-// Customization to UIColor to allow for hexadecimals instead of regular RGB values
+// Allow UIColor to be created using hexadecimals instead of regular RGB values
+// Example usage: let customColor = UIColor(hex: 0xAABBCC).withAlphaComponent(1.0)
 extension UIColor {
-    convenience init(rgb: Int, alpha: CGFloat = 1.0) {
-        self.init(red: CGFloat((rgb & 0xFF0000) >> 16) / 255.0, green: CGFloat((rgb & 0xFF00) >> 8) / 255.0, blue: CGFloat(rgb & 0xFF) / 255.0, alpha: alpha)
+    convenience init(hex: Int, alpha: CGFloat = 1.0) {
+        self.init(red: CGFloat((hex & 0xFF0000) >> 16) / 255.0, green: CGFloat((hex & 0xFF00) >> 8) / 255.0, blue: CGFloat(hex & 0xFF) / 255.0, alpha: alpha)
     }
 }
 
+// Easily set up keyboard dismissal by using hideKeyboardWhenTappedAround() from any controller
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))

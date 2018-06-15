@@ -42,7 +42,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         smallImg1.image = demoPicsumImages.randomElement()
         smallImg2.image = demoPicsumImages.randomElement()
         smallImg3.image = demoPicsumImages.randomElement()
-        descriptionTextView.layer.borderColor = UIColor(rgb: 0xcdcdcd).cgColor   // light grey
+        descriptionTextView.layer.borderColor = UIColor(hex: 0xcdcdcd).cgColor   // light grey
         descriptionTextView.layer.borderWidth = 1/3
         descriptionTextView.layer.cornerRadius = 6
         
@@ -50,10 +50,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         
     }
     
