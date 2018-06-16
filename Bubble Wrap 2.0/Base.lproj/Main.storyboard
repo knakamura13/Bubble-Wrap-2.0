@@ -38,7 +38,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-m9-EYQ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="887"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fN-Up-2nz">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fN-Up-2nz" userLabel="Container View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="762"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiT-1C-yr9" userLabel="Parallax Container">
@@ -165,6 +165,7 @@
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" delaysContentTouches="NO" canCancelContentTouches="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AdK-dV-slM" customClass="TextViewWithHeightThreshHold" customModule="TextViewWithThreshHoldFrame">
                                                                 <rect key="frame" x="0.0" y="28" width="335" height="58"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="yes"/>
                                                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" lookupSuggestion="YES"/>
@@ -190,21 +191,37 @@
                                                     <constraint firstAttribute="trailing" secondItem="ChR-gq-8u8" secondAttribute="trailing" id="wDD-IR-Hky"/>
                                                 </constraints>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cac-GL-0vl">
+                                                <rect key="frame" x="40" y="660" width="295" height="49"/>
+                                                <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="bDg-3v-NYx"/>
+                                                </constraints>
+                                                <state key="normal" title="Create Item">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="createItemPressed:" destination="k4m-kT-xqT" eventType="touchUpInside" id="NL3-Pu-LiF"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="CZh-2f-efu" secondAttribute="trailing" constant="20" id="1ud-xF-9VF"/>
                                             <constraint firstAttribute="trailing" secondItem="yiT-1C-yr9" secondAttribute="trailing" id="2yS-rv-dGs"/>
                                             <constraint firstItem="yiT-1C-yr9" firstAttribute="top" secondItem="4fN-Up-2nz" secondAttribute="top" id="BGX-dM-yhJ"/>
+                                            <constraint firstItem="cac-GL-0vl" firstAttribute="leading" secondItem="4fN-Up-2nz" secondAttribute="leading" constant="40" id="CY7-zZ-Ylm"/>
                                             <constraint firstItem="CZh-2f-efu" firstAttribute="top" secondItem="yiT-1C-yr9" secondAttribute="bottom" constant="25" id="GvJ-3Q-loM"/>
                                             <constraint firstItem="yiT-1C-yr9" firstAttribute="leading" secondItem="4fN-Up-2nz" secondAttribute="leading" id="POL-8K-jpy"/>
+                                            <constraint firstItem="cac-GL-0vl" firstAttribute="top" secondItem="CZh-2f-efu" secondAttribute="bottom" constant="40" id="V1x-jy-Z3A"/>
                                             <constraint firstItem="CZh-2f-efu" firstAttribute="leading" secondItem="4fN-Up-2nz" secondAttribute="leading" constant="20" id="aef-0J-nAY"/>
+                                            <constraint firstAttribute="trailing" secondItem="cac-GL-0vl" secondAttribute="trailing" constant="40" id="hzi-8a-Q2i"/>
+                                            <constraint firstAttribute="height" constant="800" id="yfi-xm-Rwn"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="4fN-Up-2nz" firstAttribute="centerX" secondItem="hQ6-m9-EYQ" secondAttribute="centerX" id="1Fy-Mo-eUG"/>
                                     <constraint firstItem="4fN-Up-2nz" firstAttribute="width" secondItem="hQ6-m9-EYQ" secondAttribute="width" id="7BK-CS-3lm"/>
-                                    <constraint firstItem="4fN-Up-2nz" firstAttribute="height" secondItem="hQ6-m9-EYQ" secondAttribute="height" id="8Pn-LH-ri2"/>
                                     <constraint firstItem="4fN-Up-2nz" firstAttribute="centerY" secondItem="hQ6-m9-EYQ" secondAttribute="centerY" id="gJF-fl-3mq"/>
                                 </constraints>
                             </scrollView>
@@ -223,6 +240,8 @@
                     <navigationItem key="navigationItem" title="Create Item" id="xwv-OZ-RF5"/>
                     <size key="freeformSize" width="375" height="875"/>
                     <connections>
+                        <outlet property="containerView" destination="4fN-Up-2nz" id="Oal-T3-G3n"/>
+                        <outlet property="createItemBtn" destination="cac-GL-0vl" id="DhC-Pf-NJl"/>
                         <outlet property="descriptionTextView" destination="AdK-dV-slM" id="q1S-lG-YVA"/>
                         <outlet property="mainImg" destination="pkD-4l-xJK" id="mVi-bU-clL"/>
                         <outlet property="priceTextField" destination="zeQ-9D-cS0" id="fwt-FC-yeb"/>
@@ -235,7 +254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtv-Fw-2pK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="109.59999999999999" y="67.016491754122939"/>
+            <point key="canvasLocation" x="110" y="68"/>
         </scene>
         <!--Offers-->
         <scene sceneID="lT2-BF-GeY">
@@ -668,7 +687,7 @@
         <!--Search-->
         <scene sceneID="q6L-cg-bb4">
             <objects>
-                <navigationController id="f2o-mp-aAW" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SearchVC" id="f2o-mp-aAW" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="icon-search" id="q8L-lO-BAN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RST-LQ-6wL">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1018,7 +1037,7 @@ password is "password"</string>
         <!--Tab Bar-->
         <scene sceneID="TF6-kO-iwr">
             <objects>
-                <tabBarController title="Tab Bar" id="Flz-z4-iU9" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" title="Tab Bar" id="Flz-z4-iU9" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="hello" id="56M-My-0fK"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9yW-xU-x0j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>

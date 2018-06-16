@@ -10,7 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 
- var selectedItem: Item = Item(itemID: "", title: "", price: 0, imageURL: "")
+ var selectedItem: Item = Item(title: "", price: 0, imageURL: "")
 
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
@@ -23,7 +23,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     var allItems: [Item] = []
     var searchItems: [Item] = []
-    //var selectedItem: Item = Item(itemID: "", title: "", price: 0, imageURL: "")
     
     private(set) var datasource = DataSource()
     
@@ -36,7 +35,36 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         super.viewDidLoad()
         searchBar.delegate = self
         
-        // Setup the view
+        self.customizeView() // Setup the view
+        
+        // Add a data listener to the "items" database
+        datasource.itemsQuery()
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                
+                for document in documents {
+                    let item = Item(dictionary: document.data(), itemID: document.documentID)
+                    self.allItems.append(item!)
+                    self.searchItems.append(item!)
+                    self.collectionView?.reloadData()   // TODO: Analyze CPU usage when reloading data this frequently
+                }
+        }
+    }
+    
+    // viewWillAppear: runs every time the scene is about to appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Deselect all cells; possibly redundant code
+        for selectedCell in (collectionView?.indexPathsForSelectedItems)! {
+            collectionView?.deselectItem(at: selectedCell, animated: false)
+        }
+    }
+    
+    func customizeView() {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
@@ -50,28 +78,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         layout.minimumInteritemSpacing = 0  // column spacing
         layout.minimumLineSpacing = 50      // row spacing
         collectionView!.collectionViewLayout = layout
-        
-        // Fetch data from all items
-        datasource.itemsQuery().getDocuments { (snapshot, error) in
-            if let error = error {
-                // Handle error
-            } else {
-                for document in (snapshot?.documents)! {
-                    let item = Item(dictionary: document.data(), itemID: document.documentID)
-                    self.allItems.append(item!)
-                    self.searchItems.append(item!)
-                    self.collectionView?.reloadData()
-                }
-            }
-        }
-    }
-    
-    // viewWillAppear: runs every time the scene is about to appear
-    override func viewWillAppear(_ animated: Bool) {
-        // Deselect all cells
-        for selectedCell in (collectionView?.indexPathsForSelectedItems)! {
-            collectionView?.deselectItem(at: selectedCell, animated: false)
-        }
     }
     
     /*

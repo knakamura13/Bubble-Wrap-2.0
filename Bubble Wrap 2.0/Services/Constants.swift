@@ -13,8 +13,8 @@ var demoPicsumImages: [UIImage] = []
 
 struct Constants {
     struct Colors {
-        static let appPrimaryColor =  UIColor(red: 99/255, green: 213/255, blue: 255/255, alpha: Alphas.Opaque)  // light blue
-        static let appSecondaryColor =  UIColor.blue.withAlphaComponent(Alphas.Opaque)
+        static let appPrimaryColor =  UIColor(red: 99/255, green: 213/255, blue: 255/255, alpha: Alphas.Opaque)  // Bubble Blue
+        static let appSecondaryColor =  UIColor.blue.withAlphaComponent(Alphas.Opaque)                           // Transparent Blue
         
         private struct Alphas {
             static let Opaque = CGFloat(1)

@@ -9,7 +9,6 @@
 import UIKit
 
 struct Item {
-    var itemID: String!
     var title: String!
     var price: NSNumber!
     var image: UIImage?
@@ -21,16 +20,19 @@ struct Item {
             let price = dictionary["price"] as? NSNumber,
             let imageURL = dictionary["imageURL"] as? String
         else {
-                return nil
+            return nil
         }
         
-        self.init(itemID: itemID, title: title, price: price, imageURL: imageURL)
+        self.init(title: title, price: price, imageURL: imageURL)
     }
     
-    init(itemID: String!, title: String?, price: NSNumber, imageURL: String) {
-        self.itemID = itemID
+    init(title: String?, price: NSNumber, imageURL: String) {
         self.title = title
         self.price = price
         self.imageURL = imageURL
+    }
+    
+    func dictionary() -> [String: Any] {
+        return ["title": title, "price": price, "imageURL": imageURL]
     }
 }
