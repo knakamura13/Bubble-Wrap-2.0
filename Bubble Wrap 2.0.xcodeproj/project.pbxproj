@@ -12,6 +12,7 @@
 		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
 		BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */; };
 		BF3EE79320CB3D7500F6A24E /* BottomProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79220CB3D7500F6A24E /* BottomProfileCell.swift */; };
+		BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7937F620D4782200F01B45 /* ImageUploadManager.swift */; };
 		BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */; };
 		BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */; };
 		BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */; };
@@ -41,6 +42,7 @@
 		BF27037420D2506C00F89FFD /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
 		BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProfileCell.swift; sourceTree = "<group>"; };
 		BF3EE79220CB3D7500F6A24E /* BottomProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomProfileCell.swift; sourceTree = "<group>"; };
+		BF7937F620D4782200F01B45 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
 		BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOffersCell.swift; sourceTree = "<group>"; };
 		BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOffersCell.swift; sourceTree = "<group>"; };
 		BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemVC.swift; sourceTree = "<group>"; };
@@ -79,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF7937F520D4780600F01B45 /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				BF7937F620D4782200F01B45 /* ImageUploadManager.swift */,
+			);
+			path = Upload;
+			sourceTree = "<group>";
+		};
 		BFDF14F420BAB10400CD4BBB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +111,7 @@
 		BFDF14F620BAB10800CD4BBB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BF7937F520D4780600F01B45 /* Upload */,
 				BF27037420D2506C00F89FFD /* AuthenticationVC.swift */,
 				BFEB611120BAA704007DC098 /* SearchVC.swift */,
 				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
@@ -355,6 +366,7 @@
 				BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */,
 				BFF78A7020D4487D00819CA8 /* Datasource.swift in Sources */,
 				BF3EE79320CB3D7500F6A24E /* BottomProfileCell.swift in Sources */,
+				BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */,
 				BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
