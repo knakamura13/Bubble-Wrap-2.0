@@ -20,6 +20,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     var allItems: [Item] = []
     var searchItems: [Item] = []
+    var allItemImages: [UIImage] = []
+    var searchItemImages: [UIImage] = []
     var selectedItem: Item = Item(title: "", price: 0, imageURL: "")
     
     private(set) var datasource = DataSource()
@@ -44,10 +46,21 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                 }
                 
                 for document in documents {
-                    let item = Item(dictionary: document.data(), itemID: document.documentID)
-                    self.allItems.append(item!)
-                    self.searchItems.append(item!)
-                    self.collectionView?.reloadData()   // TODO: Analyze CPU usage when reloading data this frequently
+                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                        self.allItems.append(item)
+                        self.searchItems.append(item)
+                        
+                        // Download the item's image and save as a UIImage
+                        let url = URL(string: item.imageURL!)!
+                        let data = try? Data(contentsOf: url)
+                        if let imageData = data {
+                            let image = UIImage(data: imageData)
+                            self.allItemImages.append(image!)
+                            self.searchItemImages.append(image!)
+                        }
+                        
+                        self.collectionView?.reloadData()
+                    }
                 }
         }
     }
@@ -110,12 +123,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         // Populate the cell's data
         cell.cellLbl.text = self.searchItems[indexPath.item].title!
-        let url = URL(string: self.searchItems[indexPath.item].imageURL!)!  // using url from Firebase Storage
-        let data = try? Data(contentsOf: url)
-        if let imageData = data {
-            let image = UIImage(data: imageData)
-            cell.cellImg.image = image
-        }
+        cell.cellImg.image = self.searchItemImages[indexPath.item]
         
         // Stylize the cell
         let cornerRadius = CGFloat(10)
