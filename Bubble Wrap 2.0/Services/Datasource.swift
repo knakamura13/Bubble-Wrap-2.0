@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class DataSource: NSObject {
     func itemsQuery() -> Query {
-        return Firestore.firestore().collection("items").limit(to: 100).order(by: "title")
+        return Firestore.firestore().collection("items").limit(to: 20).order(by: "title")
     }
     
     override init() {
