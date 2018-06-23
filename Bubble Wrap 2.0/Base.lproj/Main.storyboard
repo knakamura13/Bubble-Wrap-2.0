@@ -517,7 +517,7 @@
                                                     <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopProfileCell" id="0dO-Ir-beF" userLabel="Top Profile Cell" customClass="TopProfileCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ReviewCell" id="0dO-Ir-beF" userLabel="Top Profile Cell" customClass="ReviewCell">
                                                         <rect key="frame" x="16" y="12.5" width="167" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -596,10 +596,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="4ii-OF-9s9" id="tgf-Dg-81N"/>
                         <outlet property="profileImgView" destination="6dj-cg-2DF" id="6Y5-QS-kdb"/>
                         <outlet property="scrollView" destination="ZuK-pu-UdF" id="lwN-RE-t28"/>
                         <outlet property="signOutBtn" destination="Jhh-f3-cdX" id="lhs-1d-2SC"/>
-                        <outlet property="topCollectionView" destination="4ii-OF-9s9" id="tgf-Dg-81N"/>
                         <outlet property="userBubbleField" destination="JBP-iw-SHz" id="Na5-iL-KNc"/>
                         <outlet property="userEmailField" destination="c52-pt-Ipw" id="qj5-bU-RMa"/>
                         <outlet property="userNameField" destination="xGB-CV-fw3" id="V50-WG-Htk"/>

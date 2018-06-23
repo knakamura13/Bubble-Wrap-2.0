@@ -24,7 +24,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     var searchItemImages: [UIImage] = []
     var selectedItem: Item = Item(title: "", price: 0, imageURL: "")
     
-    private(set) var datasource = DataSource()
+    private(set) var datasource = DataSource()  // Datasource for data listener
     
     // outlets
     @IBOutlet weak var collectionView: UICollectionView?

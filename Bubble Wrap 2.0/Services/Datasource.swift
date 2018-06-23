@@ -14,6 +14,10 @@ class DataSource: NSObject {
         return Firestore.firestore().collection("items").limit(to: 20).order(by: "title")
     }
     
+    func reviewsQuery() -> Query {
+        return Firestore.firestore().collection("reviews").limit(to: 20).order(by: "title")
+    }
+    
     override init() {
         super.init()
         
