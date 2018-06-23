@@ -11,7 +11,8 @@
 		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
 		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
 		BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */; };
-		BF3EE79320CB3D7500F6A24E /* BottomProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79220CB3D7500F6A24E /* BottomProfileCell.swift */; };
+		BF4969F920DB0EE6003F69D7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969F820DB0EE6003F69D7 /* Review.swift */; };
+		BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969FA20DB135D003F69D7 /* ReviewCell.swift */; };
 		BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7937F620D4782200F01B45 /* ImageUploadManager.swift */; };
 		BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */; };
 		BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */; };
@@ -41,7 +42,8 @@
 		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF27037420D2506C00F89FFD /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
 		BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProfileCell.swift; sourceTree = "<group>"; };
-		BF3EE79220CB3D7500F6A24E /* BottomProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomProfileCell.swift; sourceTree = "<group>"; };
+		BF4969F820DB0EE6003F69D7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		BF4969FA20DB135D003F69D7 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		BF7937F620D4782200F01B45 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
 		BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOffersCell.swift; sourceTree = "<group>"; };
 		BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOffersCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				BFF78A7320D4491300819CA8 /* Item.swift */,
+				BF4969F820DB0EE6003F69D7 /* Review.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,7 +141,7 @@
 				BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */,
 				BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */,
 				BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */,
-				BF3EE79220CB3D7500F6A24E /* BottomProfileCell.swift */,
+				BF4969FA20DB135D003F69D7 /* ReviewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */,
+				BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */,
 				BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */,
 				BFF78A7420D4491300819CA8 /* Item.swift in Sources */,
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
@@ -372,8 +376,8 @@
 				BFDF14FD20BAB26000CD4BBB /* OffersVC.swift in Sources */,
 				BFF78A7220D4488800819CA8 /* Extensions.swift in Sources */,
 				BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */,
+				BF4969F920DB0EE6003F69D7 /* Review.swift in Sources */,
 				BFF78A7020D4487D00819CA8 /* Datasource.swift in Sources */,
-				BF3EE79320CB3D7500F6A24E /* BottomProfileCell.swift in Sources */,
 				BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */,
 				BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */,
 			);
