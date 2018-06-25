@@ -7,34 +7,35 @@
 //
 
 import UIKit
+import Firebase
 
 struct Review {
     var title: String!
-    var reviewerName: String!
-    var itemName: String!
+    var reviewer: DocumentReference!
+    var item: DocumentReference!
     var bodyText: String!
     
     init?(dictionary: [String: Any]?, itemID: String){
         guard let dictionary = dictionary,
             let title = dictionary["title"] as? String,
-            let reviewerName = dictionary["reviewerName"] as? String,
-            let itemName = dictionary["itemName"] as? String,
+            let reviewer = dictionary["reviewer"] as? DocumentReference,
+            let item = dictionary["item"] as? DocumentReference,
             let bodyText = dictionary["bodyText"] as? String
             else {
                 return nil
         }
         
-        self.init(title: title, reviewerName: reviewerName, itemName: itemName, bodyText: bodyText)
+        self.init(title: title, reviewer: reviewer, item: item, bodyText: bodyText)
     }
     
-    init(title: String, reviewerName: String, itemName: String, bodyText: String) {
+    init(title: String, reviewer: DocumentReference, item: DocumentReference, bodyText: String) {
         self.title = title
-        self.reviewerName = reviewerName
-        self.itemName = itemName
+        self.reviewer = reviewer
+        self.item = item
         self.bodyText = bodyText
     }
     
     func dictionary() -> [String: Any] {
-        return ["title": title, "reviewerName": reviewerName, "itemName": itemName, "bodyText": bodyText]
+        return ["title": title, "reviewer": reviewer, "item": item, "bodyText": bodyText]
     }
 }

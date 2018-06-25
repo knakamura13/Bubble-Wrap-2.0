@@ -11,7 +11,9 @@ import UIKit
 private let highlightedColor = Constants.Colors.appPrimaryColor.withAlphaComponent(0.1)
 
 class ReviewCell: UICollectionViewCell {
-    @IBOutlet weak var cellLbl: UILabel!
+    
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var bodyLbl: UILabel!
     
     override var isSelected: Bool {
         willSet {
@@ -23,4 +25,6 @@ class ReviewCell: UICollectionViewCell {
         guard selectedBackgroundView == nil else { return }
         contentView.backgroundColor = newValue ? highlightedColor : UIColor.clear
     }
+    
+
 }
