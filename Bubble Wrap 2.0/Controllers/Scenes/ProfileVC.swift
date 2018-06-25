@@ -41,7 +41,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         self.customizeView()
         
         // Add a data listener to the "items" database
-        datasource.reviewsQuery()
+        datasource.generalQuery(collection: "reviews", orderBy: "title", limit: nil)
             .addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
                     print("Error fetching documents: \(error!)")
@@ -88,7 +88,10 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Populate the collection view cells
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCell", for: indexPath as IndexPath) as! ReviewCell
-        cell.cellLbl.text = allReviews[indexPath.item].title
+
+        cell.titleLbl.text = allReviews[indexPath.item].title!
+        cell.bodyLbl.text = "\"" + allReviews[indexPath.item].bodyText! + "\""
+        // TODO: pull user image from review.reviewer.imageUrl
         
         // Stylize the cell
         cell.layer.cornerRadius = cornerRadius
