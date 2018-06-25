@@ -14,6 +14,8 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     // Constants
     let cornerRadius = CGFloat(10)
+    private let imageUploadManager = ImageUploadManager()
+    private let collection = Firestore.firestore().collection("users")
     
     // Variables
     var allReviews: [Review] = []
@@ -139,8 +141,30 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.userProfileImg.image = image
             // TODO: Upload this image to Firebase and save to user's document
+            imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
+            }, completionBlock: { (fileURL, errorMessage) in
+                if let fileURL = fileURL?.absoluteString {
+                    if let userID = Auth.auth().currentUser?.uid {
+                        let userRef = Firestore.firestore().collection("users").document(String(userID))
+                        userRef.updateData([
+                            "profileImageURL": fileURL
+                        ]) { err in
+                            if let err = err {
+                                print("Error updating document: \(err)")
+                            } else {
+                                print("Document successfully updated")
+                                let alert = UIAlertController(title: "Image Uploaded", message: "Your profile picture has been updated", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Sweet!", style: .default, handler: nil))
+                                self.present(alert, animated: true)
+                            }
+                        }
+
+                    }
+                } else {
+                    print("Error")
+                }
+            })
         }
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
