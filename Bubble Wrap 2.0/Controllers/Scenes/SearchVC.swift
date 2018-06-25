@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAuth
+
+var currentUser: User!
 
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
@@ -37,29 +40,38 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         self.customizeView() // Setup the view
         
+        // Load current user's profile information from Firebase
+        if let userID = Auth.auth().currentUser?.uid {
+            let userDocument = Firestore.firestore().collection("users").document(userID)
+            userDocument.getDocument { (document, error) in
+                if let document = document {
+                    if let user = User(dictionary: document.data(), itemID: document.documentID) {
+                        currentUser = user
+                    }
+                }
+            }
+        }
+        
         // Add a data listener to the "items" database
         datasource.itemsQuery()
             .addSnapshotListener { querySnapshot, error in
-                guard let documents = querySnapshot?.documents else {
-                    print("Error fetching documents: \(error!)")
-                    return
-                }
-                
-                for document in documents {
-                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        self.allItems.append(item)
-                        self.searchItems.append(item)
-                        
-                        // Download the item's image and save as a UIImage
-                        let url = URL(string: item.imageURL!)!
-                        let data = try? Data(contentsOf: url)
-                        if let imageData = data {
-                            let image = UIImage(data: imageData)
-                            self.allItemImages.append(image!)
-                            self.searchItemImages.append(image!)
+                if let documents = querySnapshot?.documents {
+                    for document in documents {
+                        if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                            self.allItems.append(item)
+                            self.searchItems.append(item)
+                            
+                            // Download the item's image and save as a UIImage
+                            let url = URL(string: item.imageURL!)!
+                            let data = try? Data(contentsOf: url)
+                            if let imageData = data {
+                                let image = UIImage(data: imageData)
+                                self.allItemImages.append(image!)
+                                self.searchItemImages.append(image!)
+                            }
+                            
+                            self.collectionView?.reloadData()
                         }
-                        
-                        self.collectionView?.reloadData()
                     }
                 }
         }

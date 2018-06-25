@@ -19,7 +19,7 @@ class DataSource: NSObject {
     
     // TODO: Replace instance of itemsQuery with generalQuery
     func itemsQuery() -> Query {
-        return Firestore.firestore().collection("items").limit(to: 20).order(by: "title")
+        return Firestore.firestore().collection("items").limit(to: 5).order(by: "title")
     }
     
     override init() {
