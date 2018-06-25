@@ -431,6 +431,10 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="picsum-1" translatesAutoresizingMaskIntoConstraints="NO" id="Spx-Vc-2FJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="mcU-0j-s5n" appends="YES" id="dRk-Il-pcY"/>
+                                                        </connections>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -442,9 +446,6 @@
                                                     <constraint firstItem="Spx-Vc-2FJ" firstAttribute="top" secondItem="6dj-cg-2DF" secondAttribute="top" id="XFv-cm-rcV"/>
                                                     <constraint firstAttribute="width" secondItem="6dj-cg-2DF" secondAttribute="height" multiplier="1:1" id="jSB-kq-soT"/>
                                                 </constraints>
-                                                <connections>
-                                                    <action selector="profileImgTapped:" destination="1i1-iU-akE" eventType="valueChanged" id="qFk-GP-BAb"/>
-                                                </connections>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5s8-KV-vQI">
                                                 <rect key="frame" x="45" y="256" width="285" height="44.5"/>
@@ -644,6 +645,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uzo-d2-W5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="mcU-0j-s5n" userLabel="profileImageTap">
+                    <connections>
+                        <action selector="profileImgTapped:" destination="1i1-iU-akE" id="UrE-oU-Eai"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-639.20000000000005" y="1603.4482758620691"/>
         </scene>

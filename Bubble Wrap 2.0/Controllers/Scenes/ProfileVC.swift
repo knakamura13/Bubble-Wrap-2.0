@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
+class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // Constants
     let cornerRadius = CGFloat(10)
@@ -126,7 +126,21 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         }
     }
     
+    
     @IBAction func profileImgTapped(_ sender: Any) {
-        
+        let controller = UIImagePickerController()
+        controller.delegate = self
+        controller.sourceType = .photoLibrary
+        controller.allowsEditing = true
+        self.present(controller, animated: true)
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.userProfileImg.image = image
+            // TODO: Upload this image to Firebase and save to user's document
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
