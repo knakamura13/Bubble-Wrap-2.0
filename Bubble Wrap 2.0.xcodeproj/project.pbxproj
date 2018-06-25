@@ -31,6 +31,7 @@
 		BFF78A7020D4487D00819CA8 /* Datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF78A6F20D4487D00819CA8 /* Datasource.swift */; };
 		BFF78A7220D4488800819CA8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF78A7120D4488800819CA8 /* Extensions.swift */; };
 		BFF78A7420D4491300819CA8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF78A7320D4491300819CA8 /* Item.swift */; };
+		BFF7D45520E0B16800AF120F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF7D45420E0B16800AF120F /* User.swift */; };
 		BFFA086E20CA7A4400D3679C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFFA086D20CA7A4400D3679C /* Images.xcassets */; };
 		BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		BFF78A6F20D4487D00819CA8 /* Datasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datasource.swift; sourceTree = "<group>"; };
 		BFF78A7120D4488800819CA8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BFF78A7320D4491300819CA8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		BFF7D45420E0B16800AF120F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BFFA086D20CA7A4400D3679C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +112,7 @@
 			children = (
 				BFF78A7320D4491300819CA8 /* Item.swift */,
 				BF4969F820DB0EE6003F69D7 /* Review.swift */,
+				BFF7D45420E0B16800AF120F /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
 				BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */,
 				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
+				BFF7D45520E0B16800AF120F /* User.swift in Sources */,
 				BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */,
 				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
 				BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */,

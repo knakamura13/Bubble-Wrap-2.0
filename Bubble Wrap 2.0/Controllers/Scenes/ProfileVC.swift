@@ -30,6 +30,9 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var userEmailField: UITextField!
     @IBOutlet weak var userBubbleField: UITextField!
+    @IBOutlet weak var ratingLbl: UILabel!
+    @IBOutlet weak var itemsSoldLbl: UILabel!
+    @IBOutlet weak var followersLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,25 +43,30 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         self.customizeView()
         
-        // Add a data listener to the "items" database
+        // Add a data listener to the "items" collection
         datasource.generalQuery(collection: "reviews", orderBy: "title", limit: nil)
             .addSnapshotListener { querySnapshot, error in
-                guard let documents = querySnapshot?.documents else {
-                    print("Error fetching documents: \(error!)")
-                    return
-                }
-                
-                for document in documents {
-                    if let review = Review(dictionary: document.data(), itemID: document.documentID) {
-                        self.allReviews.append(review)
-                        self.collectionView?.reloadData()
+                if let documents = querySnapshot?.documents {
+                    for document in documents {
+                        if let review = Review(dictionary: document.data(), itemID: document.documentID) {
+                            self.allReviews.append(review)
+                            self.collectionView?.reloadData()
+                        }
                     }
                 }
         }
         
-        userNameField.text = "Kyle Nakamura"
-        userEmailField.text = "knakamura13@apu.edu"
-        userBubbleField.text = "Azusa Pacific University"
+        // Display user's image and information
+        if let imageData = try? Data(contentsOf: URL(string: currentUser.profileImageURL!)!) {
+            let image = UIImage(data: imageData)
+            userProfileImg.image = image
+        }
+        userNameField.text = currentUser.firstName + " " + currentUser.lastName
+        userEmailField.text = Auth.auth().currentUser?.email
+        userBubbleField.text = currentUser.bubbleCommunity
+        ratingLbl.text = String(currentUser.rating)
+        itemsSoldLbl.text = String(currentUser.itemsSold)
+        followersLbl.text = String(currentUser.followers)
     }
     
     // Customize visuals
