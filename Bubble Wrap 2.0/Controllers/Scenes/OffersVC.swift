@@ -15,9 +15,11 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     let cornerRadius = CGFloat(10)
     
     // Variables
-    var allItemsNames: [String] = []
-    var allItemImages: [UIImage] = []
+    var allOffers: [Offer] = []
+    var allOfferImages: [UIImage] = []
     
+    private(set) var datasource = DataSource()  // Datasource for data listener
+
     // Outlets
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var bottomCollectionView: UICollectionView!
@@ -26,11 +28,39 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
     
-        // load offers from Firestore
+        // Add a data listener to the "offers" database
+        datasource.generalQuery(collection: "offers", orderBy: "price", limit: 10)
+            .addSnapshotListener { querySnapshot, error in
+                if let documents = querySnapshot?.documents {
+                    for document in documents {
+                        if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
+                            self.allOffers.append(offer)
+                            
+                            // Download the offer's item's image and save as a UIImage; append to images array
+                            offer.item!.getDocument { (document, error) in
+                                if let document = document {
+                                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                                        print(item.title!)
+                                        let url = URL(string: item.imageURL!)!
+                                        let data = try? Data(contentsOf: url)
+                                        if let imageData = data {
+                                            let image = UIImage(data: imageData)
+                                            self.allOfferImages.append(image!)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            self.topCollectionView?.reloadData()
+                            self.bottomCollectionView?.reloadData()
+                        }
+                    }
+                }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allItemsNames.count
+        return allOffers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -39,7 +69,14 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             // Populate the top collection view
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "TopOffersCell", for: indexPath as IndexPath) as! TopOffersCell
             cell2.cellImg.image = demoPicsumImages.randomElement()
-            cell2.cellLbl.text = allItemsNames[indexPath.item]
+            allOffers[indexPath.item].item.getDocument { (document, error) in
+                if let document = document {
+                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                        cell2.cellImg.image = self.allOfferImages[indexPath.item]
+                        cell2.cellLbl.text = item.title
+                    }
+                }
+            }
             
             // Stylize the cell's imageView
             let rectShape = CAShapeLayer()
@@ -52,8 +89,14 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         } else {
             // Populate the bottom collection view
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "BottomOffersCell", for: indexPath as IndexPath) as! BottomOffersCell
-            cell2.cellImg.image = demoPicsumImages.randomElement()
-            cell2.cellLbl.text = allItemsNames[indexPath.item]
+            allOffers[indexPath.item].item.getDocument { (document, error) in
+                if let document = document {
+                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                        cell2.cellImg.image = self.allOfferImages[indexPath.item]
+                        cell2.cellLbl.text = item.title
+                    }
+                }
+            }
             
             // Stylize the cell's imageView
             let rectShape = CAShapeLayer()

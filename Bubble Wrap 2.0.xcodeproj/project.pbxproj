@@ -174,10 +174,10 @@
 			isa = PBXGroup;
 			children = (
 				BFF78A6E20D4486C00819CA8 /* Services */,
+				BFDF14F520BAB10600CD4BBB /* Supporting Files */,
 				BFDF14F420BAB10400CD4BBB /* Models */,
 				BFDF14F720BAB10B00CD4BBB /* Views */,
 				BFDF14F620BAB10800CD4BBB /* Controllers */,
-				BFDF14F520BAB10600CD4BBB /* Supporting Files */,
 				BFEB611720BAA704007DC098 /* Main.storyboard */,
 				BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */,
 				BF2412D420C89848004C1484 /* GoogleService-Info.plist */,
