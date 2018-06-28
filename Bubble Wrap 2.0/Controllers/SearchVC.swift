@@ -10,17 +10,20 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 
+ var selectedItem: Item = Item(itemID: "", title: "", price: 0, imageURL: "")
+
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     
+
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
     
     var allItems: [Item] = []
     var searchItems: [Item] = []
-    var selectedItem: Item = Item(itemID: "", title: "", price: 0, imageURL: "")
+    //var selectedItem: Item = Item(itemID: "", title: "", price: 0, imageURL: "")
     
     private(set) var datasource = DataSource()
     
@@ -151,8 +154,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     }
     
     // Pass data from this VC to the segue destination VC
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let secondViewController = segue.destination as! SingleItemVC
-        secondViewController.selectedItem = selectedItem
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let secondViewController = segue.destination as! SingleItemVC
+//        secondViewController.selectedItem = selectedItem
+//    }
 }
