@@ -23,6 +23,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     var allItems: [Item] = []
     var searchItems: [Item] = []
+
     
     private(set) var datasource = DataSource()
     

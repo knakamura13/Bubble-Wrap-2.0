@@ -40,8 +40,6 @@ class SingleItemVC: UIViewController {
         
         //  ***PRICE LABEL***
         let price = selectedItem.price
-
-        // why do i have to do price ?? 0
         lblPrice.text = "$\(price ?? 0)"
         
         // Title

@@ -7,7 +7,11 @@
 		<key>Bubble Wrap 2.0.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>19</integer>
+=======
+			<integer>1</integer>
+>>>>>>> Set up make an offer page to correlate with search page items
 		</dict>
 	</dict>
 </dict>
