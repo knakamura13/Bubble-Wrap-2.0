@@ -31,4 +31,35 @@ class DataSource: NSObject {
             }
         }
     }
+    
+    // Simple print function for debugging specific variables
+    func easyPrint(variables: [Any]) {
+        privateEasyPrint(variables: variables, customLabel: nil)
+    }
+    
+    // Simple print function for debugging specific variables
+    func easyPrint(variables: [Any], withLabel customLabel: String?) {
+        if let _label = customLabel {
+            privateEasyPrint(variables: variables, customLabel: _label)
+        }
+    }
+    
+    // Simple print function for debugging specific variables
+    private func privateEasyPrint(variables: [Any], customLabel: String?) {
+        print("\n\n************************************")
+        
+        if let label = customLabel {
+            print(label)
+        }
+
+        var count = 1
+        for _var in variables {
+            print("\n-----Item #\(count)-----")
+            print(type(of: _var))
+            print("\(_var)")
+            count += 1
+        }
+        
+        print("\n************************************\n\n")
+    }
 }

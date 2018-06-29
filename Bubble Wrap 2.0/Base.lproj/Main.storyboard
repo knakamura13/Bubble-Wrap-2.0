@@ -197,6 +197,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="bDg-3v-NYx"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                 <state key="normal" title="Create Item">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -265,7 +266,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iGw-5Z-KgV">
-                                <rect key="frame" x="0.0" y="109" width="375" height="225"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="225"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="225" id="UGg-6V-cev"/>
@@ -320,13 +321,13 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offers for your items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEU-sw-PhV">
-                                <rect key="frame" x="16" y="80" width="158" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="16" y="80" width="161" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wQk-95-mvq">
-                                <rect key="frame" x="0.0" y="388" width="375" height="225"/>
+                                <rect key="frame" x="0.0" y="386" width="375" height="225"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="225" id="k1u-Zz-JKH"/>
@@ -380,9 +381,9 @@
                                     <outlet property="delegate" destination="cFj-Qc-7dt" id="3D2-gA-hGb"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Offers you have made" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vg-Ee-O5Z">
-                                <rect key="frame" x="16" y="359" width="168" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offers you have made" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vg-Ee-O5Z">
+                                <rect key="frame" x="16" y="358" width="172" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -390,6 +391,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="SEU-sw-PhV" firstAttribute="top" secondItem="cSn-fK-apg" secondAttribute="top" constant="16" id="1P9-TE-xcL"/>
+                            <constraint firstItem="2Vg-Ee-O5Z" firstAttribute="leading" secondItem="cSn-fK-apg" secondAttribute="leading" constant="16" id="5NZ-dU-gg8"/>
                             <constraint firstItem="2Vg-Ee-O5Z" firstAttribute="top" secondItem="iGw-5Z-KgV" secondAttribute="bottom" constant="25" id="DUy-nK-bqp"/>
                             <constraint firstItem="iGw-5Z-KgV" firstAttribute="leading" secondItem="cSn-fK-apg" secondAttribute="leading" id="FVL-XV-L6l"/>
                             <constraint firstItem="wQk-95-mvq" firstAttribute="leading" secondItem="cSn-fK-apg" secondAttribute="leading" id="OXm-Oi-Thc"/>
@@ -885,7 +887,7 @@ password is "password"</string>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="AhV-pp-T7O"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                         <state key="normal" title="Sign in">
                                             <color key="titleColor" red="0.38823529411764707" green="0.83529411764705885" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
