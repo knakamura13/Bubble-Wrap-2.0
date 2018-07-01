@@ -7,88 +7,56 @@
 //
 
 import UIKit
-import Firebase
 
 class MessengerVC: UIViewController {
-    
-    @IBOutlet weak var bubbleImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let image: UIImage = UIImage(named: "chat_bubble_sent")!
-//        let imageView = UIImageView(image: image)
-//        self.view.addSubview(imageView)
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//
-////        let topConstraint = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 50)
-//        let rightConstraint = NSLayoutConstraint(item: imageView, attribute: .trailing, relatedBy: .equal, toItem: imageView.superview, attribute: .trailing, multiplier: 1, constant: -25)
-//        let bottomConstraint = NSLayoutConstraint(item: imageView, attribute: .bottom, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -25)
-//        view.addConstraints([bottomConstraint, rightConstraint])
-//
-//        let heightConstraint = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
-//        let widthConstraint = NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 200)
-//        heightConstraint.constant = CGFloat.random(in: 45 ... 70)
-//        widthConstraint.constant = CGFloat.random(in: 180 ... 220)
-//        imageView.addConstraints([heightConstraint, widthConstraint])
-        
-        createSentMessage()
+        displayTestMessages()
     }
     
-    func createSentMessage() {
-//        changeImage("chat_bubble_sent")
-//        bubbleImageView.tintColor = UIColor(named: "chat_bubble_color_sent")
-        
-        let image: UIImage = UIImage(named: "chat_bubble_sent")!
-        var prevImgView: UIImageView!
-        for i in 1 ... 3 {
-            if i == 1 {
-                let newImgView = UIImageView(image: image)
-                
-                self.view.addSubview(newImgView)
-                newImgView.translatesAutoresizingMaskIntoConstraints = false
-                
-                let rightConstraint = NSLayoutConstraint(item: newImgView, attribute: .trailing, relatedBy: .equal, toItem: newImgView.superview, attribute: .trailing, multiplier: 1, constant: -25)
-                let bottomConstraint = NSLayoutConstraint(item: newImgView, attribute: .bottom, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -25)
-                view.addConstraints([bottomConstraint, rightConstraint])
-                
-                let heightConstraint = NSLayoutConstraint(item: newImgView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
-                let widthConstraint = NSLayoutConstraint(item: newImgView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 200)
-                heightConstraint.constant = CGFloat.random(in: 45 ... 70)
-                widthConstraint.constant = CGFloat.random(in: 180 ... 220)
-                newImgView.addConstraints([heightConstraint, widthConstraint])
-                
-                prevImgView = newImgView
+    // Layout a series of test messages
+    func displayTestMessages() {
+        var prevChatBubble: UIImageView!
+        for _ in 0 ... 7 {
+            let newChatBubble = UIImageView()
+            self.view.addSubview(newChatBubble)
+            
+            newChatBubble.translatesAutoresizingMaskIntoConstraints = false
+            
+            // Randomly switch between sent and received style messages
+            let div2: Bool = Int.random(in: 0 ... 100) % 2 == 0
+            let div3: Bool = Int.random(in: 0 ... 100) % 3 == 0
+            if div2 || div3 {
+                switchImage(imageView: newChatBubble, to: "sent")
             } else {
-                let newImgView = UIImageView(image: image)
-                
-                self.view.addSubview(newImgView)
-                newImgView.translatesAutoresizingMaskIntoConstraints = false
-                
-                let rightConstraint = NSLayoutConstraint(item: newImgView, attribute: .trailing, relatedBy: .equal, toItem: newImgView.superview, attribute: .trailing, multiplier: 1, constant: -25)
-                newImgView.bottomAnchor.constraint(equalTo: prevImgView.topAnchor, constant: -20.0).isActive = true
-                view.addConstraints([rightConstraint])
-                
-                let heightConstraint = NSLayoutConstraint(item: newImgView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
-                let widthConstraint = NSLayoutConstraint(item: newImgView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 200)
-                heightConstraint.constant = CGFloat.random(in: 45 ... 70)
-                widthConstraint.constant = CGFloat.random(in: 180 ... 220)
-                newImgView.addConstraints([heightConstraint, widthConstraint])
-                
-                prevImgView = newImgView
+                switchImage(imageView: newChatBubble, to: "received")
             }
+            
+            if prevChatBubble != nil {
+                newChatBubble.bottomAnchor.constraint(equalTo: prevChatBubble.topAnchor, constant: -20.0).isActive = true   // Anchor bottom to previous bubble
+            } else {
+                // newChatBubble is first/only bubble on the screen
+                newChatBubble.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100.0).isActive = true         // Anchor bottom to superview
+            }
+            
+            // Constant width and height, slightly randomized
+            newChatBubble.heightAnchor.constraint(equalToConstant: CGFloat.random(in: 50 ... 80)).isActive = true
+            newChatBubble.widthAnchor.constraint(equalToConstant: CGFloat.random(in: 150 ... 200)).isActive = true
+            
+            prevChatBubble = newChatBubble
         }
     }
     
-    func createReceivedMessage() {
-        changeImage("chat_bubble_received")
-        bubbleImageView.tintColor = UIColor(named: "chat_bubble_color_received")
-    }
-    
-    func changeImage(_ name: String) {
-        guard let image = UIImage(named: name) else { return }
-        bubbleImageView.image = image
-            .resizableImage(withCapInsets: UIEdgeInsetsMake(17, 21, 17, 21), resizingMode: .stretch)
-            .withRenderingMode(.alwaysTemplate)
+    // Choose either "sent" or "received" for each new chat bubble
+    func switchImage(imageView: UIImageView, to type: String) {
+        if type == "sent" {
+            imageView.image = UIImage(named: "chat_bubble_sent")
+            imageView.rightAnchor.constraint(equalTo: imageView.superview!.rightAnchor, constant: -25.0).isActive = true
+        } else {
+            imageView.image = UIImage(named: "chat_bubble_received")
+            imageView.leftAnchor.constraint(equalTo: imageView.superview!.leftAnchor, constant: 25.0).isActive = true
+        }
     }
 }
