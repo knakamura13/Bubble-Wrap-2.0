@@ -10,8 +10,17 @@ import UIKit
 
 class MessengerVC: UIViewController {
     
+    // Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollContainerView: UIView!
+    @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
+    
+    let numBubbles = 50
+    let bubbleHeightMultiplyer = 87
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.contentSize.height = CGFloat(numBubbles * bubbleHeightMultiplyer)
         
         displayTestMessages()
     }
@@ -19,9 +28,10 @@ class MessengerVC: UIViewController {
     // Layout a series of test messages
     func displayTestMessages() {
         var prevChatBubble: UIImageView!
-        for _ in 0 ... 7 {
+        for i in 0 ... numBubbles {
             let newChatBubble = UIImageView()
-            self.view.addSubview(newChatBubble)
+            let superView = scrollContainerView!
+            superView.addSubview(newChatBubble)
             
             newChatBubble.translatesAutoresizingMaskIntoConstraints = false
             
@@ -38,7 +48,7 @@ class MessengerVC: UIViewController {
                 newChatBubble.bottomAnchor.constraint(equalTo: prevChatBubble.topAnchor, constant: -20.0).isActive = true   // Anchor bottom to previous bubble
             } else {
                 // newChatBubble is first/only bubble on the screen
-                newChatBubble.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100.0).isActive = true         // Anchor bottom to superview
+                newChatBubble.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: CGFloat(numBubbles * bubbleHeightMultiplyer)).isActive = true         // Anchor bottom to superview
             }
             
             // Constant width and height, slightly randomized
@@ -47,6 +57,9 @@ class MessengerVC: UIViewController {
             
             prevChatBubble = newChatBubble
         }
+        var offset = scrollView.contentOffset
+        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(-80)    // Manually scroll to bottom
+        scrollView.setContentOffset(offset, animated: true)
     }
     
     // Choose either "sent" or "received" for each new chat bubble
