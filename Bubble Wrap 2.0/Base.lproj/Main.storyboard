@@ -1089,7 +1089,7 @@ password is "password"</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6vP-zs-kBs"/>
                     </view>
-                    <navigationItem key="navigationItem" id="PXd-ea-zlp"/>
+                    <navigationItem key="navigationItem" title="Messenger" id="PXd-ea-zlp"/>
                     <connections>
                         <outlet property="containerHeightConstraint" destination="OVv-Mr-429" id="gYH-O6-1Sr"/>
                         <outlet property="scrollContainerView" destination="PrB-Tk-VHO" id="QsJ-VM-axi"/>
