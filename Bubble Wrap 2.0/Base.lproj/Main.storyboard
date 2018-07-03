@@ -10,23 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Chat-->
-        <scene sceneID="vi5-4R-7EI">
-            <objects>
-                <viewController title="Chat" id="xYb-DI-Tml" customClass="MessengerVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VKE-dJ-pmk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="0WW-Qp-6Q6"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Chat" image="icon-chat" id="3oq-p5-hWK"/>
-                    <navigationItem key="navigationItem" title="Chat" id="mYq-Jf-wP5"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fyT-Mx-JOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-639" y="-784"/>
-        </scene>
         <!--Create Item-->
         <scene sceneID="sLZ-t8-f2i">
             <objects>
@@ -1038,7 +1021,7 @@ password is "password"</string>
                         <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="xYb-DI-Tml" kind="relationship" relationship="rootViewController" id="uHw-8A-7Cu"/>
+                        <segue destination="uci-9T-fgR" kind="relationship" relationship="rootViewController" id="f4P-8r-ZOY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W4g-Yb-p6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1098,6 +1081,73 @@ password is "password"</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wPw-Oz-anu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1378" y="1603"/>
+        </scene>
+        <!--Messenger-->
+        <scene sceneID="GHV-FL-k3n">
+            <objects>
+                <viewController title="Messenger" id="uci-9T-fgR" customClass="MessengerVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ICy-76-F3g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="veG-Nm-oLn" userLabel="textFieldContainer">
+                                <rect key="frame" x="0.0" y="568" width="375" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3aH-i6-YpP">
+                                        <rect key="frame" x="8" y="10" width="359" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="send" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="yes"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3aH-i6-YpP" firstAttribute="centerY" secondItem="veG-Nm-oLn" secondAttribute="centerY" id="I5y-2K-4E9"/>
+                                    <constraint firstItem="3aH-i6-YpP" firstAttribute="leading" secondItem="veG-Nm-oLn" secondAttribute="leading" constant="8" id="YoJ-Xn-P2d"/>
+                                    <constraint firstAttribute="trailing" secondItem="3aH-i6-YpP" secondAttribute="trailing" constant="8" id="f8M-71-PxZ"/>
+                                    <constraint firstAttribute="height" constant="50" id="xTv-RO-QSq"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XjL-Lo-K0v">
+                                <rect key="frame" x="0.0" y="64" width="375" height="504"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PrB-Tk-VHO" userLabel="Scroll Container View">
+                                        <rect key="frame" x="0.0" y="-148" width="375" height="800"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1200" id="OVv-Mr-429"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="PrB-Tk-VHO" firstAttribute="width" secondItem="XjL-Lo-K0v" secondAttribute="width" id="GTE-Bt-DMl"/>
+                                    <constraint firstAttribute="bottom" secondItem="PrB-Tk-VHO" secondAttribute="bottom" id="JEE-48-MFD"/>
+                                    <constraint firstItem="PrB-Tk-VHO" firstAttribute="centerX" secondItem="XjL-Lo-K0v" secondAttribute="centerX" id="ghs-fE-Jgg"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="XjL-Lo-K0v" firstAttribute="top" secondItem="6vP-zs-kBs" secondAttribute="top" id="58K-Kd-tGV"/>
+                            <constraint firstItem="veG-Nm-oLn" firstAttribute="top" secondItem="XjL-Lo-K0v" secondAttribute="bottom" id="Od2-sm-5Jb"/>
+                            <constraint firstItem="XjL-Lo-K0v" firstAttribute="trailing" secondItem="6vP-zs-kBs" secondAttribute="trailing" id="VSm-Pc-AcX"/>
+                            <constraint firstItem="veG-Nm-oLn" firstAttribute="leading" secondItem="6vP-zs-kBs" secondAttribute="leading" id="e0i-b1-gHH"/>
+                            <constraint firstItem="XjL-Lo-K0v" firstAttribute="leading" secondItem="6vP-zs-kBs" secondAttribute="leading" id="hyr-HE-De7"/>
+                            <constraint firstItem="veG-Nm-oLn" firstAttribute="bottom" secondItem="6vP-zs-kBs" secondAttribute="bottom" id="qeM-ux-xUu"/>
+                            <constraint firstItem="veG-Nm-oLn" firstAttribute="trailing" secondItem="6vP-zs-kBs" secondAttribute="trailing" id="tfs-jI-657"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6vP-zs-kBs"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Messenger" id="PXd-ea-zlp"/>
+                    <connections>
+                        <outlet property="containerHeightConstraint" destination="OVv-Mr-429" id="gYH-O6-1Sr"/>
+                        <outlet property="scrollContainerView" destination="PrB-Tk-VHO" id="QsJ-VM-axi"/>
+                        <outlet property="scrollView" destination="XjL-Lo-K0v" id="9mS-JX-FbF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b8d-ES-SfX" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-639.20000000000005" y="-785.75712143928047"/>
         </scene>
     </scenes>
     <resources>
