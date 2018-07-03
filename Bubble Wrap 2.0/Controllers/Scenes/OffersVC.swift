@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -65,27 +67,13 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                                     }
                                 }
                             }
+                            
+                            self.topCollectionView?.reloadData()     // Refresh the collection view
                         }
                         
                     }
                 }
             }
-                
-            // Fetch all created offers
-            for offer in currentUser.offersCreated! {
-                // TODO: replace with snapshot listener
-                offer.getDocument { (document, error) in
-                    if let document = document {
-                        if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
-                            self.offersCreated.append(offer)
-                            
-                            self.topCollectionView?.reloadData()    // Refresh the collection view
-                        }
-                    }
-                } else {
-                    print("KYLE: no documents to show")
-                }
-        }
         
         // Listen to "offers" collection WHERE "creator" is current user
         Firestore.firestore()
@@ -116,21 +104,8 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                             self.bottomCollectionView?.reloadData()     // Refresh the collection view
                         }
                     }
-                } else {
-                    print("KYLE: no documents to show")
                 }
             }
-            
-            for offer in currentUser.offersReceived! {
-                // TODO: replace with snapshot listener
-                offer.getDocument { (document, error) in
-                    if let document = document {
-                        let offer = Offer(dictionary: document.data(), itemID: document.documentID)
-                        self.offersReceived.append(offer!)
-                    }
-                }
-            }
-        }
     }
     
     // MARK: Collection View
