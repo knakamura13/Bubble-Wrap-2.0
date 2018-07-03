@@ -15,64 +15,117 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     let cornerRadius = CGFloat(10)
     
     // Variables
-    var allOffers: [Offer] = []
-    var allOfferImages: [UIImage] = []
+    var topOffers: [Offer] = []
+    var bottomOffers: [Offer] = []
+    var topOfferImages: [UIImage] = []
+    var bottomOfferImages: [UIImage] = []
     
     private(set) var datasource = DataSource()  // Datasource for data listener
 
     // Outlets
     @IBOutlet weak var topCollectionView: UICollectionView!
     @IBOutlet weak var bottomCollectionView: UICollectionView!
+    @IBOutlet weak var offersReceivedLabel: UILabel!
+    @IBOutlet weak var offersCreatedLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
+        
+        listenForOffers()
+    }
     
-        // Add a data listener to the "offers" database
-        datasource.generalQuery(collection: "offers", orderBy: "price", limit: 10)
+    func listenForOffers() {
+        // Get UserID and create a document reference for the WHERE parameter
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let userDocument: DocumentReference = Firestore.firestore().collection("users").document(userID)
+        
+        // Listen to "offers" collection WHERE "receiver" is current user
+        Firestore.firestore()
+            .collection("offers")
+            .whereField("recipient", isEqualTo: userDocument)
+            .order(by: "price")
+            .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
                 if let documents = querySnapshot?.documents {
                     for document in documents {
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
-                            self.allOffers.append(offer)
+                            self.topOffers.append(offer)
                             
-                            // Download the offer's item's image and save as a UIImage; append to images array
+                            // Download the offer's items image and save as a UIImage; append to images array
                             offer.item!.getDocument { (document, error) in
                                 if let document = document {
                                     if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                                        print(item.title!)
                                         let url = URL(string: item.imageURL!)!
                                         let data = try? Data(contentsOf: url)
                                         if let imageData = data {
                                             let image = UIImage(data: imageData)
-                                            self.allOfferImages.append(image!)
+                                            self.topOfferImages.append(image!)
                                         }
                                     }
                                 }
                             }
                             
-                            self.topCollectionView?.reloadData()
-                            self.bottomCollectionView?.reloadData()
+                            self.topCollectionView?.reloadData()    // Refresh the collection view
                         }
                     }
+                } else {
+                    print("KYLE: no documents to show")
+                }
+        }
+        
+        // Listen to "offers" collection WHERE "creator" is current user
+        Firestore.firestore()
+            .collection("offers")
+            .whereField("creator", isEqualTo: userDocument)
+            .order(by: "price")
+            .limit(to: 100)
+            .addSnapshotListener { querySnapshot, error in
+                if let documents = querySnapshot?.documents {
+                    for document in documents {
+                        if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
+                            self.bottomOffers.append(offer)
+                            
+                            // Download the offer's items image and save as a UIImage; append to images array
+                            offer.item!.getDocument { (document, error) in
+                                if let document = document {
+                                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                                        let url = URL(string: item.imageURL!)!
+                                        let data = try? Data(contentsOf: url)
+                                        if let imageData = data {
+                                            let image = UIImage(data: imageData)
+                                            self.bottomOfferImages.append(image!)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            self.bottomCollectionView?.reloadData()     // Refresh the collection view
+                        }
+                    }
+                } else {
+                    print("KYLE: no documents to show")
                 }
         }
     }
     
+    // MARK: Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allOffers.count
+        if collectionView == self.topCollectionView {
+            return topOffers.count
+        } else {
+            return bottomOffers.count
+        }
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell
         if collectionView == self.topCollectionView {
             // Populate the top collection view
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "TopOffersCell", for: indexPath as IndexPath) as! TopOffersCell
-            cell2.cellImg.image = demoPicsumImages.randomElement()
-            allOffers[indexPath.item].item.getDocument { (document, error) in
+            topOffers[indexPath.item].item.getDocument { (document, error) in
                 if let document = document {
                     if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        cell2.cellImg.image = self.allOfferImages[indexPath.item]
+                        cell2.cellImg.image = self.topOfferImages[indexPath.item]
                         cell2.cellLbl.text = item.title
                     }
                 }
@@ -89,10 +142,10 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         } else {
             // Populate the bottom collection view
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "BottomOffersCell", for: indexPath as IndexPath) as! BottomOffersCell
-            allOffers[indexPath.item].item.getDocument { (document, error) in
+            bottomOffers[indexPath.item].item.getDocument { (document, error) in
                 if let document = document {
                     if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        cell2.cellImg.image = self.allOfferImages[indexPath.item]
+                        cell2.cellImg.image = self.bottomOfferImages[indexPath.item]
                         cell2.cellLbl.text = item.title
                     }
                 }
@@ -121,7 +174,4 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         return cell
     }
-    
-    // Actions
-    
 }
