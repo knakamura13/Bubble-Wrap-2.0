@@ -763,16 +763,65 @@
             </objects>
             <point key="canvasLocation" x="-639" y="-1478"/>
         </scene>
-        <!--Item Name-->
+        <!--Details-->
         <scene sceneID="yhQ-0q-Rou">
             <objects>
-                <viewController title="Item Name" id="mdn-hF-nsd" customClass="SingleItemVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Details" id="mdn-hF-nsd" customClass="SingleItemVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XJc-nI-6xq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zz9-F3-WQh" userLabel="Cell Img">
+                                <rect key="frame" x="0.0" y="64" width="375" height="305"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9t-Tv-hhO">
+                                <rect key="frame" x="0.0" y="572" width="375" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="O9t-Tv-hhO" secondAttribute="height" multiplier="375:46" id="LEn-Zk-Kja"/>
+                                </constraints>
+                                <state key="normal" title="Make an Offer"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGb-lA-ys2">
+                                <rect key="frame" x="16" y="385" width="343" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yGb-lA-ys2" secondAttribute="height" multiplier="343:33" id="VNu-CC-uIp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$350" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GS-HC-GNa">
+                                <rect key="frame" x="0.0" y="106" width="129" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="leading" secondItem="cZT-xq-0ZU" secondAttribute="leading" id="9NG-Mv-MnN"/>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="leading" secondItem="cZT-xq-0ZU" secondAttribute="leading" id="ASD-h2-tOR"/>
+                            <constraint firstItem="yGb-lA-ys2" firstAttribute="trailing" secondItem="XJc-nI-6xq" secondAttribute="trailingMargin" id="DZz-qy-SVM"/>
+                            <constraint firstItem="cZT-xq-0ZU" firstAttribute="bottom" secondItem="O9t-Tv-hhO" secondAttribute="bottom" id="OMg-6f-69E"/>
+                            <constraint firstItem="yGb-lA-ys2" firstAttribute="leading" secondItem="XJc-nI-6xq" secondAttribute="leadingMargin" id="Qbk-iO-7Ls"/>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="trailing" secondItem="cZT-xq-0ZU" secondAttribute="trailing" id="XVz-YV-5gH"/>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="leading" secondItem="cZT-xq-0ZU" secondAttribute="leading" id="k7J-VK-sXu"/>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="trailing" secondItem="cZT-xq-0ZU" secondAttribute="trailing" id="lB8-DW-svI"/>
+                            <constraint firstItem="cZT-xq-0ZU" firstAttribute="bottom" secondItem="O9t-Tv-hhO" secondAttribute="bottom" id="rIk-cq-Ui7"/>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="centerX" secondItem="XJc-nI-6xq" secondAttribute="centerX" id="vS1-VD-ggW"/>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="trailing" secondItem="cZT-xq-0ZU" secondAttribute="trailing" id="wLS-sm-GkZ"/>
+                            <constraint firstItem="O9t-Tv-hhO" firstAttribute="top" secondItem="yGb-lA-ys2" secondAttribute="bottom" constant="154" id="yd6-Zf-Rbj"/>
+                            <constraint firstItem="yGb-lA-ys2" firstAttribute="top" secondItem="Zz9-F3-WQh" secondAttribute="bottom" constant="16" id="zds-xH-j8i"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="cZT-xq-0ZU"/>
                     </view>
+                    <connections>
+                        <outlet property="btnMakeOffer" destination="O9t-Tv-hhO" id="jc3-fQ-p7W"/>
+                        <outlet property="itemImage" destination="Zz9-F3-WQh" id="Eg9-3t-arc"/>
+                        <outlet property="lblPrice" destination="3GS-HC-GNa" id="tie-6C-chD"/>
+                        <outlet property="lblTitle" destination="yGb-lA-ys2" id="dSp-6y-FZw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7X-hj-KLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

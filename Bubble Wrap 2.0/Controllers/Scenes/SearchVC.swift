@@ -13,6 +13,8 @@ import FirebaseAuth
 
 var currentUser: User!
 
+ var selectedItem: Item = Item(title: "", price: 0, imageURL: "")
+
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
@@ -178,8 +180,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     }
     
     // Pass data from this VC to the segue destination VC
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let secondViewController = segue.destination as! SingleItemVC
-        secondViewController.selectedItem = selectedItem
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let secondViewController = segue.destination as! SingleItemVC
+//        secondViewController.selectedItem = selectedItem
+//    }
 }
