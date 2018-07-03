@@ -15,7 +15,7 @@
             <objects>
                 <viewController id="k4m-kT-xqT" customClass="CreateItemVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HQG-yh-xvb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="875"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-m9-EYQ">
@@ -390,6 +390,8 @@
                     <navigationItem key="navigationItem" title="Offers" id="DVm-IZ-guG"/>
                     <connections>
                         <outlet property="bottomCollectionView" destination="wQk-95-mvq" id="n67-iA-OLC"/>
+                        <outlet property="offersCreatedLabel" destination="2Vg-Ee-O5Z" id="LMi-WF-9vC"/>
+                        <outlet property="offersReceivedLabel" destination="SEU-sw-PhV" id="b33-Q0-BaV"/>
                         <outlet property="topCollectionView" destination="iGw-5Z-KgV" id="3wp-cg-dMR"/>
                     </connections>
                 </viewController>
