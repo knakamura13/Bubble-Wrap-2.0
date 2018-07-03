@@ -12,8 +12,7 @@ import FirebaseStorage
 import FirebaseAuth
 
 var currentUser: User!
-
- var selectedItem: Item = Item(title: "", price: 0, imageURL: "")
+var selectedItem: Item = Item(title: "", price: 0, imageURL: "")
 
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
@@ -27,7 +26,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     var searchItems: [Item] = []
     var allItemImages: [UIImage] = []
     var searchItemImages: [UIImage] = []
-    var selectedItem: Item = Item(title: "", price: 0, imageURL: "")
     
     private(set) var datasource = DataSource()  // Datasource for data listener
     

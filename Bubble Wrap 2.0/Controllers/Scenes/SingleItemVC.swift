@@ -7,46 +7,62 @@
 //
 
 import UIKit
-import Firebase
 
 class SingleItemVC: UIViewController {
-
- 
+    
+    // Outlets
     @IBOutlet var btnMakeOffer: UIButton!
     @IBOutlet var itemImage: UIImageView!
     @IBOutlet var lblPrice: UILabel!
     @IBOutlet var lblTitle: UILabel!
     
+    // Loads once when the screen is rendered for the first time
     override func viewDidLoad() {
         super.viewDidLoad()
-       // setting the button with the background color form constants (Primary Color)
+        
+        self.setupStyles()
+        self.setInitialData()
+    }
+    
+    // Stylize all views for initial page load
+    func setupStyles() {
+        // Make Offer Button
         btnMakeOffer.backgroundColor = Constants.Colors.appPrimaryColor
         btnMakeOffer.setTitleColor(Constants.Colors.TextColors.primaryWhite, for: .normal)
-        //Download the item's image and save as a UIImage
-        let url = URL(string: selectedItem.imageURL)
-        let data = try? Data(contentsOf: url!)
-        if let imageData = data {
+        
+        // Price Label
+        lblPrice.layer.masksToBounds = true
+        lblPrice.layer.cornerRadius = 10.0
+        lblPrice.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner] // Rounded corners on top-right and bottom-right
+        lblPrice.backgroundColor = Constants.Colors.TextColors.primaryWhite.withAlphaComponent(0.4)
+        lblPrice.textColor = Constants.Colors.TextColors.primaryWhite
+    }
+    
+    // Set all data for initial page load
+    func setInitialData() {
+        // Set the price label
+        let price = selectedItem.price
+        if price == 0 {
+            lblPrice.text = "FREE"
+        } else {
+            lblPrice.text = "$\(price ?? 0)"
+        }
+        
+        // TODO: Item information div below the UIImage should scroll over the image and the price
+        
+        // Set the item title and description
+        lblTitle.text = selectedItem.title
+        // TODO: Description label
+        
+        //Download the item's image and save as UIImage
+        guard let url = URL(string: selectedItem.imageURL!) else {
+            print("Item does not have an imageURL")
+            return
+        }
+        if let data = try? Data(contentsOf: url) {
+            let imageData = data
             let image = UIImage(data: imageData)
             itemImage.image = image
         }
-        //  ***LABEL STYLES***
-        // Rounded corners are created only top right and bottom right corners
-        lblPrice.layer.masksToBounds = true
-        lblPrice.layer.cornerRadius = 10.0
-        lblPrice.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        // Background and text color
-        lblPrice.backgroundColor = Constants.Colors.TextColors.primaryWhite.withAlphaComponent(0.4)
-        lblPrice.textColor = Constants.Colors.TextColors.primaryWhite
-        
-        //  ***PRICE LABEL***
-        let price = selectedItem.price
-        lblPrice.text = "$\(price ?? 0)"
-        
-        // Title
-        lblTitle.text = selectedItem.title
-       
-        
-        //Description
-        
     }
 }
