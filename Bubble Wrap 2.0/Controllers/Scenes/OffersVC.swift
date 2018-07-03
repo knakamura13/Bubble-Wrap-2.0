@@ -36,21 +36,23 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             for offer in currentUser.offersReceived! {
                 offer.getDocument { (document, error) in
                     if let document = document {
-                        let offer = Offer(dictionary: document.data(), itemID: document.documentID)
-                        self.offersReceived.append(offer!)
-                        
-                        // Download the offer's item's image and save as a UIImage; append to images array
-                        offer!.item!.getDocument { (document, error) in
-                            if let document = document {
-                                let item = Item(dictionary: document.data(), itemID: document.documentID)
-                                let url = URL(string: item!.imageURL!)!
-                                let data = try? Data(contentsOf: url)
-                                if let imageData = data {
-                                    let image = UIImage(data: imageData)
-                                    self.allOffersReceivedImages.append(image!)
+                        if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
+                            self.offersReceived.append(offer)
+                            
+                            // Download the offer's item's image and save as a UIImage; append to images array
+                            offer.item!.getDocument { (document, error) in
+                                if let document = document {
+                                    let item = Item(dictionary: document.data(), itemID: document.documentID)
+                                    let url = URL(string: item!.imageURL!)!
+                                    let data = try? Data(contentsOf: url)
+                                    if let imageData = data {
+                                        let image = UIImage(data: imageData)
+                                        self.allOffersReceivedImages.append(image!)
+                                    }
                                 }
                             }
                         }
+                        
                     }
                 }
             }
@@ -60,18 +62,19 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                 // TODO: replace with snapshot listener
                 offer.getDocument { (document, error) in
                     if let document = document {
-                        let offer = Offer(dictionary: document.data(), itemID: document.documentID)
-                        self.offersCreated.append(offer!)
-                        
-                        // Download the offer's item's image and save as a UIImage; append to images array
-                        offer!.item!.getDocument { (document, error) in
-                            if let document = document {
-                                let item = Item(dictionary: document.data(), itemID: document.documentID)
-                                let url = URL(string: item!.imageURL!)!
-                                let data = try? Data(contentsOf: url)
-                                if let imageData = data {
-                                    let image = UIImage(data: imageData)
-                                    self.allOffersCreatedImages.append(image!)
+                        if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
+                            self.offersCreated.append(offer)
+                            
+                            // Download the offer's item's image and save as a UIImage; append to images array
+                            offer.item!.getDocument { (document, error) in
+                                if let document = document {
+                                    let item = Item(dictionary: document.data(), itemID: document.documentID)
+                                    let url = URL(string: item!.imageURL!)!
+                                    let data = try? Data(contentsOf: url)
+                                    if let imageData = data {
+                                        let image = UIImage(data: imageData)
+                                        self.allOffersCreatedImages.append(image!)
+                                    }
                                 }
                             }
                         }
