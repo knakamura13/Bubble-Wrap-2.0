@@ -7,25 +7,70 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80D63B8B9EF5FC97762016EB /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */; };
+		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
+		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
+		BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */; };
+		BF4969F920DB0EE6003F69D7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969F820DB0EE6003F69D7 /* Review.swift */; };
+		BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969FA20DB135D003F69D7 /* ReviewCell.swift */; };
+		BF53713120E35E0F00C3CAC5 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53713020E35E0F00C3CAC5 /* Offer.swift */; };
+		BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7937F620D4782200F01B45 /* ImageUploadManager.swift */; };
+		BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */; };
+		BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */; };
+		BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */; };
+		BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */; };
+		BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */; };
+		BFDF14FD20BAB26000CD4BBB /* OffersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */; };
+		BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */; };
+		BFDF150120BAB2D800CD4BBB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF150020BAB2D800CD4BBB /* Constants.swift */; };
+		BFDF150320BAB85800CD4BBB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDF150220BAB85800CD4BBB /* MapKit.framework */; };
 		BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB610F20BAA704007DC098 /* AppDelegate.swift */; };
-		BFEB611220BAA704007DC098 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* RootViewController.swift */; };
-		BFEB611420BAA704007DC098 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611320BAA704007DC098 /* DataViewController.swift */; };
-		BFEB611620BAA704007DC098 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611520BAA704007DC098 /* ModelController.swift */; };
+		BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB611120BAA704007DC098 /* SearchVC.swift */; };
 		BFEB611920BAA704007DC098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611720BAA704007DC098 /* Main.storyboard */; };
-		BFEB611B20BAA705007DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611A20BAA705007DC098 /* Assets.xcassets */; };
 		BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */; };
+		BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEB612920BAA76A007DC098 /* StoreKit.framework */; };
+		BFF78A7020D4487D00819CA8 /* Datasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF78A6F20D4487D00819CA8 /* Datasource.swift */; };
+		BFF78A7220D4488800819CA8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF78A7120D4488800819CA8 /* Extensions.swift */; };
+		BFF78A7420D4491300819CA8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF78A7320D4491300819CA8 /* Item.swift */; };
+		BFF7D45520E0B16800AF120F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF7D45420E0B16800AF120F /* User.swift */; };
+		BFFA086E20CA7A4400D3679C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFFA086D20CA7A4400D3679C /* Images.xcassets */; };
+		BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		31DF963B143FEA252A866169 /* Pods-Bubble Wrap 2.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.debug.xcconfig"; sourceTree = "<group>"; };
+		6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
+		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BF27037420D2506C00F89FFD /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
+		BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProfileCell.swift; sourceTree = "<group>"; };
+		BF4969F820DB0EE6003F69D7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		BF4969FA20DB135D003F69D7 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		BF53713020E35E0F00C3CAC5 /* Offer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
+		BF7937F620D4782200F01B45 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
+		BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOffersCell.swift; sourceTree = "<group>"; };
+		BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOffersCell.swift; sourceTree = "<group>"; };
+		BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemVC.swift; sourceTree = "<group>"; };
+		BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerVC.swift; sourceTree = "<group>"; };
+		BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemVC.swift; sourceTree = "<group>"; };
+		BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersVC.swift; sourceTree = "<group>"; };
+		BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		BFDF150020BAB2D800CD4BBB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BFDF150220BAB85800CD4BBB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BFEB610C20BAA704007DC098 /* Bubble Wrap 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bubble Wrap 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEB610F20BAA704007DC098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BFEB611120BAA704007DC098 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		BFEB611320BAA704007DC098 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		BFEB611520BAA704007DC098 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		BFEB611120BAA704007DC098 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		BFEB611820BAA704007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BFEB611A20BAA705007DC098 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFEB611D20BAA705007DC098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BFEB611F20BAA705007DC098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Bubble Wrap 2.0.entitlements"; sourceTree = "<group>"; };
+		BFEB612920BAA76A007DC098 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BFF78A6F20D4487D00819CA8 /* Datasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datasource.swift; sourceTree = "<group>"; };
+		BFF78A7120D4488800819CA8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BFF78A7320D4491300819CA8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		BFF7D45420E0B16800AF120F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BFFA086D20CA7A4400D3679C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +78,87 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFDF150320BAB85800CD4BBB /* MapKit.framework in Frameworks */,
+				BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */,
+				80D63B8B9EF5FC97762016EB /* Pods_Bubble_Wrap_2_0.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF4A262320DB039600C1975B /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				BF27037420D2506C00F89FFD /* AuthenticationVC.swift */,
+				BFEB611120BAA704007DC098 /* SearchVC.swift */,
+				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
+				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
+				BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */,
+				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
+				BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		BF7937F520D4780600F01B45 /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				BF7937F620D4782200F01B45 /* ImageUploadManager.swift */,
+			);
+			path = Upload;
+			sourceTree = "<group>";
+		};
+		BFDF14F420BAB10400CD4BBB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BFF78A7320D4491300819CA8 /* Item.swift */,
+				BF4969F820DB0EE6003F69D7 /* Review.swift */,
+				BFF7D45420E0B16800AF120F /* User.swift */,
+				BF53713020E35E0F00C3CAC5 /* Offer.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BFDF14F520BAB10600CD4BBB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BFEB611F20BAA705007DC098 /* Info.plist */,
+				BFEB610F20BAA704007DC098 /* AppDelegate.swift */,
+				BFEB612520BAA747007DC098 /* Bubble Wrap 2.0.entitlements */,
+				BFFA086D20CA7A4400D3679C /* Images.xcassets */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BFDF14F620BAB10800CD4BBB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BF4A262320DB039600C1975B /* Scenes */,
+				BF7937F520D4780600F01B45 /* Upload */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BFDF14F720BAB10B00CD4BBB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */,
+				BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */,
+				BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */,
+				BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */,
+				BF4969FA20DB135D003F69D7 /* ReviewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		BFEB610320BAA704007DC098 = {
 			isa = PBXGroup;
 			children = (
 				BFEB610E20BAA704007DC098 /* Bubble Wrap 2.0 */,
 				BFEB610D20BAA704007DC098 /* Products */,
+				BFEB612620BAA74E007DC098 /* Frameworks */,
+				FCF448A84F0301802549D5ED /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,16 +173,45 @@
 		BFEB610E20BAA704007DC098 /* Bubble Wrap 2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				BFEB610F20BAA704007DC098 /* AppDelegate.swift */,
-				BFEB611120BAA704007DC098 /* RootViewController.swift */,
-				BFEB611320BAA704007DC098 /* DataViewController.swift */,
-				BFEB611520BAA704007DC098 /* ModelController.swift */,
+				BFF78A6E20D4486C00819CA8 /* Services */,
+				BFDF14F520BAB10600CD4BBB /* Supporting Files */,
+				BFDF14F420BAB10400CD4BBB /* Models */,
+				BFDF14F720BAB10B00CD4BBB /* Views */,
+				BFDF14F620BAB10800CD4BBB /* Controllers */,
 				BFEB611720BAA704007DC098 /* Main.storyboard */,
-				BFEB611A20BAA705007DC098 /* Assets.xcassets */,
 				BFEB611C20BAA705007DC098 /* LaunchScreen.storyboard */,
-				BFEB611F20BAA705007DC098 /* Info.plist */,
+				BF2412D420C89848004C1484 /* GoogleService-Info.plist */,
 			);
 			path = "Bubble Wrap 2.0";
+			sourceTree = "<group>";
+		};
+		BFEB612620BAA74E007DC098 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BFDF150220BAB85800CD4BBB /* MapKit.framework */,
+				BFEB612920BAA76A007DC098 /* StoreKit.framework */,
+				6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BFF78A6E20D4486C00819CA8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BFDF150020BAB2D800CD4BBB /* Constants.swift */,
+				BFF78A6F20D4487D00819CA8 /* Datasource.swift */,
+				BFF78A7120D4488800819CA8 /* Extensions.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FCF448A84F0301802549D5ED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				31DF963B143FEA252A866169 /* Pods-Bubble Wrap 2.0.debug.xcconfig */,
+				77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +221,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFEB612220BAA705007DC098 /* Build configuration list for PBXNativeTarget "Bubble Wrap 2.0" */;
 			buildPhases = (
+				246647D274CAD143F6DF0C52 /* [CP] Check Pods Manifest.lock */,
 				BFEB610820BAA704007DC098 /* Sources */,
 				BFEB610920BAA704007DC098 /* Frameworks */,
 				BFEB610A20BAA704007DC098 /* Resources */,
+				29FA59CA319C214D2E5A23B7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -102,6 +248,26 @@
 				TargetAttributes = {
 					BFEB610B20BAA704007DC098 = {
 						CreatedOnToolsVersion = 9.3.1;
+						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 0;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+							com.apple.Wallet = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -129,22 +295,99 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFEB611E20BAA705007DC098 /* LaunchScreen.storyboard in Resources */,
-				BFEB611B20BAA705007DC098 /* Assets.xcassets in Resources */,
+				BFFA086E20CA7A4400D3679C /* Images.xcassets in Resources */,
+				BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */,
 				BFEB611920BAA704007DC098 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		246647D274CAD143F6DF0C52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bubble Wrap 2.0-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		29FA59CA319C214D2E5A23B7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/TextViewWithThreshHoldFrame/TextViewWithThreshHoldFrame.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextViewWithThreshHoldFrame.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BFEB610820BAA704007DC098 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFEB611220BAA704007DC098 /* RootViewController.swift in Sources */,
-				BFEB611620BAA704007DC098 /* ModelController.swift in Sources */,
-				BFEB611420BAA704007DC098 /* DataViewController.swift in Sources */,
+				BF53713120E35E0F00C3CAC5 /* Offer.swift in Sources */,
+				BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */,
+				BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */,
+				BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */,
+				BFF78A7420D4491300819CA8 /* Item.swift in Sources */,
+				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
+				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
+				BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */,
+				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
+				BFF7D45520E0B16800AF120F /* User.swift in Sources */,
+				BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */,
+				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
+				BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */,
+				BFDF150120BAB2D800CD4BBB /* Constants.swift in Sources */,
+				BFDF14FD20BAB26000CD4BBB /* OffersVC.swift in Sources */,
+				BFF78A7220D4488800819CA8 /* Extensions.swift in Sources */,
 				BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */,
+				BF4969F920DB0EE6003F69D7 /* Review.swift in Sources */,
+				BFF78A7020D4487D00819CA8 /* Datasource.swift in Sources */,
+				BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */,
+				BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,16 +529,18 @@
 		};
 		BFEB612320BAA705007DC098 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31DF963B143FEA252A866169 /* Pods-Bubble Wrap 2.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
-				INFOPLIST_FILE = "Bubble Wrap 2.0/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap-2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,16 +549,18 @@
 		};
 		BFEB612420BAA705007DC098 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
-				INFOPLIST_FILE = "Bubble Wrap 2.0/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap-2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kylenakamura.Bubble-Wrap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
