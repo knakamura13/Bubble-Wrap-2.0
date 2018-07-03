@@ -119,6 +119,40 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                 } else {
                     print("KYLE: no documents to show")
                 }
+        }
+        
+        // Listen to "offers" collection WHERE "creator" is current user
+        Firestore.firestore()
+            .collection("offers")
+            .whereField("creator", isEqualTo: userDocument)
+            .order(by: "price")
+            .limit(to: 100)
+            .addSnapshotListener { querySnapshot, error in
+                if let documents = querySnapshot?.documents {
+                    for document in documents {
+                        if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
+                            self.bottomOffers.append(offer)
+                            
+                            // Download the offer's items image and save as a UIImage; append to images array
+                            offer.item!.getDocument { (document, error) in
+                                if let document = document {
+                                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                                        let url = URL(string: item.imageURL!)!
+                                        let data = try? Data(contentsOf: url)
+                                        if let imageData = data {
+                                            let image = UIImage(data: imageData)
+                                            self.bottomOfferImages.append(image!)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            self.bottomCollectionView?.reloadData()     // Refresh the collection view
+                        }
+                    }
+                } else {
+                    print("KYLE: no documents to show")
+                }
             }
             
             for offer in currentUser.offersReceived! {
