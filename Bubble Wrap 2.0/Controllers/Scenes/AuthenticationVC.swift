@@ -27,7 +27,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
-        if let user = Auth.auth().currentUser {
+        if Auth.auth().currentUser != nil {
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
                 self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
@@ -62,7 +62,8 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     // Perform authentication using Firebase
     func attemptSignIn() {
         let email = emailTextField.text!
-        let password = passwordTextField.text!
+//        let password = passwordTextField.text!
+        // TODO: Remove hardcoded password used for testing
         Auth.auth().signIn(withEmail: email, password: "password") { (result, error) in
             if error != nil {
                 // Handle error

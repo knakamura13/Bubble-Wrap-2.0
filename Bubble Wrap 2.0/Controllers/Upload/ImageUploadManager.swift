@@ -18,7 +18,7 @@ class ImageUploadManager: NSObject {
         let imageName = "\(Date().timeIntervalSince1970).jpg"
         let imageReference = storageReference.child("itemImages").child(imageName)
         
-        if let imageData = UIImageJPEGRepresentation(image, 0.8) {
+        if let imageData = image.jpegData(compressionQuality: 0.8) {
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             

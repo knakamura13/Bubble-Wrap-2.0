@@ -28,7 +28,7 @@ class SingleItemVC: UIViewController {
     func setupStyles() {
         // Make Offer Button
         btnMakeOffer.backgroundColor = Constants.Colors.appPrimaryColor
-        btnMakeOffer.setTitleColor(Constants.Colors.TextColors.primaryWhite, for: .normal)
+        btnMakeOffer.setTitleColor(Constants.Colors.TextColors.primaryWhite, for: UIControl.State.normal)
         
         // Price Label
         lblPrice.layer.masksToBounds = true
