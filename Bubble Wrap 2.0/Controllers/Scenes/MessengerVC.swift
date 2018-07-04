@@ -97,11 +97,8 @@ class MessengerVC: UIViewController {
         }
         
         // Constant width and height, slightly randomized
-        let randHeight = CGFloat.random(in: 50 ... 80)
-        let randWidth = CGFloat.random(in: 150 ... 200)
         newChatBubble.heightAnchor.constraint(equalToConstant: chatLabel.frame.size.height + CGFloat(30)).isActive = true
         newChatBubble.widthAnchor.constraint(equalToConstant: chatLabel.frame.size.width + CGFloat(100)).isActive = true
-//        chatLabel.frame.size.height = randHeight
         
         prevChatBubble = newChatBubble
     }

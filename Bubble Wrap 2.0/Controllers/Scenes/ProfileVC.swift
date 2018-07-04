@@ -137,8 +137,8 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         self.present(controller, animated: true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage {
             self.userProfileImg.image = image
             // TODO: Upload this image to Firebase and save to user's document
             imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
