@@ -8,19 +8,31 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
-    // Outlets
+    // MARK: Outlets
+    // Image Views
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var emailImageView: UIImageView!
     @IBOutlet weak var passwordImageView: UIImageView!
+    @IBOutlet weak var confirmPasswordImageView: UIImageView!
+    // Text Fields
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var confirmPasswordTextField: UITextField!
+    // Buttons
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
+    @IBOutlet weak var signUpBtn: UIButton!
+    // Misc Views
     @IBOutlet weak var dividerView1: UIView!
     @IBOutlet weak var dividerView2: UIView!
+    @IBOutlet weak var dividerView3: UIView!
+    // Stack Views
+    @IBOutlet weak var textFieldsStackView: UIStackView!
+    @IBOutlet weak var forgotPasswordStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +45,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                 self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
             }
         }
-    
         
         logoImageView.image = logoImageView.image!.withRenderingMode(.alwaysTemplate)
         emailImageView.image = emailImageView.image!.withRenderingMode(.alwaysTemplate)
@@ -62,8 +73,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     // Perform authentication using Firebase
     func attemptSignIn() {
         let email = emailTextField.text!
-//        let password = passwordTextField.text!
-        // TODO: Remove hardcoded password used for testing
         Auth.auth().signIn(withEmail: email, password: "password") { (result, error) in
             if error != nil {
                 // Handle error
@@ -81,4 +90,9 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     @IBAction func forgotPasswordPressed(_ sender: Any) {
         
     }
+    
+    @IBAction func signUpPressed(_ sender: Any) {
+    }
+    
+    
 }
