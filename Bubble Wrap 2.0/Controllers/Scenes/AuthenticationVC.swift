@@ -32,7 +32,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var dividerView3: UIView!
     // Stack Views
     @IBOutlet weak var textFieldsStackView: UIStackView!
-    @IBOutlet weak var forgotPasswordStackView: UIStackView!
+    @IBOutlet weak var confirmPasswordStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,10 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             }
         }
         
+        self.setupStyles()
+    }
+    
+    func setupStyles() {
         logoImageView.image = logoImageView.image!.withRenderingMode(.alwaysTemplate)
         emailImageView.image = emailImageView.image!.withRenderingMode(.alwaysTemplate)
         passwordImageView.image = passwordImageView.image!.withRenderingMode(.alwaysTemplate)
@@ -64,26 +68,94 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else {
-            passwordTextField.resignFirstResponder()
-            self.attemptSignIn()
+            if confirmPasswordStackView.isHidden {
+                passwordTextField.resignFirstResponder()
+                self.attemptSignIn()
+            } else {
+                if textField == passwordTextField {
+                    confirmPasswordTextField.becomeFirstResponder()
+                } else {
+                    confirmPasswordTextField.resignFirstResponder()
+                    self.attemptSignIn()
+                }
+            }
         }
         return true
     }
     
     // Perform authentication using Firebase
     func attemptSignIn() {
-        let email = emailTextField.text!
-        Auth.auth().signIn(withEmail: email, password: "password") { (result, error) in
-            if error != nil {
-                // Handle error
+        guard let email = emailTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        
+        // Check if email contains a valid .edu domain
+        var validDomain = false
+        for (domain, _) in existingBubbleCommunities {
+            if email.contains(domain) {
+                validDomain = true
+            }
+        }
+        if !validDomain {
+            let alert = UIAlertController(title: "Sorry!", message: "You need a valid .edu email address to use Bubble Wrap.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .default) {
+                UIAlertAction in
+                self.emailTextField.text = ""  // Clear the confirmPassword field
+            }
+            alert.addAction(action)
+            return
+        }
+        
+        if confirmPasswordStackView.isHidden {
+            // Sign in existing user
+            Auth.auth().signIn(withEmail: email, password: "password") { (result, error) in
+                if error != nil {
+                    // Handle error
+                } else {
+                    self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+                }
+            }
+        } else {
+            // Verify passwords match and create a new user
+            guard let confirmPassword = confirmPasswordTextField.text else { return }
+            if password == confirmPassword {
+                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    if error != nil {
+                        // Handle error
+                    } else {
+                        let email = email
+                        self.createUser(email: email)
+                        self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+                    }
+                }
             } else {
-                self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+                // Passwords to not match, so alert user to try again
+                let alert = UIAlertController(title: "Try that again", message: "Your passwords do not match.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Okay", style: .default) {
+                    UIAlertAction in
+                    self.confirmPasswordTextField.text = ""  // Clear the confirmPassword field
+                }
+                alert.addAction(action)
+                
+                self.present(alert, animated: true)
             }
         }
     }
     
+    // Create User object and send its data to Firebase
+    func createUser(email: String) {
+        var bubble = ""
+        for (domain, university) in existingBubbleCommunities {
+            if email.contains(domain) {
+                bubble = university
+            }
+        }
+        let user = User(firstName: "", lastName: "", profileImageURL: "", bubbleCommunity: bubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
+        Firestore.firestore().collection("users").addDocument(data: user.dictionary())
+    }
+    
     // Actions
     @IBAction func signInPressed(_ sender: Any) {
+        print("sign in pressed")
         attemptSignIn()
     }
     
@@ -92,6 +164,14 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signUpPressed(_ sender: Any) {
+        if confirmPasswordStackView.isHidden {
+            confirmPasswordStackView.isHidden.toggle()
+            signUpBtn.setTitle("Already have an account? Sign in", for: .normal)
+            signInButton.setTitle("Sign up", for: .normal)
+        } else {
+            signUpBtn.setTitle("Don't have an account? Sign up", for: .normal)
+            signInButton.setTitle("Sign in", for: .normal)
+        }
     }
     
     
