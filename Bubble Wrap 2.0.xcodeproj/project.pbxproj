@@ -14,6 +14,7 @@
 		BF4969F920DB0EE6003F69D7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969F820DB0EE6003F69D7 /* Review.swift */; };
 		BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969FA20DB135D003F69D7 /* ReviewCell.swift */; };
 		BF53713120E35E0F00C3CAC5 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53713020E35E0F00C3CAC5 /* Offer.swift */; };
+		BF5E5CA020EE69B70026EE26 /* NewUserInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E5C9F20EE69B70026EE26 /* NewUserInformationVC.swift */; };
 		BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7937F620D4782200F01B45 /* ImageUploadManager.swift */; };
 		BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */; };
 		BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */; };
@@ -47,6 +48,7 @@
 		BF4969F820DB0EE6003F69D7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		BF4969FA20DB135D003F69D7 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		BF53713020E35E0F00C3CAC5 /* Offer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
+		BF5E5C9F20EE69B70026EE26 /* NewUserInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserInformationVC.swift; sourceTree = "<group>"; };
 		BF7937F620D4782200F01B45 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
 		BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOffersCell.swift; sourceTree = "<group>"; };
 		BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOffersCell.swift; sourceTree = "<group>"; };
@@ -90,9 +92,8 @@
 		BF4A262320DB039600C1975B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BF27037420D2506C00F89FFD /* AuthenticationVC.swift */,
-				BFEB611120BAA704007DC098 /* SearchVC.swift */,
-				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
+				BF5E5CA220EE69E90026EE26 /* Item Browsing */,
+				BF5E5CA120EE69BE0026EE26 /* Authentication */,
 				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
 				BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */,
 				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
@@ -101,12 +102,22 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		BF7937F520D4780600F01B45 /* Upload */ = {
+		BF5E5CA120EE69BE0026EE26 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				BF7937F620D4782200F01B45 /* ImageUploadManager.swift */,
+				BF27037420D2506C00F89FFD /* AuthenticationVC.swift */,
+				BF5E5C9F20EE69B70026EE26 /* NewUserInformationVC.swift */,
 			);
-			path = Upload;
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		BF5E5CA220EE69E90026EE26 /* Item Browsing */ = {
+			isa = PBXGroup;
+			children = (
+				BFEB611120BAA704007DC098 /* SearchVC.swift */,
+				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
+			);
+			path = "Item Browsing";
 			sourceTree = "<group>";
 		};
 		BFDF14F420BAB10400CD4BBB /* Models */ = {
@@ -134,8 +145,8 @@
 		BFDF14F620BAB10800CD4BBB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BF7937F620D4782200F01B45 /* ImageUploadManager.swift */,
 				BF4A262320DB039600C1975B /* Scenes */,
-				BF7937F520D4780600F01B45 /* Upload */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -371,6 +382,7 @@
 				BF53713120E35E0F00C3CAC5 /* Offer.swift in Sources */,
 				BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */,
 				BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */,
+				BF5E5CA020EE69B70026EE26 /* NewUserInformationVC.swift in Sources */,
 				BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */,
 				BFF78A7420D4491300819CA8 /* Item.swift in Sources */,
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
