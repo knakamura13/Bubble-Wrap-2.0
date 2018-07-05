@@ -39,6 +39,12 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            // Handle error with sign out
+        }
+        
         if Auth.auth().currentUser != nil {
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
@@ -111,6 +117,11 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                 if error != nil {
                     // Handle error
                 } else {
+                    Auth.auth().currentUser?.sendEmailVerification { (error) in
+                        if error != nil {
+                            // Handle error
+                        }
+                    }
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
                 }
             }
@@ -124,6 +135,11 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     } else {
                         let email = email
                         self.createUser(email: email)
+                        Auth.auth().currentUser?.sendEmailVerification { (error) in
+                            if error != nil {
+                                // Handle error
+                            }
+                        }
                         self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
                     }
                 }
