@@ -36,6 +36,11 @@ struct Review {
     }
     
     func dictionary() -> [String: Any] {
-        return ["title": title, "reviewer": reviewer, "item": item, "bodyText": bodyText]
+        return [
+            "title": title,
+            "reviewer": reviewer,
+            "item": item,
+            "bodyText": bodyText
+        ]
     }
 }

@@ -12,7 +12,6 @@ import FirebaseMessaging
 
 class MessengerVC: UIViewController {
     
-    //
     /*  TODO:
      *   - Set self.title to user name of recipient.
      *   - Create a function that adds a single chat bubble given a String and time stamp.

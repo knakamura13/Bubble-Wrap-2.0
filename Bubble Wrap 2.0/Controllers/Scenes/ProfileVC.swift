@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+var globalProfilePicture: UIImage!
+
 class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // Constants
@@ -43,8 +45,81 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         userNameField.delegate = self
         userEmailField.delegate = self
         
+        self.getUserInformation()
         self.customizeView()
-        
+        self.displayReviews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        scheduledTimerWithTimeInterval()
+    }
+    
+    weak var timer: Timer?
+    func scheduledTimerWithTimeInterval() {
+        timer?.invalidate()
+        if globalProfilePicture == nil {
+            timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.checkAgain), userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc func checkAgain() {
+        if globalProfilePicture != nil {
+            if let uid = Auth.auth().currentUser?.uid  {
+                let userDocument = Firestore.firestore().collection("users").document(uid)
+                userDocument.getDocument { (document, error) in
+                    if let document = document {
+                        if let user = User(dictionary: document.data()!, itemID: document.documentID) {
+                            self.userNameField.text = user.firstName + " " + currentUser.lastName
+                            self.userEmailField.text = Auth.auth().currentUser?.email
+                            self.userBubbleField.text = user.bubbleCommunity
+                            self.ratingLbl.text = String(user.rating)
+                            self.itemsSoldLbl.text = String(user.itemsSold)
+                            self.followersLbl.text = String(user.followers)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // Load current user's profile information from Firebase
+    func getUserInformation() {
+        if let uid = Auth.auth().currentUser?.uid  {
+            let userDocument = Firestore.firestore().collection("users").document(uid)
+            userDocument.getDocument { (document, error) in
+                if let document = document {
+                    if let user = User(dictionary: document.data()!, itemID: document.documentID) {
+                        self.userNameField.text = user.firstName + " " + currentUser.lastName
+                        self.userEmailField.text = Auth.auth().currentUser?.email
+                        self.userBubbleField.text = user.bubbleCommunity
+                        self.ratingLbl.text = String(user.rating)
+                        self.itemsSoldLbl.text = String(user.itemsSold)
+                        self.followersLbl.text = String(user.followers)
+                        
+                        if let imgURL = URL(string: currentUser.profileImageURL) {
+                            let data = try? Data(contentsOf: imgURL)
+                            if let imageData = data {
+                                let image = UIImage(data: imageData)
+                                globalProfilePicture = image!
+                                self.userProfileImg.image = image
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // Customize visuals
+    func customizeView() {
+        signOutBtn.tintColor = Constants.Colors.TextColors.secondaryBlack
+        scrollView.contentSize.height = 800
+        navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
+        profileImgView.layer.cornerRadius = CGFloat(self.profileImgView.frame.width/2)
+        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
+    }
+    
+    func displayReviews() {
         // Add a data listener to the "items" collection
         datasource.generalQuery(collection: "reviews", orderBy: "title", limit: nil)
             .addSnapshotListener { querySnapshot, error in
@@ -57,27 +132,6 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     }
                 }
         }
-        
-        // Display user's image and information
-        if let imageData = try? Data(contentsOf: URL(string: currentUser.profileImageURL!)!) {
-            let image = UIImage(data: imageData)
-            userProfileImg.image = image
-        }
-        userNameField.text = currentUser.firstName + " " + currentUser.lastName
-        userEmailField.text = Auth.auth().currentUser?.email
-        userBubbleField.text = currentUser.bubbleCommunity
-        ratingLbl.text = String(currentUser.rating)
-        itemsSoldLbl.text = String(currentUser.itemsSold)
-        followersLbl.text = String(currentUser.followers)
-    }
-    
-    // Customize visuals
-    func customizeView() {
-        signOutBtn.tintColor = Constants.Colors.TextColors.secondaryBlack
-        scrollView.contentSize.height = 800
-        navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
-        profileImgView.layer.cornerRadius = CGFloat(self.profileImgView.frame.width/2)
-        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
     }
     
     // MARK: Textfields and Keyboard

@@ -77,8 +77,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBAction func createItemPressed(_ sender: Any) {
         if !createItemWasPressed {
-            // If button has not been pressed yet
-            
             // Ensure all information is filled out and not nil
             if let image = mainImg.image,
                 let price = Int(priceTextField.text!),
