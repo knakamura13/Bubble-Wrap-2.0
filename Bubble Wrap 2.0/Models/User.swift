@@ -28,14 +28,15 @@ struct User {
             let bubbleCommunity = dictionary["bubbleCommunity"] as? String,
             let rating = dictionary["rating"] as? Double,
             let itemsSold = dictionary["itemsSold"] as? Int,
-            let followers = dictionary["followers"] as? Int,
-            let offersCreated = dictionary["offersCreated"] as? [DocumentReference],
-            let offersReceived = dictionary["offersReceived"] as? [DocumentReference]
+            let followers = dictionary["followers"] as? Int
             else {
                 return nil
         }
         
-        self.init(firstName: firstName, lastName: lastName, profileImageURL: profileImageURL, bubbleCommunity: bubbleCommunity, rating: rating, itemsSold: itemsSold, followers: followers, offersCreated: offersCreated, offersReceived: offersReceived)
+        let created = dictionary["offersCreated"] as? [DocumentReference] ?? []
+        let received = dictionary["offersReceived"] as? [DocumentReference] ?? []
+        
+        self.init(firstName: firstName, lastName: lastName, profileImageURL: profileImageURL, bubbleCommunity: bubbleCommunity, rating: rating, itemsSold: itemsSold, followers: followers, offersCreated: created, offersReceived: received)
     }
     
     init(firstName: String?, lastName: String?, profileImageURL: String?, bubbleCommunity: String?, rating: Double?, itemsSold: Int?, followers: Int?, offersCreated: [DocumentReference]?, offersReceived: [DocumentReference]?) {
@@ -51,6 +52,16 @@ struct User {
     }
     
     func dictionary() -> [String: Any] {
-        return ["firstName": firstName, "lastName": lastName, "profileImageURL": profileImageURL, "bubbleCommunity": bubbleCommunity, "rating": rating, "itemsSold": itemsSold, "followers": followers, "offersCreated": offersCreated, "offersReceived": offersReceived]
+        return [
+            "firstName": firstName,
+            "lastName": lastName,
+            "profileImageURL": profileImageURL,
+            "bubbleCommunity": bubbleCommunity,
+            "rating": rating,
+            "itemsSold": itemsSold,
+            "followers": followers,
+            "offersCreated": offersCreated,
+            "offersReceived": offersReceived
+        ]
     }
 }

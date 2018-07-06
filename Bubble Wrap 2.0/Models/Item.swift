@@ -33,6 +33,10 @@ struct Item {
     }
     
     func dictionary() -> [String: Any] {
-        return ["title": title, "price": price, "imageURL": imageURL]
+        return [
+            "title": title,
+            "price": price,
+            "imageURL": imageURL
+        ]
     }
 }

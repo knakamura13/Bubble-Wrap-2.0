@@ -39,12 +39,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            // Handle error with sign out
-        }
-        
         if Auth.auth().currentUser != nil {
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
@@ -117,11 +111,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                 if error != nil {
                     // Handle error
                 } else {
-                    Auth.auth().currentUser?.sendEmailVerification { (error) in
-                        if error != nil {
-                            // Handle error
-                        }
-                    }
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
                 }
             }
@@ -135,12 +124,8 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     } else {
                         let email = email
                         self.createUser(email: email)
-                        Auth.auth().currentUser?.sendEmailVerification { (error) in
-                            if error != nil {
-                                // Handle error
-                            }
-                        }
-                        self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+                        self.sendEmailVerification()
+                        self.performSegue(withIdentifier: "segueToNewUserInformation", sender: nil)
                     }
                 }
             } else {
@@ -157,6 +142,14 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func sendEmailVerification() {
+        Auth.auth().currentUser?.sendEmailVerification { (error) in
+            if error != nil {
+                // Handle error
+            }
+        }
+    }
+    
     // Create User object and send its data to Firebase
     func createUser(email: String) {
         var bubble = ""
@@ -166,12 +159,14 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             }
         }
         let user = User(firstName: "", lastName: "", profileImageURL: "", bubbleCommunity: bubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
-        Firestore.firestore().collection("users").addDocument(data: user.dictionary())
+        let data = user.dictionary()
+        if let uid = Auth.auth().currentUser?.uid {
+            Firestore.firestore().collection("users").document(uid).setData(data)
+        }
     }
     
     // Actions
     @IBAction func signInPressed(_ sender: Any) {
-        print("sign in pressed")
         attemptSignIn()
     }
     

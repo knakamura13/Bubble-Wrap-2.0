@@ -36,6 +36,11 @@ struct Offer {
     }
     
     func dictionary() -> [String: Any] {
-        return ["price": price, "item": item, "creator": creator, "recipient": recipient]
+        return [
+            "price": price,
+            "item": item,
+            "creator": creator,
+            "recipient": recipient
+        ]
     }
 }

@@ -92,8 +92,8 @@
 		BF4A262320DB039600C1975B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BF5E5CA220EE69E90026EE26 /* Item Browsing */,
 				BF5E5CA120EE69BE0026EE26 /* Authentication */,
+				BF5E5CA220EE69E90026EE26 /* Item Browsing */,
 				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
 				BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */,
 				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
