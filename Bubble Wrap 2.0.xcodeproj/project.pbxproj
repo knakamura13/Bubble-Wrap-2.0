@@ -277,7 +277,7 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Wallet = {
 								enabled = 0;
@@ -549,6 +549,7 @@
 			baseConfigurationReference = 31DF963B143FEA252A866169 /* Pods-Bubble Wrap 2.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Bubble Wrap 2.0/Supporting Files/Bubble Wrap 2.0.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Supporting Files/Info.plist";
@@ -569,6 +570,7 @@
 			baseConfigurationReference = 77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Bubble Wrap 2.0/Supporting Files/Bubble Wrap 2.0.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Supporting Files/Info.plist";
