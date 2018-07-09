@@ -37,21 +37,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         return true
     }
     
-    func connectToFCM(bool: Bool) {
-        Messaging.messaging().shouldEstablishDirectChannel = bool
+    func setupFCMConnection(shouldEstablishConnection: Bool) {
+        Messaging.messaging().shouldEstablishDirectChannel = shouldEstablishConnection
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
-        connectToFCM(bool: true)
+        setupFCMConnection(shouldEstablishConnection: true)
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
-        connectToFCM(bool: false)
+        setupFCMConnection(shouldEstablishConnection: false)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -68,9 +68,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     }
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        let newToken = InstanceID.instanceID().token()
-        connectToFCM(bool: true)
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("KYLE: Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("KYLE: Remote instance ID token: \(result.token)")
+                let newToken: String = result.token
+                self.setupFCMConnection(shouldEstablishConnection: true)
+            }
+        }
     }
-
 }
-
