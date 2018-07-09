@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (isGranted, error) in
             if error != nil {
@@ -27,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
                 UNUserNotificationCenter.current().delegate = self
                 Messaging.messaging().delegate = self
                 DispatchQueue.main.async(execute: {
-                    UIApplication.shared.registerForRemoteNotifications()
+                    UIApplication.shared.registerForRemoteNotifications()   // Enables notifications while app is inactive
                 })
             }
         }
@@ -42,16 +41,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
         setupFCMConnection(shouldEstablishConnection: true)
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
         setupFCMConnection(shouldEstablishConnection: false)
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("KYLE: Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                let newToken: String = result.token
+                print("KYLE: Remote instance ID token: \(newToken)")
+                self.setupFCMConnection(shouldEstablishConnection: true)
+            }
+        }
+    }
+    
+    // Enable notifications while app is active
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(.alert)   // Send an alert as soon as notification is detected (while active)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -65,17 +76,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        InstanceID.instanceID().instanceID { (result, error) in
-            if let error = error {
-                print("KYLE: Error fetching remote instange ID: \(error)")
-            } else if let result = result {
-                print("KYLE: Remote instance ID token: \(result.token)")
-                let newToken: String = result.token
-                self.setupFCMConnection(shouldEstablishConnection: true)
-            }
-        }
     }
 }
