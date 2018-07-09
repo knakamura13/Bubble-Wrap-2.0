@@ -81,6 +81,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        UIApplication.shared.applicationIconBadgeNumber = 0 // Reset the badge number on app launch
+        
         // Deselect all cells; possibly redundant code
         for selectedCell in (collectionView?.indexPathsForSelectedItems)! {
             collectionView?.deselectItem(at: selectedCell, animated: false)
