@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14295.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14270.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -771,6 +771,9 @@
                                 <state key="normal" title="Make an Offer">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="uCN-uL-1bS" kind="show" id="jb9-qh-nWH"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGb-lA-ys2">
                                 <rect key="frame" x="16" y="455" width="85.5" height="20"/>
@@ -815,6 +818,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7X-hj-KLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="121" y="-1478"/>
+        </scene>
+        <!--Place OfferVC-->
+        <scene sceneID="diU-vn-3nd">
+            <objects>
+                <viewController id="uCN-uL-1bS" customClass="PlaceOfferVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AJb-hl-W8X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CrF-u0-lFF">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BrO-5b-pqW">
+                                <rect key="frame" x="100" y="465" width="174" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkt-Ls-ibO">
+                                <rect key="frame" x="166" y="229" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4lQ-Jh-BP6">
+                                <rect key="frame" x="114" y="140" width="147" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CrF-u0-lFF" firstAttribute="bottom" secondItem="2sF-Wr-Qzk" secondAttribute="bottom" id="DzH-DS-ZBV"/>
+                            <constraint firstItem="CrF-u0-lFF" firstAttribute="leading" secondItem="2sF-Wr-Qzk" secondAttribute="leading" id="cg8-5i-8cj"/>
+                            <constraint firstItem="CrF-u0-lFF" firstAttribute="top" secondItem="2sF-Wr-Qzk" secondAttribute="top" id="je8-w0-zaf"/>
+                            <constraint firstItem="CrF-u0-lFF" firstAttribute="trailing" secondItem="2sF-Wr-Qzk" secondAttribute="trailing" id="rfA-Ek-BlA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2sF-Wr-Qzk"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnPlaceOffer" destination="BrO-5b-pqW" id="xi9-A5-yKa"/>
+                        <outlet property="itemImageBackground" destination="CrF-u0-lFF" id="rq8-wQ-AQy"/>
+                        <outlet property="lblDirections" destination="bkt-Ls-ibO" id="57N-CI-jC3"/>
+                        <outlet property="txtfldUserOffer" destination="4lQ-Jh-BP6" id="Lzg-N4-uLJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="za1-t1-03X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="884" y="-1478.4107946026988"/>
         </scene>
         <!--Authentication-->
         <scene sceneID="k3F-w9-HNk">
@@ -1334,14 +1388,14 @@ password is "password"</string>
         </scene>
     </scenes>
     <resources>
-        <image name="icon-Bubble-Wrap" width="1113.230712890625" height="1113.230712890625"/>
+        <image name="icon-Bubble-Wrap" width="100" height="100"/>
         <image name="icon-camera" width="25" height="25"/>
         <image name="icon-chat" width="25" height="25"/>
-        <image name="icon-email" width="25.5" height="25"/>
+        <image name="icon-email" width="25" height="25"/>
         <image name="icon-offers" width="25" height="25"/>
-        <image name="icon-password" width="25.5" height="25"/>
+        <image name="icon-password" width="25" height="25"/>
         <image name="icon-profile" width="25" height="25"/>
-        <image name="icon-profile-placeholder" width="100.08000183105469" height="104.63999938964844"/>
+        <image name="icon-profile-placeholder" width="417" height="436"/>
         <image name="icon-search" width="25" height="25"/>
         <image name="picsum-1" width="500" height="500"/>
     </resources>
