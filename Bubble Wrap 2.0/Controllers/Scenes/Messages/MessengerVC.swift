@@ -41,6 +41,19 @@ class MessengerVC: UIViewController {
         scrollToBottom()
     }
     
+    func fetchAllMessages() {
+//        // Extract all the attributes from each message object
+//        for message in (conversation?.messages)! {
+//            guard let contents = message.value(forKey: "contents") as? String,
+//                let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool,
+//                let timeSent = message.value(forKey: "timeSent") as? Timestamp else {
+//                    return
+//            }
+//
+//            let newMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
+//        }
+    }
+    
     // Layout a series of test messages
     func displayTestMessages() {
         for _ in 1 ... numBubbles {

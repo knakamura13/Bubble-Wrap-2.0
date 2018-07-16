@@ -40,17 +40,6 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
                         self.allConversations.append(conversation!)
                         self.searchConversations.append(conversation!)
                         self.tableView.reloadData()
-                        
-//                        // Extract all the attributes from each message object
-//                        for message in (conversation?.messages)! {
-//                            guard let contents = message.value(forKey: "contents") as? String,
-//                                let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool,
-//                                let timeSent = message.value(forKey: "timeSent") as? Timestamp else {
-//                                    return
-//                            }
-//
-//                            let newMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
-//                        }
                     }
                 }
             }
@@ -75,18 +64,29 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
             recipientRef.getDocument { (document, error) in
                 if let document = document {
                     cell.cellNameLbl.text = document.data()!["firstName"] as? String
-//                    cell.cellImageView.image = self.searchThumbnails[indexPath.item]
-                    cell.cellImageView.image = demoPicsumImages.randomElement()
-                    cell.cellMessageContentsLbl.text = self.searchConversations[indexPath.item].messages[0].value(forKey: "contents") as? String
-                    let date = self.searchConversations[indexPath.item].messages[0].value(forKey: "timeSent") as? Date
-                    let calendar = Calendar.current
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "EEEE"
-                    let dayInWeek = formatter.string(from: date!)
-                    cell.cellMessageTimeLbl.text = "\(dayInWeek)"
                 }
             }
         }
+        
+        //cell.cellImageView.image = self.searchThumbnails[indexPath.item]
+        cell.cellImageView.image = demoPicsumImages.randomElement()
+        cell.cellMessageContentsLbl.text = self.searchConversations[indexPath.item].messages[0].value(forKey: "contents") as? String
+        let date = self.searchConversations[indexPath.item].messages[0].value(forKey: "timeSent") as? Date
+        let weekDayFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
+        weekDayFormatter.dateFormat = "EEEE"    // Format Date() object as weekday name, i.e. "Monday"
+        timeFormatter.dateFormat = "h:mm a"     // Format Date() object as time with period, i.e. "8:15 PM"
+        timeFormatter.amSymbol = "AM"
+        timeFormatter.pmSymbol = "PM"
+        
+        var timeLbl = ""
+        let dayInWeek = weekDayFormatter.string(from: date!)
+        if dayInWeek == weekDayFormatter.string(from: Date()) {
+            timeLbl = timeFormatter.string(from: date!)
+        } else {
+            timeLbl = dayInWeek
+        }
+        cell.cellMessageTimeLbl.text = "\(timeLbl)"
         
         return cell
     }
@@ -98,10 +98,13 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         searchConversations = []
         
         for conversation in allConversations {
-            for message in conversation.messages {
-                if let contents = message.value(forKey: "contents") as? String {
-                    if contents.lowercased().contains(searchText.lowercased()) {
-                        searchConversations.append(conversation)
+            if let recipientRef = conversation.recipient {
+                recipientRef.getDocument { (document, error) in
+                    if let document = document {
+                        let name = document.data()!["firstName"] as? String
+                        if (name?.lowercased().contains(searchText.lowercased()))! {
+                            self.searchConversations.append(conversation)
+                        }
                     }
                 }
             }
