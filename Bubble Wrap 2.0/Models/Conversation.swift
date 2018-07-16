@@ -12,6 +12,7 @@ import Firebase
 struct Conversation {
     var recipient: DocumentReference!
     var messages: [NSObject]!
+    var itemID: String!
     
     init?(dictionary: [String: Any]?, itemID: String){
         guard let dictionary = dictionary,
@@ -21,12 +22,13 @@ struct Conversation {
                 return nil
         }
         
-        self.init(recipient: recipient, messages: messages)
+        self.init(recipient: recipient, messages: messages, itemID: itemID)
     }
     
-    init(recipient: DocumentReference!, messages: [NSObject]) {
+    init(recipient: DocumentReference!, messages: [NSObject], itemID: String) {
         self.recipient = recipient
         self.messages = messages
+        self.itemID = itemID
     }
     
     func dictionary() -> [String: Any] {
