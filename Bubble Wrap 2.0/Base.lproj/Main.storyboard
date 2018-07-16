@@ -1354,7 +1354,8 @@ password is "password"</string>
                                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IBz-la-dZo">
                                                     <rect key="frame" x="20" y="11" width="52" height="52"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="IBz-la-dZo" secondAttribute="height" multiplier="1:1" id="Bdi-2m-xzp"/>
+                                                        <constraint firstAttribute="width" constant="52" id="3dD-lh-h5j"/>
+                                                        <constraint firstAttribute="height" constant="52" id="ErZ-AY-khJ"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="DXB-Ay-7AV">
@@ -1441,6 +1442,8 @@ password is "password"</string>
                     </view>
                     <navigationItem key="navigationItem" title="Messages" id="RbE-5y-PsM"/>
                     <connections>
+                        <outlet property="searchBar" destination="lYr-aI-ZZF" id="4nv-Rg-Gm1"/>
+                        <outlet property="tableView" destination="sPS-E9-Fh6" id="oht-lx-dpM"/>
                         <segue destination="uci-9T-fgR" kind="show" id="Bx0-Wk-gYG"/>
                     </connections>
                 </viewController>
@@ -1462,6 +1465,6 @@ password is "password"</string>
         <image name="picsum-1" width="500" height="500"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nf6-1A-au1"/>
+        <segue reference="GDm-b4-eCz"/>
     </inferredMetricsTieBreakers>
 </document>
