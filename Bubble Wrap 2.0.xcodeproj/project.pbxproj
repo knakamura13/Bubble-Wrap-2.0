@@ -99,7 +99,6 @@
 				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
 				BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */,
 				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
-				6684673420F2E1D8000A689B /* PlaceOfferVC.swift */,
 				BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */,
 			);
 			path = Scenes;
@@ -119,6 +118,7 @@
 			children = (
 				BFEB611120BAA704007DC098 /* SearchVC.swift */,
 				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
+				6684673420F2E1D8000A689B /* PlaceOfferVC.swift */,
 			);
 			path = "Item Browsing";
 			sourceTree = "<group>";
