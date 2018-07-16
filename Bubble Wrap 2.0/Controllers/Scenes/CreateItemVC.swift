@@ -107,7 +107,15 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         }, completionBlock: { (fileURL, errorMessage) in
             if let fileURL = fileURL {
                 let item = Item(title: title, price: NSNumber(value: price), imageURL: fileURL.absoluteString, owner: owner, itemID: "")
-                self.collection.addDocument(data: item.dictionary())
+                var ref: DocumentReference? = nil
+                ref = self.collection.addDocument(data: item.dictionary()) { err in
+                    if let err = err {
+                        print("Error adding document: \(err)")
+                    } else {
+                        print("Document added with ID: \(ref!.documentID)")
+                        ref!.updateData(["itemRef": ref])
+                    }
+                }
             }
         })
     }
