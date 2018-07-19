@@ -88,20 +88,22 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
             let userDocument = Firestore.firestore().collection("users").document(uid)
             userDocument.getDocument { (document, error) in
                 if let document = document {
-                    if let user = User(dictionary: document.data()!, itemID: document.documentID) {
-                        self.userNameField.text = user.firstName + " " + currentUser.lastName
-                        self.userEmailField.text = Auth.auth().currentUser?.email
-                        self.userBubbleField.text = user.bubbleCommunity
-                        self.ratingLbl.text = String(user.rating)
-                        self.itemsSoldLbl.text = String(user.itemsSold)
-                        self.followersLbl.text = String(user.followers)
-                        
-                        if let imgURL = URL(string: currentUser.profileImageURL) {
-                            let data = try? Data(contentsOf: imgURL)
-                            if let imageData = data {
-                                let image = UIImage(data: imageData)
-                                globalProfilePicture = image!
-                                self.userProfileImg.image = image
+                    if document.data() != nil {
+                        if let user = User(dictionary: document.data()!, itemID: document.documentID) {
+                            self.userNameField.text = user.firstName + " " + currentUser.lastName
+                            self.userEmailField.text = Auth.auth().currentUser?.email
+                            self.userBubbleField.text = user.bubbleCommunity
+                            self.ratingLbl.text = String(user.rating)
+                            self.itemsSoldLbl.text = String(user.itemsSold)
+                            self.followersLbl.text = String(user.followers)
+                            
+                            if let imgURL = URL(string: currentUser.profileImageURL) {
+                                let data = try? Data(contentsOf: imgURL)
+                                if let imageData = data {
+                                    let image = UIImage(data: imageData)
+                                    globalProfilePicture = image!
+                                    self.userProfileImg.image = image
+                                }
                             }
                         }
                     }
