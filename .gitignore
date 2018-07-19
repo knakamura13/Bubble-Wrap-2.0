@@ -10,4 +10,6 @@ Thumbs.db
 
 # Local Configuration Files #
 ######################
-xcuserdatad/
+xcuserdata/
+.plist
+.xcuserstate
