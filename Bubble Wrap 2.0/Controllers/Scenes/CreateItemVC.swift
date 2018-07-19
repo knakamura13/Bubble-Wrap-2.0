@@ -81,12 +81,16 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             if let image = mainImg.image,
                 let price = Int(priceTextField.text!),
                 let title = titleTextField.text,
-                let description = descriptionTextView.text {
-                    self.createItem(image: image, price: price, title: title, description: description)
+                let description = descriptionTextView.text,
+                let userID = Auth.auth().currentUser?.uid{
+                    let owner = Firestore.firestore().collection("users").document(userID)
+                    self.createItem(image: image, price: price, title: title, description: description, owner: owner)
+                    self.createItemWasPressed = true
             } else {
-                let alert = UIAlertController(title: "You missed something.", message: "Please add an image, title, price, and description.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-                self.present(alert, animated: true)
+                    let alert = UIAlertController(title: "You missed something.", message: "Please add an image, title, price, and description.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                    self.createItemWasPressed = false
             }
             
             // Navigate back to SearchVC
@@ -94,15 +98,15 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             self.present(vc!, animated: false, completion: nil)
         }
         
-        createItemWasPressed = true
+        
     }
     
     // Create Item object and send its data to Firebase
-    func createItem(image: UIImage, price: Int, title: String, description: String) {
+    func createItem(image: UIImage, price: Int, title: String, description: String, owner: DocumentReference) {
         imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
         }, completionBlock: { (fileURL, errorMessage) in
             if let fileURL = fileURL {
-                let item = Item(title: title, price: NSNumber(value: price), imageURL: fileURL.absoluteString)
+                let item = Item(title: title, price: NSNumber(value: price), imageURL: fileURL.absoluteString, owner: owner, itemID: "")
                 self.collection.addDocument(data: item.dictionary())
             }
         })

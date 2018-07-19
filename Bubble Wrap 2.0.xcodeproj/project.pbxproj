@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6684673520F2E1D8000A689B /* PlaceOfferVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6684673420F2E1D8000A689B /* PlaceOfferVC.swift */; };
 		80D63B8B9EF5FC97762016EB /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */; };
 		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
 		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		31DF963B143FEA252A866169 /* Pods-Bubble Wrap 2.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.debug.xcconfig"; sourceTree = "<group>"; };
+		6684673420F2E1D8000A689B /* PlaceOfferVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOfferVC.swift; sourceTree = "<group>"; };
 		6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				BFEB611120BAA704007DC098 /* SearchVC.swift */,
 				BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */,
+				6684673420F2E1D8000A689B /* PlaceOfferVC.swift */,
 			);
 			path = "Item Browsing";
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				BFF78A7220D4488800819CA8 /* Extensions.swift in Sources */,
 				BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */,
 				BF4969F920DB0EE6003F69D7 /* Review.swift in Sources */,
+				6684673520F2E1D8000A689B /* PlaceOfferVC.swift in Sources */,
 				BFF78A7020D4487D00819CA8 /* Datasource.swift in Sources */,
 				BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */,
 				BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */,

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14295.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14270.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -771,6 +771,9 @@
                                 <state key="normal" title="Make an Offer">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="uCN-uL-1bS" kind="show" id="jb9-qh-nWH"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGb-lA-ys2">
                                 <rect key="frame" x="16" y="455" width="85.5" height="20"/>
@@ -815,6 +818,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7X-hj-KLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="121" y="-1478"/>
+        </scene>
+        <!--Place OfferVC-->
+        <scene sceneID="diU-vn-3nd">
+            <objects>
+                <viewController id="uCN-uL-1bS" customClass="PlaceOfferVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AJb-hl-W8X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jLC-m4-Xz1">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZz-WW-zvn">
+                                <rect key="frame" x="166.5" y="237" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ShS-sI-u8f">
+                                <rect key="frame" x="110" y="127" width="155" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPp-5a-rMx">
+                                <rect key="frame" x="73" y="538" width="229" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="qya-Qh-VUP"/>
+                                </constraints>
+                                <state key="normal" title="Place Offer"/>
+                                <connections>
+                                    <action selector="placeOfferPressed:" destination="uCN-uL-1bS" eventType="touchUpInside" id="ERM-c8-imE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FZz-WW-zvn" firstAttribute="top" secondItem="ShS-sI-u8f" secondAttribute="bottom" constant="80" id="8RO-FF-6HU"/>
+                            <constraint firstItem="jLC-m4-Xz1" firstAttribute="top" secondItem="2sF-Wr-Qzk" secondAttribute="top" id="9TQ-an-9O4"/>
+                            <constraint firstItem="2sF-Wr-Qzk" firstAttribute="trailing" secondItem="gPp-5a-rMx" secondAttribute="trailing" constant="73" id="Avo-Zz-bgR"/>
+                            <constraint firstItem="jLC-m4-Xz1" firstAttribute="bottom" secondItem="2sF-Wr-Qzk" secondAttribute="bottom" id="IYa-5Z-GMg"/>
+                            <constraint firstItem="2sF-Wr-Qzk" firstAttribute="bottom" secondItem="gPp-5a-rMx" secondAttribute="bottom" constant="20" id="Kal-uz-pHE"/>
+                            <constraint firstItem="ShS-sI-u8f" firstAttribute="leading" secondItem="2sF-Wr-Qzk" secondAttribute="leading" constant="110" id="Q4B-SS-GHV"/>
+                            <constraint firstItem="jLC-m4-Xz1" firstAttribute="leading" secondItem="2sF-Wr-Qzk" secondAttribute="leading" id="aEm-Ip-517"/>
+                            <constraint firstItem="gPp-5a-rMx" firstAttribute="leading" secondItem="2sF-Wr-Qzk" secondAttribute="leading" constant="73" id="dsG-qg-bAB"/>
+                            <constraint firstItem="FZz-WW-zvn" firstAttribute="centerX" secondItem="AJb-hl-W8X" secondAttribute="centerX" id="gE9-HB-nJy"/>
+                            <constraint firstItem="jLC-m4-Xz1" firstAttribute="trailing" secondItem="2sF-Wr-Qzk" secondAttribute="trailing" id="hlV-pZ-Vrh"/>
+                            <constraint firstItem="ShS-sI-u8f" firstAttribute="top" secondItem="2sF-Wr-Qzk" secondAttribute="top" constant="63" id="kE5-k0-bue"/>
+                            <constraint firstItem="2sF-Wr-Qzk" firstAttribute="trailing" secondItem="ShS-sI-u8f" secondAttribute="trailing" constant="110" id="yDo-kC-9BZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2sF-Wr-Qzk"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnPlaceOffer" destination="gPp-5a-rMx" id="rMU-O8-eHF"/>
+                        <outlet property="itemImageBackground" destination="jLC-m4-Xz1" id="Fgk-xa-qUL"/>
+                        <outlet property="lblDirections" destination="FZz-WW-zvn" id="e1n-wp-9sX"/>
+                        <outlet property="txtfldUserOffer" destination="ShS-sI-u8f" id="6sE-HL-vZx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="za1-t1-03X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="884" y="-1478.4107946026988"/>
         </scene>
         <!--Authentication-->
         <scene sceneID="k3F-w9-HNk">
@@ -1334,14 +1399,14 @@ password is "password"</string>
         </scene>
     </scenes>
     <resources>
-        <image name="icon-Bubble-Wrap" width="1113.230712890625" height="1113.230712890625"/>
+        <image name="icon-Bubble-Wrap" width="100" height="100"/>
         <image name="icon-camera" width="25" height="25"/>
         <image name="icon-chat" width="25" height="25"/>
-        <image name="icon-email" width="25.5" height="25"/>
+        <image name="icon-email" width="25" height="25"/>
         <image name="icon-offers" width="25" height="25"/>
-        <image name="icon-password" width="25.5" height="25"/>
+        <image name="icon-password" width="25" height="25"/>
         <image name="icon-profile" width="25" height="25"/>
-        <image name="icon-profile-placeholder" width="100.08000183105469" height="104.63999938964844"/>
+        <image name="icon-profile-placeholder" width="417" height="436"/>
         <image name="icon-search" width="25" height="25"/>
         <image name="picsum-1" width="500" height="500"/>
     </resources>
