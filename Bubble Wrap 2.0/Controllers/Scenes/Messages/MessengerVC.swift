@@ -29,8 +29,8 @@ class MessengerVC: UIViewController {
     
     var prevChatBubble: UIImageView!
     var conversation: Conversation?
-    var allMessages: [Message]!
-    var searchMessages: [Message]!
+    var allMessages: [Message] = []
+    var searchMessages: [Message] = []
     
     let bubbleHeightMultiplyer = 87     // Does not account for dynamic bubble sizes
     
@@ -38,8 +38,9 @@ class MessengerVC: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
 //        scrollView.contentSize.height = CGFloat(50 * bubbleHeightMultiplyer)
-        scrollView.contentSize.height = 800
+        scrollView.contentSize.height = 1700
         
+        // Get recipient's name for nav bar title
         if let recipientRef = conversation?.recipient {
             recipientRef.getDocument { (document, error) in
                 if let document = document {
@@ -48,30 +49,39 @@ class MessengerVC: UIViewController {
             }
         }
         
-        fetchAllMessages()
-        scrollToBottom()
-        
+        // simulate fetching old messages
         for _ in 1 ... 10 {
-            createChatBubbble(message: "HELLO WORLD")
+            createChatBubbble(message: "HELLO WORLD")   // Single test bubble
         }
+        
+        // simulate fetching new messages
+        fetchAllMessages()
+        
+        scrollToBottom()
         
     }
     
     func fetchAllMessages() {
         // Extract all the attributes from each message object
         for message in (conversation?.messages)! {
-            print("KYLE: \(message)")
-            guard let contents = message.value(forKey: "contents") as? String,
-                let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool,
-                let timeSent = message.value(forKey: "timeSent") as? Timestamp else {
-                    return
+            var tmpMessage: Message = Message(contents: "No contents", senderIsCurrUser: false, timeSent: Date())
+            
+            if let contents = message.value(forKey: "contents") as? String {
+                createChatBubbble(message: contents)
+                
+                if let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool {
+                    if let timeSent = message.value(forKey: "timeSent") as? Date {
+                        tmpMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
+                    } else {
+                        tmpMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: Date())
+                    }
+                } else {
+                    tmpMessage = Message(contents: contents, senderIsCurrUser: false, timeSent: Date())
+                }
             }
             
-            let newMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
-            allMessages.append(newMessage)
-            searchMessages.append(newMessage)
-            
-            createChatBubbble(message: contents)
+            allMessages.append(tmpMessage)
+            searchMessages.append(tmpMessage)
         }
     }
     
@@ -111,12 +121,12 @@ class MessengerVC: UIViewController {
             chatLabel.rightAnchor.constraint(equalTo: newChatBubble.rightAnchor, constant: -15).isActive = true
         }
         
-        if prevChatBubble != nil {
-            // Anchor new bubble to previous chat bubble.top
-            newChatBubble.bottomAnchor.constraint(equalTo: prevChatBubble.topAnchor, constant: -20.0).isActive = true
-        } else {
+        if prevChatBubble == nil {
             // Anchor new bubble to bottom of scrollViewContainer
             newChatBubble.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: CGFloat(10 * bubbleHeightMultiplyer)).isActive = true
+        } else {
+            // Anchor new bubble to previous chat bubble.top
+            prevChatBubble.bottomAnchor.constraint(equalTo: newChatBubble.topAnchor, constant: -20.0).isActive = true
         }
         
         // Constant width and height, slightly randomized
@@ -140,7 +150,7 @@ class MessengerVC: UIViewController {
     // Scroll the scrollView to the bottom on page load
     func scrollToBottom() {
         var offset = scrollView.contentOffset
-        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(-80)
+        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
         scrollView.setContentOffset(offset, animated: true)
     }
 }

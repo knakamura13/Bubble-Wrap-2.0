@@ -12,13 +12,13 @@ import Firebase
 struct Message {
     var contents: String!
     var senderIsCurrUser: Bool!
-    var timeSent: Timestamp!
+    var timeSent: Date!
     
     init?(dictionary: [String: Any]?, itemID: String){
         guard let dictionary = dictionary,
             let contents = dictionary["contents"] as? String,
             let senderIsCurrUser = dictionary["senderIsCurrUser"] as? Bool,
-            let timeSent = dictionary["timeSent"] as? Timestamp
+            let timeSent = dictionary["timeSent"] as? Date
             else {
                 return nil
         }
@@ -26,7 +26,7 @@ struct Message {
         self.init(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
     }
     
-    init(contents: String, senderIsCurrUser: Bool, timeSent: Timestamp) {
+    init(contents: String, senderIsCurrUser: Bool, timeSent: Date) {
         self.contents = contents
         self.senderIsCurrUser = senderIsCurrUser
         self.timeSent = timeSent
