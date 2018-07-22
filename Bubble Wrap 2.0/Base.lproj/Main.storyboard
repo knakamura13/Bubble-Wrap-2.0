@@ -1342,17 +1342,32 @@ password is "password"</string>
                                 <rect key="frame" x="0.0" y="568" width="375" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3aH-i6-YpP">
-                                        <rect key="frame" x="8" y="10" width="359" height="30"/>
+                                        <rect key="frame" x="8" y="10" width="293" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="send" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="yes"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-Nh-uuM">
+                                        <rect key="frame" x="313" y="8" width="50" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="ohc-1h-B5N"/>
+                                        </constraints>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendBtnPressed:" destination="uci-9T-fgR" eventType="touchUpInside" id="UFm-fb-zGt"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="8Ek-Nh-uuM" secondAttribute="bottom" constant="8" id="5xQ-XK-Zet"/>
                                     <constraint firstItem="3aH-i6-YpP" firstAttribute="centerY" secondItem="veG-Nm-oLn" secondAttribute="centerY" id="I5y-2K-4E9"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Ek-Nh-uuM" secondAttribute="trailing" constant="12" id="LCX-JA-ck8"/>
+                                    <constraint firstItem="8Ek-Nh-uuM" firstAttribute="top" secondItem="veG-Nm-oLn" secondAttribute="top" constant="8" id="Q9T-fx-yeu"/>
                                     <constraint firstItem="3aH-i6-YpP" firstAttribute="leading" secondItem="veG-Nm-oLn" secondAttribute="leading" constant="8" id="YoJ-Xn-P2d"/>
-                                    <constraint firstAttribute="trailing" secondItem="3aH-i6-YpP" secondAttribute="trailing" constant="8" id="f8M-71-PxZ"/>
+                                    <constraint firstItem="8Ek-Nh-uuM" firstAttribute="leading" secondItem="3aH-i6-YpP" secondAttribute="trailing" constant="12" id="ZFm-3v-hRg"/>
                                     <constraint firstAttribute="height" constant="50" id="xTv-RO-QSq"/>
                                 </constraints>
                             </view>
@@ -1389,13 +1404,15 @@ password is "password"</string>
                     <navigationItem key="navigationItem" title="Messenger" id="PXd-ea-zlp"/>
                     <connections>
                         <outlet property="containerHeightConstraint" destination="OVv-Mr-429" id="gYH-O6-1Sr"/>
+                        <outlet property="messageTextField" destination="3aH-i6-YpP" id="zoK-Fx-Nak"/>
                         <outlet property="scrollContainerView" destination="PrB-Tk-VHO" id="QsJ-VM-axi"/>
                         <outlet property="scrollView" destination="XjL-Lo-K0v" id="9mS-JX-FbF"/>
+                        <outlet property="sendBtn" destination="8Ek-Nh-uuM" id="omn-Cd-E0M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8d-ES-SfX" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121" y="-786"/>
+            <point key="canvasLocation" x="120.8" y="-786.65667166416802"/>
         </scene>
         <!--Chat-->
         <scene sceneID="PtW-Y1-DEZ">

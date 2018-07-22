@@ -26,19 +26,23 @@ class MessengerVC: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollContainerView: UIView!
     @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageTextField: UITextField!
+    @IBOutlet weak var sendBtn: UIButton!
     
     var prevChatBubble: UIImageView!
     var conversation: Conversation?
     var allMessages: [Message] = []
     var searchMessages: [Message] = []
     
-    let bubbleHeightMultiplyer = 87     // Does not account for dynamic bubble sizes
+    let bubbleHeightMultiplyer = 91     // Does not account for dynamic bubble sizes
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
+        
 //        scrollView.contentSize.height = CGFloat(50 * bubbleHeightMultiplyer)
-        scrollView.contentSize.height = 1700
+        scrollView.contentSize.height = 1750
+        messageTextField.layer.borderColor = Constants.Colors.appPrimaryColor.cgColor
         
         // Get recipient's name for nav bar title
         if let recipientRef = conversation?.recipient {
@@ -59,6 +63,17 @@ class MessengerVC: UIViewController {
         
         scrollToBottom()
         
+    }
+    
+    @IBAction func sendBtnPressed(_ sender: Any) {
+        print("Send message pressed")
+        self.scrollView.contentSize.height = self.scrollView.contentSize.height + CGFloat(bubbleHeightMultiplyer)
+        createChatBubbble(message: "Send button as pressed!")
+        
+        // Scroll back to the bottom after bubble appears
+        var offset = scrollView.contentOffset
+        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
+        scrollView.setContentOffset(offset, animated: true)
     }
     
     func fetchAllMessages() {
