@@ -28,41 +28,55 @@ class MessengerVC: UIViewController {
     @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
     
     var prevChatBubble: UIImageView!
+    var conversation: Conversation?
+    var allMessages: [Message]!
+    var searchMessages: [Message]!
     
-    let numBubbles = 50
     let bubbleHeightMultiplyer = 87     // Does not account for dynamic bubble sizes
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
-        scrollView.contentSize.height = CGFloat(numBubbles * bubbleHeightMultiplyer)
+//        scrollView.contentSize.height = CGFloat(50 * bubbleHeightMultiplyer)
+        scrollView.contentSize.height = 800
         
-        displayTestMessages()
+        if let recipientRef = conversation?.recipient {
+            recipientRef.getDocument { (document, error) in
+                if let document = document {
+                    self.title = document.data()!["firstName"] as? String
+                }
+            }
+        }
+        
+        fetchAllMessages()
         scrollToBottom()
+        
+        for _ in 1 ... 10 {
+            createChatBubbble(message: "HELLO WORLD")
+        }
+        
     }
     
     func fetchAllMessages() {
-//        // Extract all the attributes from each message object
-//        for message in (conversation?.messages)! {
-//            guard let contents = message.value(forKey: "contents") as? String,
-//                let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool,
-//                let timeSent = message.value(forKey: "timeSent") as? Timestamp else {
-//                    return
-//            }
-//
-//            let newMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
-//        }
-    }
-    
-    // Layout a series of test messages
-    func displayTestMessages() {
-        for _ in 1 ... numBubbles {
-            createChatBubbble()
+        // Extract all the attributes from each message object
+        for message in (conversation?.messages)! {
+            print("KYLE: \(message)")
+            guard let contents = message.value(forKey: "contents") as? String,
+                let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool,
+                let timeSent = message.value(forKey: "timeSent") as? Timestamp else {
+                    return
+            }
+            
+            let newMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
+            allMessages.append(newMessage)
+            searchMessages.append(newMessage)
+            
+            createChatBubbble(message: contents)
         }
     }
     
     // Create a single chat bubble
-    func createChatBubbble() {
+    func createChatBubbble(message: String) {
         let newChatBubble = UIImageView()
         let superView = scrollContainerView!
         superView.addSubview(newChatBubble)
@@ -71,11 +85,8 @@ class MessengerVC: UIViewController {
         // Create a label within the bubble, bound to top, right, bottom, left
         let chatLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 21))
         newChatBubble.addSubview(chatLabel)
+        chatLabel.text = message
         chatLabel.textAlignment = .left
-        chatLabel.text = ["Random text.",
-                          "Some text and more text.",
-                          "Let's try something a bit longer this time.",
-                          "This is a really long string of text, perhaps three or four lines long, that will test the limits of this feature."].randomElement()
         chatLabel.numberOfLines = 5
         chatLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         chatLabel.sizeToFit()
@@ -105,7 +116,7 @@ class MessengerVC: UIViewController {
             newChatBubble.bottomAnchor.constraint(equalTo: prevChatBubble.topAnchor, constant: -20.0).isActive = true
         } else {
             // Anchor new bubble to bottom of scrollViewContainer
-            newChatBubble.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: CGFloat(numBubbles * bubbleHeightMultiplyer)).isActive = true
+            newChatBubble.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: CGFloat(10 * bubbleHeightMultiplyer)).isActive = true
         }
         
         // Constant width and height, slightly randomized

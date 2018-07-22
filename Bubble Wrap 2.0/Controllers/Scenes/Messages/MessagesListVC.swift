@@ -19,6 +19,7 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     var searchThumbnails: [UIImage] = []
     
     private(set) var datasource = DataSource()  // Datasource for data listener
+    var selectedConversation: Conversation?
     
     // Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -100,6 +101,10 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedConversation = searchConversations[indexPath.row]
+        performSegue(withIdentifier: "messengerSegue", sender: nil)
+    }
     
     /*
      MARK: SEARCH BAR
@@ -121,5 +126,10 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let secondViewController = segue.destination as! MessengerVC
+        secondViewController.conversation = selectedConversation
     }
 }

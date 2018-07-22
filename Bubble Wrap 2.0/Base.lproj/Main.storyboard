@@ -1363,7 +1363,7 @@ password is "password"</string>
                                         <rect key="frame" x="0.0" y="-148" width="375" height="800"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1200" id="OVv-Mr-429"/>
+                                            <constraint firstAttribute="height" constant="1000" id="OVv-Mr-429"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1519,7 +1519,7 @@ password is "password"</string>
                     <connections>
                         <outlet property="searchBar" destination="lYr-aI-ZZF" id="4nv-Rg-Gm1"/>
                         <outlet property="tableView" destination="sPS-E9-Fh6" id="oht-lx-dpM"/>
-                        <segue destination="uci-9T-fgR" kind="show" id="Bx0-Wk-gYG"/>
+                        <segue destination="uci-9T-fgR" kind="show" identifier="messengerSegue" id="Bx0-Wk-gYG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbX-gu-iU4" userLabel="First Responder" sceneMemberID="firstResponder"/>
