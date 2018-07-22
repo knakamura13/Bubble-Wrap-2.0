@@ -56,7 +56,6 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return searchConversations.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath as IndexPath) as! MessagesCell
         
@@ -64,11 +63,22 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
             recipientRef.getDocument { (document, error) in
                 if let document = document {
                     cell.cellNameLbl.text = document.data()!["firstName"] as? String
+                    
+                    // Asynchonously set profile image
+                    DispatchQueue.main.async(execute: {
+                        if let imgURL = URL(string: document.data()!["profileImageURL"] as! String) {
+                            let data = try? Data(contentsOf: imgURL)
+                            if let imageData = data {
+                                let image = UIImage(data: imageData)
+                                globalProfilePicture = image!
+                                cell.cellImageView.image = image
+                            }
+                        }
+                    })
                 }
             }
         }
         
-        //cell.cellImageView.image = self.searchThumbnails[indexPath.item]
         cell.cellImageView.image = demoPicsumImages.randomElement()
         cell.cellMessageContentsLbl.text = self.searchConversations[indexPath.item].messages[0].value(forKey: "contents") as? String
         let date = self.searchConversations[indexPath.item].messages[0].value(forKey: "timeSent") as? Date
