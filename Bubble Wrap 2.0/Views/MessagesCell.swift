@@ -13,6 +13,7 @@ class MessagesCell: UITableViewCell {
     @IBOutlet weak var cellNameLbl: UILabel!
     @IBOutlet weak var cellMessageContentsLbl: UILabel!
     @IBOutlet weak var cellMessageTimeLbl: UILabel!
+    @IBOutlet weak var cellImageViewContainer: UIView!
     @IBOutlet weak var cellImageView: UIImageView!
     
     override func awakeFromNib() {

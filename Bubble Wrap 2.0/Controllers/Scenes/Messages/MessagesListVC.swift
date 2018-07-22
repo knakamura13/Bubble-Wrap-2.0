@@ -79,7 +79,7 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        cell.cellImageView.image = demoPicsumImages.randomElement()
+        cell.cellImageViewContainer.layer.cornerRadius = 5
         cell.cellMessageContentsLbl.text = self.searchConversations[indexPath.item].messages[0].value(forKey: "contents") as? String
         let date = self.searchConversations[indexPath.item].messages[0].value(forKey: "timeSent") as? Date
         let weekDayFormatter = DateFormatter()
