@@ -40,8 +40,11 @@ class PaymentContextFooterView: UIView {
     }
     
     override func layoutSubviews() {
-        //textLabel.frame = UIEdgeInsetsInsetRect(self.bounds, insetMargins)
-        textLabel.textContainerInset = CGRect.inset(insetMargins)
+//        textLabel.frame = UIEdgeInsetsInsetRect(self.bounds, insetMargins)
+        textLabel.frame = self.bounds.inset(by: insetMargins)
+        let container = textLabel.frame
+        let content = container.inset(by: insetMargins)
+//        textLabel.textContainerInset = CGRect.inset(insetMargins)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

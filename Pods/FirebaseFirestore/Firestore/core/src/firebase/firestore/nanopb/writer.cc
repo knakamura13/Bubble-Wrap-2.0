@@ -16,7 +16,7 @@
 
 #include "Firestore/core/src/firebase/firestore/nanopb/writer.h"
 
-#include "Firestore/Protos/nanopb/google/firestore/v1beta1/document.pb.h"
+#include "Firestore/Protos/nanopb/google/firestore/v1beta1/document.nanopb.h"
 
 namespace firebase {
 namespace firestore {
@@ -101,6 +101,16 @@ void Writer::WriteString(const std::string& string_value) {
   if (!pb_encode_string(
           &stream_, reinterpret_cast<const pb_byte_t*>(string_value.c_str()),
           string_value.length())) {
+    HARD_FAIL(PB_GET_ERROR(&stream_));
+  }
+}
+
+void Writer::WriteBytes(const std::vector<uint8_t>& bytes) {
+  if (!status_.ok()) return;
+
+  if (!pb_encode_string(&stream_,
+                        reinterpret_cast<const pb_byte_t*>(bytes.data()),
+                        bytes.size())) {
     HARD_FAIL(PB_GET_ERROR(&stream_));
   }
 }

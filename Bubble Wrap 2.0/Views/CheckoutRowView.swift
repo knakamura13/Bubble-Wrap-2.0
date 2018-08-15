@@ -44,7 +44,7 @@ class CheckoutRowView: UIView {
     
     fileprivate let titleLabel = UILabel()
     fileprivate let detailLabel = UILabel()
-    fileprivate let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    fileprivate let activityIndicator = UIActivityIndicatorView(style: .gray)
     fileprivate let backgroundView = HighlightingButton()
     fileprivate let topSeparator = UIView()
     fileprivate let bottomSeparator = UIView()
@@ -80,7 +80,7 @@ class CheckoutRowView: UIView {
         self.addSubview(self.detailLabel)
         var red: CGFloat = 0
         theme.primaryBackgroundColor.getRed(&red, green: nil, blue: nil, alpha: nil)
-        self.activityIndicator.activityIndicatorViewStyle = red < 0.5 ? .white : .gray
+        self.activityIndicator.style = red < 0.5 ? .white : .gray
         self.addSubview(self.activityIndicator)
     }
     
