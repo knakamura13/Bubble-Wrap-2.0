@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.3)
   - BoringSSL (10.0.3):
     - BoringSSL/Implementation (= 10.0.3)
     - BoringSSL/Interface (= 10.0.3)
@@ -95,9 +96,11 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.5.0)
+  - Stripe (13.1.0)
   - TextViewWithThreshHoldFrame (0.0.1)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - Firebase
   - Firebase/Analytics
   - Firebase/Auth
@@ -105,10 +108,12 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
+  - Stripe
   - TextViewWithThreshHoldFrame
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - BoringSSL
     - Firebase
     - FirebaseAnalytics
@@ -128,9 +133,11 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - Stripe
     - TextViewWithThreshHoldFrame
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   BoringSSL: c46efb47593135382bc0934196f16d2f726f5f36
   Firebase: 25ed0412036d7d008568d1fb4d2e9d81ea8a0a2c
   FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
@@ -150,8 +157,9 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
+  Stripe: 4f043bb840721b1f30492fa77790bbf9e3508ab0
   TextViewWithThreshHoldFrame: 80c0c1125eaf22ae369313c87294042a562c3a2b
 
-PODFILE CHECKSUM: ec7abc8a4815ad758fc1a9a6e54e743b056c28db
+PODFILE CHECKSUM: 737a40486b1088f9783f052cea260984dc132ded
 
 COCOAPODS: 1.5.3

@@ -7,6 +7,7 @@ target 'Bubble Wrap 2.0' do
 
   # Pods for Bubble Wrap 2.0
   pod 'Firebase'
+  pod 'Stripe'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
@@ -14,4 +15,5 @@ target 'Bubble Wrap 2.0' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Storage'
   pod 'TextViewWithThreshHoldFrame'
+  pod 'Alamofire','~> 4.7'
 end

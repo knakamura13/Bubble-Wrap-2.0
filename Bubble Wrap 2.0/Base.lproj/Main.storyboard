@@ -239,6 +239,36 @@
             </objects>
             <point key="canvasLocation" x="110" y="68"/>
         </scene>
+        <!--PaymentVC-->
+        <scene sceneID="wbs-Ud-dmZ">
+            <objects>
+                <viewController id="SPl-0S-Cwi" customClass="PaymentVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1QD-1v-L4q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="DbB-a9-qui"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jCu-6k-LCJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="279" y="-761"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="eqW-NX-7ro">
+            <objects>
+                <viewController id="vjC-nr-ykW" customClass="SettingsViewController" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OvQ-12-Bbe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="0rR-OK-HsC"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RNp-F2-uyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1300" y="-761"/>
+        </scene>
         <!--Offers-->
         <scene sceneID="lT2-BF-GeY">
             <objects>
