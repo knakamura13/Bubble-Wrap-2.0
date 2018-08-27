@@ -17,6 +17,7 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     var allMessageContents: [Message] = []
     var allThumbnails: [UIImage] = []
     var searchThumbnails: [UIImage] = []
+    var selectedConversationRecipient: String = ""
     
     private(set) var datasource = DataSource()  // Datasource for data listener
     var selectedConversation: Conversation?
@@ -103,6 +104,16 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedConversation = searchConversations[indexPath.row]
+        
+        if let recipientRef = selectedConversation?.recipient {
+            recipientRef.getDocument { (document, error) in
+                if let document = document {
+                    let name = document.data()!["firstName"] as? String
+                    self.selectedConversationRecipient = name ?? ""
+                }
+            }
+        }
+        
         performSegue(withIdentifier: "messengerSegue", sender: nil)
     }
     
@@ -131,5 +142,6 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let secondViewController = segue.destination as! MessengerVC
         secondViewController.conversation = selectedConversation
+        secondViewController.title = selectedConversationRecipient
     }
 }

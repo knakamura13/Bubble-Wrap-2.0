@@ -10,16 +10,12 @@ import UIKit
 import Firebase
 import FirebaseMessaging
 
-class MessengerVC: UIViewController {
+class MessengerVC: UIViewController, UITextFieldDelegate {
     
     /*  TODO:
-     *   - Set self.title to user name of recipient.
-     *   - Create a function that adds a single chat bubble given a String and time stamp.
-     *   - Move the view upwards when keyboard is shown.
-     *   - Scroll to bottom when text field is tapped.
-     *   - Set keyboard return key to create a new message.
-     *   - Fix slightly off-set scrollToBottom function
-     *   - Implement FirebaseMessaging?
+     *   - Scroll to bottom when text field is tapped           [MARIO]
+     *   - Create Message object when chat bubble created       [KYLE]
+     *   - Send new Messages to Firebase Firestore              [KYLE]
     */
     
     // Outlets
@@ -34,14 +30,17 @@ class MessengerVC: UIViewController {
     var allMessages: [Message] = []
     var searchMessages: [Message] = []
     
-    let bubbleHeightMultiplyer = 91     // Does not account for dynamic bubble sizes
+    let bubbleHeightMultiplyer = 100     // Does not account for dynamic bubble sizes
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
+        self.messageTextField.delegate = self
         
 //        scrollView.contentSize.height = CGFloat(50 * bubbleHeightMultiplyer)
-        scrollView.contentSize.height = 1750
+        scrollView.contentSize.height = 800
+        print("KYLE \(self.view.frame.size.height)")
+//        scrollContainerView.heightAnchor.constraint(equalToConstant: 1800).isActive = true
         messageTextField.layer.borderColor = Constants.Colors.appPrimaryColor.cgColor
         
         // Get recipient's name for nav bar title
@@ -55,7 +54,7 @@ class MessengerVC: UIViewController {
         
         // simulate fetching old messages
         for _ in 1 ... 10 {
-            createChatBubbble(message: "HELLO WORLD")   // Single test bubble
+            createChatBubbble(message: "HELLO WORLD", timeStamp: Date())   // Single test bubble
         }
         
         // simulate fetching new messages
@@ -65,15 +64,47 @@ class MessengerVC: UIViewController {
         
     }
     
-    @IBAction func sendBtnPressed(_ sender: Any) {
-        print("Send message pressed")
-        self.scrollView.contentSize.height = self.scrollView.contentSize.height + CGFloat(bubbleHeightMultiplyer)
-        createChatBubbble(message: "Send button as pressed!")
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardDidShow(with notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: AnyObject],
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            else {
+                return
+        }
         
-        // Scroll back to the bottom after bubble appears
-        var offset = scrollView.contentOffset
-        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
-        scrollView.setContentOffset(offset, animated: true)
+        var contentOffset = self.scrollView.contentOffset
+        contentOffset.y += keyboardFrame.height
+        
+        scrollView.contentOffset = contentOffset
+    }
+    @objc func keyboardWillHide(with notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: AnyObject],
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            else {
+                return
+        }
+        
+        var contentOffset = self.scrollView.contentOffset
+        contentOffset.y -= keyboardFrame.height
+        
+        scrollView.contentOffset = contentOffset
+    }
+    
+    @IBAction func sendBtnPressed(_ sender: Any) {
+        self.createUserTypedMessage()
+    }
+    
+    func createUserTypedMessage() {
+        if let messageText = messageTextField.text {
+            if messageText.count > 0 {
+                createChatBubbble(message: messageText, timeStamp: Date())
+            }
+        }
+        
+        messageTextField.text = ""
     }
     
     func fetchAllMessages() {
@@ -82,7 +113,7 @@ class MessengerVC: UIViewController {
             var tmpMessage: Message = Message(contents: "No contents", senderIsCurrUser: false, timeSent: Date())
             
             if let contents = message.value(forKey: "contents") as? String {
-                createChatBubbble(message: contents)
+                createChatBubbble(message: contents, timeStamp: Date())
                 
                 if let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool {
                     if let timeSent = message.value(forKey: "timeSent") as? Date {
@@ -101,7 +132,7 @@ class MessengerVC: UIViewController {
     }
     
     // Create a single chat bubble
-    func createChatBubbble(message: String) {
+    func createChatBubbble(message: String, timeStamp: Date) {
         let newChatBubble = UIImageView()
         let superView = scrollContainerView!
         superView.addSubview(newChatBubble)
@@ -149,6 +180,14 @@ class MessengerVC: UIViewController {
         newChatBubble.widthAnchor.constraint(equalToConstant: chatLabel.frame.size.width + CGFloat(100)).isActive = true
         
         prevChatBubble = newChatBubble
+        
+        // Increase content height of scrollView to fit the new message
+        self.scrollView.contentSize.height = self.scrollView.contentSize.height + CGFloat(bubbleHeightMultiplyer)
+        
+        // Scroll back to the bottom after bubble appears
+        var offset = scrollView.contentOffset
+        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
+        scrollView.setContentOffset(offset, animated: true)
     }
     
     // Choose either "sent" or "received" for each new chat bubble
@@ -167,5 +206,15 @@ class MessengerVC: UIViewController {
         var offset = scrollView.contentOffset
         offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
         scrollView.setContentOffset(offset, animated: true)
+    }
+    
+    
+    // MARK: TextField
+    
+    // Jump from usernameField to passwordField, then hide the keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.createUserTypedMessage()
+        self.messageTextField.resignFirstResponder()
+        return true
     }
 }
