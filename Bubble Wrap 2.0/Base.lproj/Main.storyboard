@@ -1347,7 +1347,7 @@ password is "password"</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="send" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="yes"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-Nh-uuM">
+                                    <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-Nh-uuM">
                                         <rect key="frame" x="313" y="8" width="50" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="ohc-1h-B5N"/>
@@ -1371,32 +1371,30 @@ password is "password"</string>
                                     <constraint firstAttribute="height" constant="50" id="xTv-RO-QSq"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XjL-Lo-K0v">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zfc-Sc-9KG">
                                 <rect key="frame" x="0.0" y="64" width="375" height="504"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PrB-Tk-VHO" userLabel="Scroll Container View">
-                                        <rect key="frame" x="0.0" y="22" width="375" height="575"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="600" id="67U-Qu-OM8"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="PrB-Tk-VHO" firstAttribute="width" secondItem="XjL-Lo-K0v" secondAttribute="width" id="GTE-Bt-DMl"/>
-                                    <constraint firstAttribute="bottom" secondItem="PrB-Tk-VHO" secondAttribute="bottom" id="JEE-48-MFD"/>
-                                    <constraint firstItem="PrB-Tk-VHO" firstAttribute="centerX" secondItem="XjL-Lo-K0v" secondAttribute="centerX" id="ghs-fE-Jgg"/>
-                                </constraints>
-                            </scrollView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageBubbleCell" rowHeight="96" id="ALL-jK-po2" customClass="MessageBubbleCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ALL-jK-po2" id="ng9-xe-emH">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="XjL-Lo-K0v" firstAttribute="top" secondItem="6vP-zs-kBs" secondAttribute="top" id="58K-Kd-tGV"/>
-                            <constraint firstItem="veG-Nm-oLn" firstAttribute="top" secondItem="XjL-Lo-K0v" secondAttribute="bottom" id="Od2-sm-5Jb"/>
-                            <constraint firstItem="XjL-Lo-K0v" firstAttribute="trailing" secondItem="6vP-zs-kBs" secondAttribute="trailing" id="VSm-Pc-AcX"/>
+                            <constraint firstItem="zfc-Sc-9KG" firstAttribute="top" secondItem="6vP-zs-kBs" secondAttribute="top" id="1SB-k3-Kcf"/>
+                            <constraint firstItem="zfc-Sc-9KG" firstAttribute="trailing" secondItem="6vP-zs-kBs" secondAttribute="trailing" id="SpU-XK-m0v"/>
                             <constraint firstItem="veG-Nm-oLn" firstAttribute="leading" secondItem="6vP-zs-kBs" secondAttribute="leading" id="e0i-b1-gHH"/>
-                            <constraint firstItem="XjL-Lo-K0v" firstAttribute="leading" secondItem="6vP-zs-kBs" secondAttribute="leading" id="hyr-HE-De7"/>
                             <constraint firstItem="veG-Nm-oLn" firstAttribute="bottom" secondItem="6vP-zs-kBs" secondAttribute="bottom" id="qeM-ux-xUu"/>
+                            <constraint firstItem="veG-Nm-oLn" firstAttribute="top" secondItem="zfc-Sc-9KG" secondAttribute="bottom" id="tMB-z6-gOo"/>
+                            <constraint firstItem="zfc-Sc-9KG" firstAttribute="leading" secondItem="6vP-zs-kBs" secondAttribute="leading" id="tes-Qb-gL1"/>
                             <constraint firstItem="veG-Nm-oLn" firstAttribute="trailing" secondItem="6vP-zs-kBs" secondAttribute="trailing" id="tfs-jI-657"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6vP-zs-kBs"/>
@@ -1404,9 +1402,8 @@ password is "password"</string>
                     <navigationItem key="navigationItem" title="Messenger" id="PXd-ea-zlp"/>
                     <connections>
                         <outlet property="messageTextField" destination="3aH-i6-YpP" id="zoK-Fx-Nak"/>
-                        <outlet property="scrollContainerView" destination="PrB-Tk-VHO" id="QsJ-VM-axi"/>
-                        <outlet property="scrollView" destination="XjL-Lo-K0v" id="9mS-JX-FbF"/>
                         <outlet property="sendBtn" destination="8Ek-Nh-uuM" id="omn-Cd-E0M"/>
+                        <outlet property="tableView" destination="zfc-Sc-9KG" id="Les-A5-BYO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8d-ES-SfX" sceneMemberID="firstResponder"/>
