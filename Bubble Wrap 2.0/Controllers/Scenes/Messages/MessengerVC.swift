@@ -20,6 +20,7 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     // MARK: Outlets
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var textFieldContainerView: UIView!
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var sendBtn: UIButton!
     
@@ -54,7 +55,7 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     
     override func viewWillAppear(_ animated: Bool) {
         // Set up keyboard show-hide notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(with:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         self.tableView.contentInset.top = 20
@@ -186,28 +187,28 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         return true
     }
     
-    @objc func keyboardDidShow(with notification: Notification) {
+    @objc func keyboardWillShow(with notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: AnyObject],
             let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
             else {
                 return
         }
         
-        self.view.frame.origin.y -= (keyboardFrame.height - 50)
-        self.tableView.contentInset.top = (keyboardFrame.height - 30)
-        self.tableView.contentInset.bottom = (keyboardFrame.height - 30)
+        for constraint in self.view.constraints {
+            if constraint.identifier == "textFieldContainerViewBottom" {
+                constraint.constant = -(keyboardFrame.height - 50)
+                self.view.layoutIfNeeded()
+            }
+        }
         self.scrollToBottom(animated: true)
     }
     
     @objc func keyboardWillHide(with notification: Notification) {
-        guard let userInfo = notification.userInfo as? [String: AnyObject],
-            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
-            else {
-                return
+        for constraint in self.view.constraints {
+            if constraint.identifier == "textFieldContainerViewBottom" {
+                constraint.constant = 0
+                self.view.layoutIfNeeded()
+            }
         }
-        
-        self.view.frame.origin.y += (keyboardFrame.height - 50)
-        self.tableView.contentInset.top = 20
-        self.tableView.contentInset.bottom = 0
     }
 }
