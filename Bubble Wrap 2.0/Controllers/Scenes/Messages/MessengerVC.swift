@@ -13,9 +13,9 @@ import FirebaseMessaging
 class MessengerVC: UIViewController {
     
     /*  TODO:
-     *   - Set self.title to user name of recipient.
-     *   - Create a function that adds a single chat bubble given a String and time stamp.
-     *   - Move the view upwards when keyboard is shown.
+     *   -
+     *   -
+     *   - Move the view upwards when keyboard is shown.******
      *   - Scroll to bottom when text field is tapped.
      *   - Set keyboard return key to create a new message.
      *   - Fix slightly off-set scrollToBottom function
@@ -35,6 +35,37 @@ class MessengerVC: UIViewController {
     var searchMessages: [Message] = []
     
     let bubbleHeightMultiplyer = 91     // Does not account for dynamic bubble sizes
+   
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardDidShow(with notification: Notification) {
+        print("KEYBOARD WORKS")
+        guard let userInfo = notification.userInfo as? [String: AnyObject],
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            else { return }
+        
+        var contentInset = self.scrollView.contentInset
+        contentInset.bottom += keyboardFrame.height
+        
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+    }
+    @objc func keyboardWillHide(with notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: AnyObject],
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            else {
+                return
+        }
+        
+        var contentInset = self.scrollView.contentInset
+        contentInset.bottom -= keyboardFrame.height
+        
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +93,19 @@ class MessengerVC: UIViewController {
         fetchAllMessages()
         
         scrollToBottom()
+        
+        //Adding observers to check whether keyboard is up or down
+//        NotificationCenter.default.addObserver(self, selector: #selector(UIViewController.keyboardWillShowNotification), name: UIViewController.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(UIViewController.keyboardWillHideNotification), name: UIViewController.keyboardWillHideNotification, object: nil)
+//        let notifier = NotificationCenter.default
+//        notifier.addObserver(self,
+//                             selector: #selector(keyboardWillShowNotification(_:)),
+//                             name: UIWindow.keyboardWillShowNotification,
+//                             object: nil)
+//        notifier.addObserver(self,
+//                             selector: #selector(keyboardWillHideNotification(_:)),
+//                             name: UIWindow.keyboardWillHideNotification,
+//                             object: nil)
         
     }
     
@@ -168,4 +212,27 @@ class MessengerVC: UIViewController {
         offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
         scrollView.setContentOffset(offset, animated: true)
     }
+    
+//    // If keyboard is shown move the view up to show text and the rest of the view
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+//
+//    // Put view and rest of keyboard shown back to normal without keyboard
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+    @objc
+    func keyboardWillShowNotification(_ notification: NSNotification) {}
+    
+    @objc
+    func keyboardWillHideNotification(_ notification: NSNotification) {}
 }

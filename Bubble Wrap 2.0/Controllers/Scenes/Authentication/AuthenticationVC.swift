@@ -40,6 +40,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         if Auth.auth().currentUser != nil {
+            self.getUserInformation()
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
                 self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
@@ -111,6 +112,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                 if error != nil {
                     // Handle error
                 } else {
+                    self.getUserInformation()
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
                 }
             }
@@ -125,7 +127,9 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                         let email = email
                         self.createUser(email: email)
                         self.sendEmailVerification()
+                        self.getUserInformation()
                         self.performSegue(withIdentifier: "segueToNewUserInformation", sender: nil)
+                        
                     }
                 }
             } else {
@@ -165,6 +169,32 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // Load current user's profile information from Firebase and store in UserDeults
+    func getUserInformation() {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if let uid = Auth.auth().currentUser?.uid  {
+                let userDocument = Firestore.firestore().collection("users").document(uid)
+                userDocument.getDocument { (document, error) in
+                    if let document = document {
+                        if document.data() != nil {
+                            if let user = User(dictionary: document.data()!, itemID: document.documentID) {
+                                UserDefaults.standard.set(user.firstName, forKey: "firstName")
+                                UserDefaults.standard.set(user.lastName, forKey: "lastName")
+                                UserDefaults.standard.set(user.bubbleCommunity, forKey: "bubbleCommunity")
+                                UserDefaults.standard.set(user.rating, forKey: "rating")
+                                UserDefaults.standard.set(user.itemsSold, forKey: "itemsSold")
+                                UserDefaults.standard.set(user.followers, forKey: "followers")
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
     // Actions
     @IBAction func signInPressed(_ sender: Any) {
         attemptSignIn()
@@ -184,6 +214,8 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             signInButton.setTitle("Sign in", for: .normal)
         }
     }
+    
+    
     
     
 }

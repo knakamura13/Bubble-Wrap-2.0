@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 
 var globalProfilePicture: UIImage!
 
@@ -45,69 +46,44 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         userNameField.delegate = self
         userEmailField.delegate = self
         
-        self.getUserInformation()
+        self.setFields()
         self.customizeView()
         self.displayReviews()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        scheduledTimerWithTimeInterval()
-    }
-    
-    weak var timer: Timer?
-    func scheduledTimerWithTimeInterval() {
-        timer?.invalidate()
-        if globalProfilePicture == nil {
-            timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.checkAgain), userInfo: nil, repeats: true)
-        }
-    }
-    
-    @objc func checkAgain() {
-        if globalProfilePicture != nil {
-            if let uid = Auth.auth().currentUser?.uid  {
-                let userDocument = Firestore.firestore().collection("users").document(uid)
-                userDocument.getDocument { (document, error) in
-                    if let document = document {
-                        if let user = User(dictionary: document.data()!, itemID: document.documentID) {
-                            self.userNameField.text = user.firstName + " " + currentUser.lastName
-                            self.userEmailField.text = Auth.auth().currentUser?.email
-                            self.userBubbleField.text = user.bubbleCommunity
-                            self.ratingLbl.text = String(user.rating)
-                            self.itemsSoldLbl.text = String(user.itemsSold)
-                            self.followersLbl.text = String(user.followers)
+
+
+    // Set the fields of the profile aspects from the UserDefaults
+    func setFields() {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.userNameField.text = UserDefaults.standard.string(forKey: "firstName")! + " " + UserDefaults.standard.string(forKey: "lastName")!
+            self.userBubbleField.text =  UserDefaults.standard.string(forKey: "bubbleCommunity")
+            self.ratingLbl.text = UserDefaults.standard.string(forKey: "rating")
+            self.itemsSoldLbl.text = UserDefaults.standard.string(forKey: "itemsSold")
+            self.followersLbl.text = UserDefaults.standard.string(forKey:"followers")
+            
+            if let imgURL = URL(string: currentUser.profileImageURLd) {
+                
+                DispatchQueue.global().async {
+                    let data = try? Data(contentsOf: imgURL)
+                    DispatchQueue.main.async{
+                        if let imageData = data {
+                            let image = UIImage(data: imageData)
+                            globalProfilePicture = image!
                         }
                     }
                 }
-            }
-        }
-    }
-    
-    // Load current user's profile information from Firebase
-    func getUserInformation() {
-        if let uid = Auth.auth().currentUser?.uid  {
-            let userDocument = Firestore.firestore().collection("users").document(uid)
-            userDocument.getDocument { (document, error) in
-                if let document = document {
-                    if document.data() != nil {
-                        if let user = User(dictionary: document.data()!, itemID: document.documentID) {
-                            self.userNameField.text = user.firstName + " " + currentUser.lastName
-                            self.userEmailField.text = Auth.auth().currentUser?.email
-                            self.userBubbleField.text = user.bubbleCommunity
-                            self.ratingLbl.text = String(user.rating)
-                            self.itemsSoldLbl.text = String(user.itemsSold)
-                            self.followersLbl.text = String(user.followers)
-                            
-                            if let imgURL = URL(string: currentUser.profileImageURL) {
-                                let data = try? Data(contentsOf: imgURL)
-                                if let imageData = data {
-                                    let image = UIImage(data: imageData)
-                                    globalProfilePicture = image!
-                                    self.userProfileImg.image = image
-                                }
-                            }
-                        }
-                    }
-                }
+                //let data = try? Data(contentsOf: imgURL) // TAKES 1.8 seconds
+               
+                
+                /*let url = URL(string: image.url)
+                 
+                 DispatchQueue.global().async {
+                 let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                 DispatchQueue.main.async {
+                 imageView.image = UIImage(data: data!)
+                 }
+                 }*/
             }
         }
     }
