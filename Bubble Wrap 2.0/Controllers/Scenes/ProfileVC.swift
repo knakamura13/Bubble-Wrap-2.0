@@ -62,8 +62,8 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
             self.itemsSoldLbl.text = UserDefaults.standard.string(forKey: "itemsSold")
             self.followersLbl.text = UserDefaults.standard.string(forKey:"followers")
             
-            if let imgURL = URL(string: currentUser.profileImageURLd) {
-                
+            if let imgURL = URL(string: currentUser.profileImageURL) {
+
                 DispatchQueue.global().async {
                     let data = try? Data(contentsOf: imgURL)
                     DispatchQueue.main.async{
@@ -73,17 +73,6 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
                         }
                     }
                 }
-                //let data = try? Data(contentsOf: imgURL) // TAKES 1.8 seconds
-               
-                
-                /*let url = URL(string: image.url)
-                 
-                 DispatchQueue.global().async {
-                 let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                 DispatchQueue.main.async {
-                 imageView.image = UIImage(data: data!)
-                 }
-                 }*/
             }
         }
     }
