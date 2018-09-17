@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 
 var globalProfilePicture: UIImage!
 
@@ -32,7 +33,6 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     @IBOutlet weak var profileImgView: UIControl!
     @IBOutlet weak var userProfileImg: UIImageView!
     @IBOutlet weak var userNameField: UITextField!
-    @IBOutlet weak var userEmailField: UITextField!
     @IBOutlet weak var userBubbleField: UITextField!
     @IBOutlet weak var ratingLbl: UILabel!
     @IBOutlet weak var itemsSoldLbl: UILabel!
@@ -43,7 +43,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         collectionView.delegate = self
         collectionView.dataSource = self
         userNameField.delegate = self
-        userEmailField.delegate = self
+       
         
         self.getUserInformation()
         self.customizeView()
@@ -70,7 +70,6 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     if let document = document {
                         if let user = User(dictionary: document.data()!, itemID: document.documentID) {
                             self.userNameField.text = user.firstName + " " + currentUser.lastName
-                            self.userEmailField.text = Auth.auth().currentUser?.email
                             self.userBubbleField.text = user.bubbleCommunity
                             self.ratingLbl.text = String(user.rating)
                             self.itemsSoldLbl.text = String(user.itemsSold)
@@ -91,7 +90,6 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     if document.data() != nil {
                         if let user = User(dictionary: document.data()!, itemID: document.documentID) {
                             self.userNameField.text = user.firstName + " " + currentUser.lastName
-                            self.userEmailField.text = Auth.auth().currentUser?.email
                             self.userBubbleField.text = user.bubbleCommunity
                             self.ratingLbl.text = String(user.rating)
                             self.itemsSoldLbl.text = String(user.itemsSold)
@@ -138,14 +136,14 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     // MARK: Textfields and Keyboard
     // Jump from userName to userEmail, then hide the keyboard
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == userNameField {
-            userEmailField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-        }
-        return true
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        if textField == userNameField {
+//            userEmailField.becomeFirstResponder()
+//        } else {
+//            textField.resignFirstResponder()
+//        }
+//        return true
+//    }
     
     // MARK: Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
