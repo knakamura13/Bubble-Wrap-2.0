@@ -690,15 +690,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Eu1-Qt-3cz" userLabel="Cell Img">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="196"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZL-yH-abU">
                                                     <rect key="frame" x="104" y="211" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Eu1-Qt-3cz" userLabel="Cell Img">
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="196"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -707,7 +707,7 @@
                                             <constraint firstItem="Eu1-Qt-3cz" firstAttribute="leading" secondItem="fgI-ny-Ar5" secondAttribute="leading" id="LbP-B0-PEw"/>
                                             <constraint firstItem="tZL-yH-abU" firstAttribute="centerX" secondItem="fgI-ny-Ar5" secondAttribute="centerX" id="Ozp-vN-uMO"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="tZL-yH-abU" secondAttribute="bottom" constant="10" id="VMc-RD-yhN"/>
-                                            <constraint firstAttribute="trailing" secondItem="Eu1-Qt-3cz" secondAttribute="trailing" id="psO-Ns-jQR"/>
+                                            <constraint firstAttribute="trailing" secondItem="Eu1-Qt-3cz" secondAttribute="trailing" id="kaw-aS-F6a"/>
                                             <constraint firstItem="tZL-yH-abU" firstAttribute="top" secondItem="Eu1-Qt-3cz" secondAttribute="bottom" constant="15" id="tcG-4j-Eeh"/>
                                         </constraints>
                                         <connections>
