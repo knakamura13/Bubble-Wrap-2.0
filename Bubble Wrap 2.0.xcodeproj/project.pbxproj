@@ -15,8 +15,12 @@
 		BF4969F920DB0EE6003F69D7 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969F820DB0EE6003F69D7 /* Review.swift */; };
 		BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4969FA20DB135D003F69D7 /* ReviewCell.swift */; };
 		BF53713120E35E0F00C3CAC5 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53713020E35E0F00C3CAC5 /* Offer.swift */; };
+		BF57040420F5B72400A32190 /* MessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF57040320F5B72400A32190 /* MessagesCell.swift */; };
 		BF5E5CA020EE69B70026EE26 /* NewUserInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5E5C9F20EE69B70026EE26 /* NewUserInformationVC.swift */; };
 		BF7937F720D4782200F01B45 /* ImageUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7937F620D4782200F01B45 /* ImageUploadManager.swift */; };
+		BF88C7B820F3FFFC00428BB2 /* MessagesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88C7B720F3FFFC00428BB2 /* MessagesListVC.swift */; };
+		BF9D8A6420F67AAB00FBE1A2 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9D8A6320F67AAB00FBE1A2 /* Conversation.swift */; };
+		BF9D8A6620F6803100FBE1A2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9D8A6520F6803100FBE1A2 /* Message.swift */; };
 		BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */; };
 		BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */; };
 		BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */; };
@@ -50,8 +54,12 @@
 		BF4969F820DB0EE6003F69D7 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		BF4969FA20DB135D003F69D7 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		BF53713020E35E0F00C3CAC5 /* Offer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
+		BF57040320F5B72400A32190 /* MessagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCell.swift; sourceTree = "<group>"; };
 		BF5E5C9F20EE69B70026EE26 /* NewUserInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserInformationVC.swift; sourceTree = "<group>"; };
 		BF7937F620D4782200F01B45 /* ImageUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManager.swift; sourceTree = "<group>"; };
+		BF88C7B720F3FFFC00428BB2 /* MessagesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesListVC.swift; sourceTree = "<group>"; };
+		BF9D8A6320F67AAB00FBE1A2 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		BF9D8A6520F6803100FBE1A2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOffersCell.swift; sourceTree = "<group>"; };
 		BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOffersCell.swift; sourceTree = "<group>"; };
 		BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemVC.swift; sourceTree = "<group>"; };
@@ -96,7 +104,7 @@
 			children = (
 				BF5E5CA120EE69BE0026EE26 /* Authentication */,
 				BF5E5CA220EE69E90026EE26 /* Item Browsing */,
-				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
+				BF88C7B620F3FFD600428BB2 /* Messages */,
 				BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */,
 				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
 				BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */,
@@ -123,6 +131,15 @@
 			path = "Item Browsing";
 			sourceTree = "<group>";
 		};
+		BF88C7B620F3FFD600428BB2 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				BF88C7B720F3FFFC00428BB2 /* MessagesListVC.swift */,
+				BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		BFDF14F420BAB10400CD4BBB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +147,8 @@
 				BF4969F820DB0EE6003F69D7 /* Review.swift */,
 				BFF7D45420E0B16800AF120F /* User.swift */,
 				BF53713020E35E0F00C3CAC5 /* Offer.swift */,
+				BF9D8A6320F67AAB00FBE1A2 /* Conversation.swift */,
+				BF9D8A6520F6803100FBE1A2 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,6 +181,7 @@
 				BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */,
 				BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */,
 				BF4969FA20DB135D003F69D7 /* ReviewCell.swift */,
+				BF57040320F5B72400A32190 /* MessagesCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -277,7 +297,7 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Wallet = {
 								enabled = 0;
@@ -344,10 +364,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/TextViewWithThreshHoldFrame/TextViewWithThreshHoldFrame.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -358,10 +381,13 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextViewWithThreshHoldFrame.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -391,12 +417,16 @@
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
 				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
 				BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */,
+				BF9D8A6620F6803100FBE1A2 /* Message.swift in Sources */,
 				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
 				BFF7D45520E0B16800AF120F /* User.swift in Sources */,
 				BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */,
 				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
+				BF9D8A6420F67AAB00FBE1A2 /* Conversation.swift in Sources */,
+				BF57040420F5B72400A32190 /* MessagesCell.swift in Sources */,
 				BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */,
 				BFDF150120BAB2D800CD4BBB /* Constants.swift in Sources */,
+				BF88C7B820F3FFFC00428BB2 /* MessagesListVC.swift in Sources */,
 				BFDF14FD20BAB26000CD4BBB /* OffersVC.swift in Sources */,
 				BFF78A7220D4488800819CA8 /* Extensions.swift in Sources */,
 				BFEB611020BAA704007DC098 /* AppDelegate.swift in Sources */,
@@ -549,6 +579,7 @@
 			baseConfigurationReference = 31DF963B143FEA252A866169 /* Pods-Bubble Wrap 2.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Bubble Wrap 2.0/Supporting Files/Bubble Wrap 2.0.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Supporting Files/Info.plist";
@@ -569,6 +600,7 @@
 			baseConfigurationReference = 77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Bubble Wrap 2.0/Supporting Files/Bubble Wrap 2.0.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7GDSF452LB;
 				INFOPLIST_FILE = "$(SRCROOT)/Bubble Wrap 2.0/Supporting Files/Info.plist";
