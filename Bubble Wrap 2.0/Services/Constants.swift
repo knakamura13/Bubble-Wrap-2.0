@@ -37,6 +37,8 @@ struct Constants {
     }
 }
 
+
+
 // Bubble Communities stored as: [email domain : university name]
 let existingBubbleCommunities: [String : String] = [
     "acu.edu" : "Abilene Christian University",

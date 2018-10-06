@@ -6,20 +6,63 @@
 //  Copyright © 2018 Kyle Nakamura. All rights reserved.
 //
 
-import UIKit
-import Firebase
+import UIKit    
+import FirebaseCore
+import FirebaseMessaging
+import FirebaseInstanceID
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (isGranted, error) in
+            if error != nil {
+                print("KYLE: UNUserNotifcationCenter \(String(describing: error))")
+            } else {
+                UNUserNotificationCenter.current().delegate = self
+                Messaging.messaging().delegate = self
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.registerForRemoteNotifications()   // Enables notifications while app is inactive
+                })
+            }
+        }
         
         FirebaseApp.configure()
         
         return true
+    }
+    
+    func setupFCMConnection(shouldEstablishConnection: Bool) {
+        Messaging.messaging().shouldEstablishDirectChannel = shouldEstablishConnection
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        setupFCMConnection(shouldEstablishConnection: true)
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        setupFCMConnection(shouldEstablishConnection: false)
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("KYLE: Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                let newToken: String = result.token
+                print("KYLE: Remote instance ID token: \(newToken)")
+                self.setupFCMConnection(shouldEstablishConnection: true)
+            }
+        }
+    }
+    
+    // Enable notifications while app is active
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(.alert)   // Send an alert as soon as notification is detected (while active)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -27,23 +70,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
-
