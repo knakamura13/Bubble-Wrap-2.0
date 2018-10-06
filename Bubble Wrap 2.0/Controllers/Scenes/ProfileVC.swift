@@ -61,7 +61,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
             self.itemsSoldLbl.text = UserDefaults.standard.string(forKey: "itemsSold")
             self.followersLbl.text = UserDefaults.standard.string(forKey:"followers")
             
-            if let imgURL = URL(string: currentUser.profileImageURL) {
+            if let imgURL = URL(string: UserDefaults.standard.string(forKey: "profileImgURL")!) {
 
                 DispatchQueue.global().async {
                     let data = try? Data(contentsOf: imgURL)
@@ -158,6 +158,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+       
         if let image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage {
             self.userProfileImg.image = image
             // TODO: Upload this image to Firebase and save to user's document
@@ -184,7 +185,8 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     print("Error")
                 }
             })
-        }
+        } else {print("MARIO: imge does not equal")}
         self.dismiss(animated: true, completion: nil)
+        
     }
 }
