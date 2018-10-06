@@ -10,11 +10,6 @@ import UIKit
 import Firebase
 import FirebaseMessaging
 
-/*  TODO:
- *   - Create Message object when chat bubble created       [KYLE]
- *   - Send new Messages to Firebase Firestore              [KYLE]
- */
-
 class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: Outlets
@@ -79,6 +74,9 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         // Create an empty chat bubble in the TableView cell
         let newChatBubble = UIImageView()
         let superView = cell.contentView
+        if superView.subviews.contains(newChatBubble) {
+            return cell
+        }
         superView.addSubview(newChatBubble)
         newChatBubble.translatesAutoresizingMaskIntoConstraints = false
 
@@ -154,17 +152,27 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     }
     
     func fetchAllMessages() {
-        for message in (conversation?.messages)! {
-            let contents = message.value(forKey: "contents") as? String ?? ""
-            let senderIsCurrentUser = message.value(forKey: "senderIsCurrUser") as? Bool ?? false
-            let timeSent = message.value(forKey: "timeSent") as? Date ?? Date()
-                
-            let newMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrentUser, timeSent: timeSent)
-            
-            allMessages.append(newMessage)
+        Firestore.firestore()
+        .collection("users")
+        .document((Auth.auth().currentUser?.uid)!)
+        .collection("conversations")
+        .document((self.conversation?.itemID)!)
+        .collection("messages")
+        .addSnapshotListener { (snapshot, err) in
+            if let documents = snapshot?.documents {
+                for document in documents {
+                    if let newMessage = Message(dictionary: document.data(), itemID: document.documentID) {
+                        print("KYLE: \(newMessage)")
+                        self.allMessages.append(newMessage)
+                        self.tableView.reloadData()
+                    }
+                }
+            }
         }
-        
-        self.tableView.reloadData()
+//        for i in 1...200 {
+//            let newMessage = Message(contents: "Test contents", senderIsCurrUser: true, timeSent: Date())
+//            self.allMessages.append(newMessage)
+//        }
     }
     
     // Choose either "sent" or "received" for each new chat bubble
