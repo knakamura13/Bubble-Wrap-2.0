@@ -14,9 +14,9 @@ target 'Bubble Wrap 2.0' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Storage'
   pod 'TextViewWithThreshHoldFrame'
+  pod 'LoremSwiftum'
   pod 'Alamofire', '~> 4.7'
   pod 'RxSwift'
   pod 'RxAlamofire'
  
-  
 end

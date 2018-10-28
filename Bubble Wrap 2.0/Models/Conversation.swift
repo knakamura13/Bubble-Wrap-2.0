@@ -12,21 +12,18 @@ import FirebaseFirestore
 
 struct Conversation {
     var recipient: DocumentReference!
-    var messages: [NSObject]!
+    var messages: CollectionReference
     var itemID: String!
     
-    init?(dictionary: [String: Any]?, itemID: String){
-        guard let dictionary = dictionary,
-            let recipient = dictionary["recipient"] as? DocumentReference,
-            let messages = dictionary["messages"] as? [NSObject]
-            else {
-                return nil
-        }
+    init?(document: QueryDocumentSnapshot){
+        let recipient = document.data()["recipient"] as? DocumentReference
+        let messages = document.reference.collection("messages") as CollectionReference
+        let docID = document.documentID
         
-        self.init(recipient: recipient, messages: messages, itemID: itemID)
+        self.init(recipient: recipient!, messages: messages, itemID: docID)
     }
     
-    init(recipient: DocumentReference!, messages: [NSObject], itemID: String) {
+    init(recipient: DocumentReference!, messages: CollectionReference!, itemID: String!) {
         self.recipient = recipient
         self.messages = messages
         self.itemID = itemID

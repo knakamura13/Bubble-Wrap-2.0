@@ -10,70 +10,35 @@ import UIKit
 import Firebase
 import FirebaseMessaging
 
-class MessengerVC: UIViewController {
+class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    /*  TODO:
-     *   -
-     *   -
-     *   - Move the view upwards when keyboard is shown.******
-     *   - Scroll to bottom when text field is tapped.
-     *   - Set keyboard return key to create a new message.
-     *   - Fix slightly off-set scrollToBottom function
-     *   - Implement FirebaseMessaging?
-    */
+    // MARK: Outlets
     
-    // Outlets
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var scrollContainerView: UIView!
-    @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var textFieldContainerView: UIView!
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var sendBtn: UIButton!
+    
+    
+    // MARK: Properties
     
     var prevChatBubble: UIImageView!
     var conversation: Conversation?
     var allMessages: [Message] = []
-    var searchMessages: [Message] = []
+    var isFirstLoad: Bool = true
     
-    let bubbleHeightMultiplyer = 91     // Does not account for dynamic bubble sizes
-   
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    @objc func keyboardDidShow(with notification: Notification) {
-        print("KEYBOARD WORKS")
-        guard let userInfo = notification.userInfo as? [String: AnyObject],
-            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
-            else { return }
-        
-        var contentInset = self.scrollView.contentInset
-        contentInset.bottom += keyboardFrame.height
-        
-        scrollView.contentInset = contentInset
-        scrollView.scrollIndicatorInsets = contentInset
-    }
-    @objc func keyboardWillHide(with notification: Notification) {
-        guard let userInfo = notification.userInfo as? [String: AnyObject],
-            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
-            else {
-                return
-        }
-        
-        var contentInset = self.scrollView.contentInset
-        contentInset.bottom -= keyboardFrame.height
-        
-        scrollView.contentInset = contentInset
-        scrollView.scrollIndicatorInsets = contentInset
-    }
-
+    // MARK: View Load and Appear
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
+        self.messageTextField.delegate = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.hideKeyboardWhenTappedAround()     // Hide keyboard on background tap
         
-//        scrollView.contentSize.height = CGFloat(50 * bubbleHeightMultiplyer)
-        scrollView.contentSize.height = 1750
-        messageTextField.layer.borderColor = Constants.Colors.appPrimaryColor.cgColor
+        self.customizeViews()
+        
+        self.fetchAllMessages()
         
         // Get recipient's name for nav bar title
         if let recipientRef = conversation?.recipient {
@@ -83,134 +48,178 @@ class MessengerVC: UIViewController {
                 }
             }
         }
-        
-        // simulate fetching old messages
-        for _ in 1 ... 10 {
-            createChatBubbble(message: "HELLO WORLD")   // Single test bubble
-        }
-        
-        // simulate fetching new messages
-        fetchAllMessages()
-        
-        scrollToBottom()
-        
-        //Adding observers to check whether keyboard is up or down
-//        NotificationCenter.default.addObserver(self, selector: #selector(UIViewController.keyboardWillShowNotification), name: UIViewController.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(UIViewController.keyboardWillHideNotification), name: UIViewController.keyboardWillHideNotification, object: nil)
-//        let notifier = NotificationCenter.default
-//        notifier.addObserver(self,
-//                             selector: #selector(keyboardWillShowNotification(_:)),
-//                             name: UIWindow.keyboardWillShowNotification,
-//                             object: nil)
-//        notifier.addObserver(self,
-//                             selector: #selector(keyboardWillHideNotification(_:)),
-//                             name: UIWindow.keyboardWillHideNotification,
-//                             object: nil)
-        
     }
     
-    @IBAction func sendBtnPressed(_ sender: Any) {
-        print("Send message pressed")
-        self.scrollView.contentSize.height = self.scrollView.contentSize.height + CGFloat(bubbleHeightMultiplyer)
-        createChatBubbble(message: "Send button as pressed!")
+    override func viewWillAppear(_ animated: Bool) {
+        // Set up keyboard show-hide notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(with:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        // Scroll back to the bottom after bubble appears
-        var offset = scrollView.contentOffset
-        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
-        scrollView.setContentOffset(offset, animated: true)
+        self.tableView.contentInset.top = 20
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    
+    // Set up the styles for this view
+    func customizeViews() {
+        self.messageTextField.layer.cornerRadius = 15.0
+        self.messageTextField.layer.borderWidth = 1.5
+        self.messageTextField.layer.borderColor = UIColor.lightGray.cgColor
+        self.messageTextField.clipsToBounds = true
+    }
+    
+    
+    // MARK: TableView
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allMessages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageBubbleCell", for: indexPath as IndexPath) as! MessageBubbleCell
+        let message = allMessages[indexPath.row]
+        
+        cell.messageBubble.translatesAutoresizingMaskIntoConstraints = false
+
+        // Create a label within the bubble, bound to top, right, bottom, left of the cell's container view
+        cell.messageLbl.text = message.contents
+        cell.messageLbl.textAlignment = .left
+        cell.messageLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
+        cell.messageLbl.sizeToFit()
+        cell.messageLbl.translatesAutoresizingMaskIntoConstraints = false
+
+        // Randomly switch between sent and received style messages
+        if message.senderIsCurrUser {
+            // Image should be stuck to right
+            switchImage(imageView: cell.messageBubble, to: "sent")
+            cell.messageLbl.textColor = UIColor.white
+            
+            cell.messageLbl.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 30).isActive = true
+            cell.messageLbl.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -50).isActive = true
+            
+            cell.messageBubble.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 50).isActive = true
+            cell.messageBubble.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: 0).isActive = true
+        } else {
+            // Image should be stuck to left
+            switchImage(imageView: cell.messageBubble, to: "received")
+            cell.messageLbl.textColor = UIColor.black
+            
+            cell.messageLbl.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 50).isActive = true
+            cell.messageLbl.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -30).isActive = true
+            
+            cell.messageBubble.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 0).isActive = true
+            cell.messageBubble.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -50).isActive = true
+        }
+        
+        cell.messageBubble.heightAnchor.constraint(equalToConstant: cell.messageLbl.frame.size.height + CGFloat(40)).isActive = true
+        cell.messageBubble.widthAnchor.constraint(equalToConstant: cell.messageLbl.frame.size.width + CGFloat(50)).isActive = true
+        
+        return cell
+    }
+    
+    func scrollToBottom(animated: Bool) {
+        self.tableView.scrollToRow(at: IndexPath(row: self.allMessages.count - 1, section: 0), at: .bottom, animated: animated)
+    }
+    
+    
+    // MARK: Actions
+    @IBAction func newSendBtnPressed(_ sender: Any) {
+        self.createUserTypedMessage()
+    }
+    
+    
+    // MARK: Messages
+    
+    func createUserTypedMessage() {
+        if let messageText = self.messageTextField.text {
+            if messageText.count > 0 {
+                let newMessage = Message(contents: messageText, senderIsCurrUser: true, timeSent: Date())
+                self.allMessages.append(newMessage)
+                self.tableView.reloadData()
+                
+                let ref = Firestore.firestore().collection("users").document((Auth.auth().currentUser?.uid)!).collection("conversations").document((self.conversation?.itemID)!).collection("messages")
+                ref.addDocument(data: [
+                    "senderIsCurrUser" : true,
+                    "contents" : newMessage.contents,
+                    "timeSent" : Date()
+                ])
+            }
+        }
+
+        messageTextField.text = ""
     }
     
     func fetchAllMessages() {
-        // Extract all the attributes from each message object
-        for message in (conversation?.messages)! {
-            var tmpMessage: Message = Message(contents: "No contents", senderIsCurrUser: false, timeSent: Date())
-            
-            if let contents = message.value(forKey: "contents") as? String {
-                createChatBubbble(message: contents)
+        conversation?.messages.order(by: "timeSent", descending: true).limit(to: 5000).addSnapshotListener { (snapshot, err) in
+            if let documents = snapshot?.documents {
+                self.allMessages.removeAll()
                 
-                if let senderIsCurrUser = message.value(forKey: "senderIsCurrUser") as? Bool {
-                    if let timeSent = message.value(forKey: "timeSent") as? Date {
-                        tmpMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: timeSent)
-                    } else {
-                        tmpMessage = Message(contents: contents, senderIsCurrUser: senderIsCurrUser, timeSent: Date())
+                for document in documents {
+                    if let newMessage = Message(dictionary: document.data(), itemID: document.documentID) {
+                        self.allMessages.append(newMessage)
                     }
-                } else {
-                    tmpMessage = Message(contents: contents, senderIsCurrUser: false, timeSent: Date())
                 }
+                
+                self.allMessages.reverse()              // Reverse the messages array to show them in ascending order
+                self.tableView.reloadData()
             }
             
-            allMessages.append(tmpMessage)
-            searchMessages.append(tmpMessage)
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                self.scrollToBottom(animated: !self.isFirstLoad)
+                self.isFirstLoad = false
+            })
         }
-    }
-    
-    // Create a single chat bubble
-    func createChatBubbble(message: String) {
-        let newChatBubble = UIImageView()
-        let superView = scrollContainerView!
-        superView.addSubview(newChatBubble)
-        newChatBubble.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Create a label within the bubble, bound to top, right, bottom, left
-        let chatLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 21))
-        newChatBubble.addSubview(chatLabel)
-        chatLabel.text = message
-        chatLabel.textAlignment = .left
-        chatLabel.numberOfLines = 5
-        chatLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        chatLabel.sizeToFit()
-        chatLabel.translatesAutoresizingMaskIntoConstraints = false
-        chatLabel.topAnchor.constraint(equalTo: newChatBubble.topAnchor, constant: 12).isActive = true
-        chatLabel.leftAnchor.constraint(equalTo: newChatBubble.leftAnchor, constant: 30).isActive = true
-        chatLabel.rightAnchor.constraint(equalTo: newChatBubble.rightAnchor, constant: -20).isActive = true
-        chatLabel.bottomAnchor.constraint(greaterThanOrEqualTo: newChatBubble.bottomAnchor, constant: -12).isActive = true
-        
-        // Randomly switch between sent and received style messages
-        let div2: Bool = Int.random(in: 0 ... 100) % 2 == 0
-        let div3: Bool = Int.random(in: 0 ... 100) % 3 == 0
-        if div2 || div3 {
-            switchImage(imageView: newChatBubble, to: "sent")
-            chatLabel.textColor = UIColor.white
-            chatLabel.leftAnchor.constraint(equalTo: newChatBubble.leftAnchor, constant: 30).isActive = true
-            chatLabel.rightAnchor.constraint(equalTo: newChatBubble.rightAnchor, constant: -30).isActive = true
-        } else {
-            switchImage(imageView: newChatBubble, to: "received")
-            chatLabel.textColor = UIColor.black
-            chatLabel.leftAnchor.constraint(equalTo: newChatBubble.leftAnchor, constant: 60).isActive = true
-            chatLabel.rightAnchor.constraint(equalTo: newChatBubble.rightAnchor, constant: -15).isActive = true
-        }
-        
-        if prevChatBubble == nil {
-            // Anchor new bubble to bottom of scrollViewContainer
-            newChatBubble.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: CGFloat(10 * bubbleHeightMultiplyer)).isActive = true
-        } else {
-            // Anchor new bubble to previous chat bubble.top
-            prevChatBubble.bottomAnchor.constraint(equalTo: newChatBubble.topAnchor, constant: -20.0).isActive = true
-        }
-        
-        // Constant width and height, slightly randomized
-        newChatBubble.heightAnchor.constraint(equalToConstant: chatLabel.frame.size.height + CGFloat(30)).isActive = true
-        newChatBubble.widthAnchor.constraint(equalToConstant: chatLabel.frame.size.width + CGFloat(100)).isActive = true
-        
-        prevChatBubble = newChatBubble
     }
     
     // Choose either "sent" or "received" for each new chat bubble
     func switchImage(imageView: UIImageView, to type: String) {
         if type == "sent" {
             imageView.image = UIImage(named: "chat_bubble_sent")
-            imageView.rightAnchor.constraint(equalTo: imageView.superview!.rightAnchor, constant: -25.0).isActive = true
         } else {
             imageView.image = UIImage(named: "chat_bubble_received")
-            imageView.leftAnchor.constraint(equalTo: imageView.superview!.leftAnchor, constant: 25.0).isActive = true
         }
     }
     
-    // Scroll the scrollView to the bottom on page load
-    func scrollToBottom() {
-        var offset = scrollView.contentOffset
-        offset.y = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.bounds.size.height + CGFloat(0)
-        scrollView.setContentOffset(offset, animated: true)
+    
+    // MARK: Keyboard
+    
+    @objc func keyboardWillShow(with notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: AnyObject],
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            else {
+                return
+        }
+        
+        for constraint in self.view.constraints {
+            if constraint.identifier == "textFieldContainerViewBottom" {
+                constraint.constant = -(keyboardFrame.height - 50)
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+        self.tableView.scrollToRow(at: IndexPath(row: self.allMessages.count - 1, section: 0), at: .top, animated: false)
+    }
+    
+    @objc func keyboardWillHide(with notification: Notification) {
+        for constraint in self.view.constraints {
+            if constraint.identifier == "textFieldContainerViewBottom" {
+                constraint.constant = 0
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+}
+
+extension MessengerVC {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = Constants.Colors.appPrimaryColor.cgColor
+        textField.layer.borderWidth = 3.0
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.borderWidth = 1.5
     }
     
 //    // If keyboard is shown move the view up to show text and the rest of the view

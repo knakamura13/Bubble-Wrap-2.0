@@ -17,8 +17,8 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var profileImageView: UIImageView!
     // Labels
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var firstNameLbl: UILabel!
-    @IBOutlet weak var lastNameLbl: UILabel!
+    //@IBOutlet weak var firstNameLbl: UILabel!
+    //@IBOutlet weak var lastNameLbl: UILabel!
     // Text Fields
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
