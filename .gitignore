@@ -11,6 +11,6 @@ Thumbs.db
 # Local Configuration Files #
 ######################
 xcuserdata/
-.plist
+*.plist
 *.xcuserstate
 Bubble Wrap 2.0.xcworkspace/xcuserdata/mariolopez.xcuserdatad/UserInterfaceState.xcuserstate
