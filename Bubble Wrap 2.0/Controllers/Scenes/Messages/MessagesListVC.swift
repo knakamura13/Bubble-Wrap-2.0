@@ -17,6 +17,7 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     var allMessageContents: [Message] = []
     var allThumbnails: [UIImage] = []
     var searchThumbnails: [UIImage] = []
+    var selectedConversationRecipient: String = ""
     
     private(set) var datasource = DataSource()  // Datasource for data listener
     var selectedConversation: Conversation?
@@ -37,9 +38,8 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
             Firestore.firestore().collection("users").document(userID).collection("conversations").addSnapshotListener { (snapshot, err) in
                 if let documents = snapshot?.documents {
                     for document in documents {
-                        let conversation = Conversation(dictionary: document.data(), itemID: document.documentID)
+                        let conversation = Conversation(document: document)
                         self.allConversations.append(conversation!)
-                        self.searchConversations.append(conversation!)
                         self.tableView.reloadData()
                     }
                 }
@@ -80,9 +80,9 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        cell.cellImageViewContainer.layer.cornerRadius = 21
-        cell.cellMessageContentsLbl.text = self.searchConversations[indexPath.item].messages[0].value(forKey: "contents") as? String
-        let date = self.searchConversations[indexPath.item].messages[0].value(forKey: "timeSent") as? Date
+        cell.cellImageViewContainer.layer.cornerRadius = 5
+        cell.cellMessageContentsLbl.text = ""
+        let date = Date()
         let weekDayFormatter = DateFormatter()
         let timeFormatter = DateFormatter()
         weekDayFormatter.dateFormat = "EEEE"    // Format Date() object as weekday name, i.e. "Monday"
@@ -91,9 +91,9 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         timeFormatter.pmSymbol = "PM"
         
         var timeLbl = ""
-        let dayInWeek = weekDayFormatter.string(from: date!)
+        let dayInWeek = weekDayFormatter.string(from: date)
         if dayInWeek == weekDayFormatter.string(from: Date()) {
-            timeLbl = timeFormatter.string(from: date!)
+            timeLbl = timeFormatter.string(from: date)
         } else {
             timeLbl = dayInWeek
         }
@@ -103,6 +103,16 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedConversation = searchConversations[indexPath.row]
+        
+        if let recipientRef = selectedConversation?.recipient {
+            recipientRef.getDocument { (document, error) in
+                if let document = document {
+                    let name = document.data()!["firstName"] as? String
+                    self.selectedConversationRecipient = name ?? ""
+                }
+            }
+        }
+        
         performSegue(withIdentifier: "messengerSegue", sender: nil)
     }
     
@@ -131,5 +141,6 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let secondViewController = segue.destination as! MessengerVC
         secondViewController.conversation = selectedConversation
+        secondViewController.title = selectedConversationRecipient
     }
 }
