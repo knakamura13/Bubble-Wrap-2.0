@@ -56,6 +56,9 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         datasource.itemsQuery()
             .addSnapshotListener { querySnapshot, error in
                 if let documents = querySnapshot?.documents {
+                    self.allItems.removeAll()
+                    self.searchItems.removeAll()
+                    
                     for document in documents {
                         if let item = Item(dictionary: document.data(), itemID: document.documentID) {
                             self.allItems.append(item)
