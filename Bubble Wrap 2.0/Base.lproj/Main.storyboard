@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1339,24 +1339,25 @@ password is "password"</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="veG-Nm-oLn" userLabel="textFieldContainer">
-                                <rect key="frame" x="0.0" y="568" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="558" width="375" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3aH-i6-YpP">
-                                        <rect key="frame" x="8" y="10" width="293" height="30"/>
+                                        <rect key="frame" x="15" y="15" width="286" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="send" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="yes"/>
                                     </textField>
-                                    <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-Nh-uuM">
-                                        <rect key="frame" x="313" y="8" width="50" height="34"/>
+                                    <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-Nh-uuM">
+                                        <rect key="frame" x="313" y="8" width="50" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="ohc-1h-B5N"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="Send">
                                             <color key="titleColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="sendBtnPressed:" destination="uci-9T-fgR" eventType="touchUpInside" id="UFm-fb-zGt"/>
+                                            <action selector="newSendBtnPressed:" destination="uci-9T-fgR" eventType="touchDown" id="Vdo-P4-1RC"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1366,13 +1367,13 @@ password is "password"</string>
                                     <constraint firstItem="3aH-i6-YpP" firstAttribute="centerY" secondItem="veG-Nm-oLn" secondAttribute="centerY" id="I5y-2K-4E9"/>
                                     <constraint firstAttribute="trailing" secondItem="8Ek-Nh-uuM" secondAttribute="trailing" constant="12" id="LCX-JA-ck8"/>
                                     <constraint firstItem="8Ek-Nh-uuM" firstAttribute="top" secondItem="veG-Nm-oLn" secondAttribute="top" constant="8" id="Q9T-fx-yeu"/>
-                                    <constraint firstItem="3aH-i6-YpP" firstAttribute="leading" secondItem="veG-Nm-oLn" secondAttribute="leading" constant="8" id="YoJ-Xn-P2d"/>
+                                    <constraint firstItem="3aH-i6-YpP" firstAttribute="leading" secondItem="veG-Nm-oLn" secondAttribute="leading" constant="15" id="YoJ-Xn-P2d"/>
                                     <constraint firstItem="8Ek-Nh-uuM" firstAttribute="leading" secondItem="3aH-i6-YpP" secondAttribute="trailing" constant="12" id="ZFm-3v-hRg"/>
-                                    <constraint firstAttribute="height" constant="50" id="xTv-RO-QSq"/>
+                                    <constraint firstAttribute="height" constant="60" id="xTv-RO-QSq"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zfc-Sc-9KG">
-                                <rect key="frame" x="0.0" y="64" width="375" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="494"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
                                 <prototypes>
@@ -1382,7 +1383,30 @@ password is "password"</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ALL-jK-po2" id="ng9-xe-emH">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oti-rb-0nS">
+                                                    <rect key="frame" x="15" y="11" width="345" height="74"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aO7-ae-k0F">
+                                                    <rect key="frame" x="55" y="21" width="265" height="54"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aO7-ae-k0F" firstAttribute="top" secondItem="ng9-xe-emH" secondAttribute="topMargin" constant="10" id="8Kr-uG-ezW"/>
+                                                <constraint firstItem="Oti-rb-0nS" firstAttribute="top" secondItem="ng9-xe-emH" secondAttribute="topMargin" id="98a-WX-DJG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="aO7-ae-k0F" secondAttribute="trailing" constant="40" id="9ka-0M-Rda"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="aO7-ae-k0F" secondAttribute="bottom" constant="10" id="VTh-Aj-s4V"/>
+                                                <constraint firstItem="aO7-ae-k0F" firstAttribute="leading" secondItem="ng9-xe-emH" secondAttribute="leadingMargin" constant="40" id="d9S-Fv-heg"/>
+                                                <constraint firstItem="Oti-rb-0nS" firstAttribute="bottom" secondItem="aO7-ae-k0F" secondAttribute="bottom" constant="10" id="shm-wd-Oec"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageBubble" destination="Oti-rb-0nS" id="i5w-Id-j1G"/>
+                                            <outlet property="messageLbl" destination="aO7-ae-k0F" id="IUk-29-LVH"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

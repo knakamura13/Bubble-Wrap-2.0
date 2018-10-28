@@ -25,16 +25,18 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     var prevChatBubble: UIImageView!
     var conversation: Conversation?
     var allMessages: [Message] = []
-    
+    var isFirstLoad: Bool = true
     
     // MARK: View Load and Appear
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()     // Hide keyboard on background tap
         self.messageTextField.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.hideKeyboardWhenTappedAround()     // Hide keyboard on background tap
+        
+        self.customizeViews()
         
         self.fetchAllMessages()
         
@@ -54,10 +56,17 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         self.tableView.contentInset.top = 20
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableView.automaticDimension
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.scrollToBottom(animated: false)
+    
+    // Set up the styles for this view
+    func customizeViews() {
+        self.messageTextField.layer.cornerRadius = 15.0
+        self.messageTextField.layer.borderWidth = 1.5
+        self.messageTextField.layer.borderColor = UIColor.lightGray.cgColor
+        self.messageTextField.clipsToBounds = true
     }
     
     
@@ -71,61 +80,51 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageBubbleCell", for: indexPath as IndexPath) as! MessageBubbleCell
         let message = allMessages[indexPath.row]
         
-        // Create an empty chat bubble in the TableView cell
-        let newChatBubble = UIImageView()
-        let superView = cell.contentView
-        if superView.subviews.contains(newChatBubble) {
-            return cell
-        }
-        superView.addSubview(newChatBubble)
-        newChatBubble.translatesAutoresizingMaskIntoConstraints = false
+        cell.messageBubble.translatesAutoresizingMaskIntoConstraints = false
 
         // Create a label within the bubble, bound to top, right, bottom, left of the cell's container view
-        let chatLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 21))
-        newChatBubble.addSubview(chatLabel)
-        chatLabel.text = message.contents
-        chatLabel.textAlignment = .left
-        chatLabel.numberOfLines = 5
-        chatLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        chatLabel.sizeToFit()
-        chatLabel.translatesAutoresizingMaskIntoConstraints = false
-        chatLabel.topAnchor.constraint(equalTo: newChatBubble.topAnchor, constant: 12).isActive = true
-        chatLabel.leftAnchor.constraint(equalTo: newChatBubble.leftAnchor, constant: 30).isActive = true
-        chatLabel.rightAnchor.constraint(equalTo: newChatBubble.rightAnchor, constant: -20).isActive = true
-        chatLabel.bottomAnchor.constraint(greaterThanOrEqualTo: newChatBubble.bottomAnchor, constant: -12).isActive = true
+        cell.messageLbl.text = message.contents
+        cell.messageLbl.textAlignment = .left
+        cell.messageLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
+        cell.messageLbl.sizeToFit()
+        cell.messageLbl.translatesAutoresizingMaskIntoConstraints = false
 
         // Randomly switch between sent and received style messages
         if message.senderIsCurrUser {
-            switchImage(imageView: newChatBubble, to: "sent")
-            chatLabel.textColor = UIColor.white
-            chatLabel.leftAnchor.constraint(equalTo: newChatBubble.leftAnchor, constant: 30).isActive = true
-            chatLabel.rightAnchor.constraint(equalTo: newChatBubble.rightAnchor, constant: -30).isActive = true
+            // Image should be stuck to right
+            switchImage(imageView: cell.messageBubble, to: "sent")
+            cell.messageLbl.textColor = UIColor.white
+            
+            cell.messageLbl.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 30).isActive = true
+            cell.messageLbl.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -50).isActive = true
+            
+            cell.messageBubble.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 50).isActive = true
+            cell.messageBubble.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: 0).isActive = true
         } else {
-            switchImage(imageView: newChatBubble, to: "received")
-            chatLabel.textColor = UIColor.black
-            chatLabel.leftAnchor.constraint(equalTo: newChatBubble.leftAnchor, constant: 60).isActive = true
-            chatLabel.rightAnchor.constraint(equalTo: newChatBubble.rightAnchor, constant: -15).isActive = true
+            // Image should be stuck to left
+            switchImage(imageView: cell.messageBubble, to: "received")
+            cell.messageLbl.textColor = UIColor.black
+            
+            cell.messageLbl.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 50).isActive = true
+            cell.messageLbl.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -30).isActive = true
+            
+            cell.messageBubble.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 0).isActive = true
+            cell.messageBubble.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -50).isActive = true
         }
         
-        newChatBubble.heightAnchor.constraint(equalToConstant: chatLabel.frame.size.height + CGFloat(30)).isActive = true
-        newChatBubble.widthAnchor.constraint(equalToConstant: chatLabel.frame.size.width + CGFloat(100)).isActive = true
-        
-        superView.heightAnchor.constraint(equalToConstant: chatLabel.frame.size.height + CGFloat(50)).isActive = true
+        cell.messageBubble.heightAnchor.constraint(equalToConstant: cell.messageLbl.frame.size.height + CGFloat(40)).isActive = true
+        cell.messageBubble.widthAnchor.constraint(equalToConstant: cell.messageLbl.frame.size.width + CGFloat(50)).isActive = true
         
         return cell
     }
     
     func scrollToBottom(animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            let indexPath = NSIndexPath(item: self.allMessages.count - 1, section: 0)
-            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .bottom, animated: animated)
-        }
+        self.tableView.scrollToRow(at: IndexPath(row: self.allMessages.count - 1, section: 0), at: .bottom, animated: animated)
     }
     
     
     // MARK: Actions
-    
-    @IBAction func sendBtnPressed(_ sender: Any) {
+    @IBAction func newSendBtnPressed(_ sender: Any) {
         self.createUserTypedMessage()
     }
     
@@ -152,48 +151,38 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     }
     
     func fetchAllMessages() {
-        Firestore.firestore()
-        .collection("users")
-        .document((Auth.auth().currentUser?.uid)!)
-        .collection("conversations")
-        .document((self.conversation?.itemID)!)
-        .collection("messages")
-        .addSnapshotListener { (snapshot, err) in
+        conversation?.messages.order(by: "timeSent", descending: true).limit(to: 5000).addSnapshotListener { (snapshot, err) in
             if let documents = snapshot?.documents {
+                self.allMessages.removeAll()
+                
                 for document in documents {
                     if let newMessage = Message(dictionary: document.data(), itemID: document.documentID) {
-                        print("KYLE: \(newMessage)")
                         self.allMessages.append(newMessage)
-                        self.tableView.reloadData()
                     }
                 }
+                
+                self.allMessages.reverse()              // Reverse the messages array to show them in ascending order
+                self.tableView.reloadData()
             }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                self.scrollToBottom(animated: !self.isFirstLoad)
+                self.isFirstLoad = false
+            })
         }
-//        for i in 1...200 {
-//            let newMessage = Message(contents: "Test contents", senderIsCurrUser: true, timeSent: Date())
-//            self.allMessages.append(newMessage)
-//        }
     }
     
     // Choose either "sent" or "received" for each new chat bubble
     func switchImage(imageView: UIImageView, to type: String) {
         if type == "sent" {
             imageView.image = UIImage(named: "chat_bubble_sent")
-            imageView.rightAnchor.constraint(equalTo: imageView.superview!.rightAnchor, constant: -25.0).isActive = true
         } else {
             imageView.image = UIImage(named: "chat_bubble_received")
-            imageView.leftAnchor.constraint(equalTo: imageView.superview!.leftAnchor, constant: 25.0).isActive = true
         }
     }
     
     
     // MARK: Keyboard
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.createUserTypedMessage()
-        self.messageTextField.resignFirstResponder()
-        return true
-    }
     
     @objc func keyboardWillShow(with notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: AnyObject],
@@ -208,7 +197,8 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
                 self.view.layoutIfNeeded()
             }
         }
-        self.scrollToBottom(animated: true)
+        
+        self.tableView.scrollToRow(at: IndexPath(row: self.allMessages.count - 1, section: 0), at: .top, animated: false)
     }
     
     @objc func keyboardWillHide(with notification: Notification) {
@@ -218,5 +208,17 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
                 self.view.layoutIfNeeded()
             }
         }
+    }
+}
+
+extension MessengerVC {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = Constants.Colors.appPrimaryColor.cgColor
+        textField.layer.borderWidth = 3.0
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.borderWidth = 1.5
     }
 }

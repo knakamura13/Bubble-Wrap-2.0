@@ -38,9 +38,8 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
             Firestore.firestore().collection("users").document(userID).collection("conversations").addSnapshotListener { (snapshot, err) in
                 if let documents = snapshot?.documents {
                     for document in documents {
-                        let conversation = Conversation(dictionary: document.data(), itemID: document.documentID)
+                        let conversation = Conversation(document: document)
                         self.allConversations.append(conversation!)
-                        self.searchConversations.append(conversation!)
                         self.tableView.reloadData()
                     }
                 }
@@ -82,8 +81,8 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         cell.cellImageViewContainer.layer.cornerRadius = 5
-        cell.cellMessageContentsLbl.text = self.searchConversations[indexPath.item].messages[0].value(forKey: "contents") as? String
-        let date = self.searchConversations[indexPath.item].messages[0].value(forKey: "timeSent") as? Date
+        cell.cellMessageContentsLbl.text = ""
+        let date = Date()
         let weekDayFormatter = DateFormatter()
         let timeFormatter = DateFormatter()
         weekDayFormatter.dateFormat = "EEEE"    // Format Date() object as weekday name, i.e. "Monday"
@@ -92,9 +91,9 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         timeFormatter.pmSymbol = "PM"
         
         var timeLbl = ""
-        let dayInWeek = weekDayFormatter.string(from: date!)
+        let dayInWeek = weekDayFormatter.string(from: date)
         if dayInWeek == weekDayFormatter.string(from: Date()) {
-            timeLbl = timeFormatter.string(from: date!)
+            timeLbl = timeFormatter.string(from: date)
         } else {
             timeLbl = dayInWeek
         }
