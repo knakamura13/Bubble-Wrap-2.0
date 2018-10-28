@@ -43,7 +43,18 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             self.getUserInformation()
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
-                self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+                if Auth.auth().currentUser?.isEmailVerified ?? false {
+                    self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+                } else {
+                    // Passwords to not match, so alert user to try again
+                    let alert = UIAlertController(title: "Are you human...", message: "Or are you dancer? \n\nPlease verify your email and try signing in again.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Okay :(", style: .default) {
+                        UIAlertAction in
+                        self.emailTextField.text = Auth.auth().currentUser?.email
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                }
             }
         }
         
@@ -59,6 +70,13 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         emailImageView.tintColor = UIColor.white
         passwordImageView.tintColor = UIColor.white
         confirmPasswordImageView.tintColor = UIColor.white
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+                                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+                                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+                                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
         signInButton.layer.cornerRadius = 10
         dividerView1.layer.cornerRadius = 0.5
         dividerView2.layer.cornerRadius = dividerView1.layer.cornerRadius
@@ -91,23 +109,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
         
-        // Check if email contains a valid .edu domain
-        var validDomain = false
-        for (domain, _) in existingBubbleCommunities {
-            if email.contains(domain) {
-                validDomain = true
-            }
-        }
-        if !validDomain {
-            let alert = UIAlertController(title: "Sorry!", message: "You need a valid .edu email address to use Bubble Wrap.", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .default) {
-                UIAlertAction in
-                self.emailTextField.text = ""  // Clear the confirmPassword field
-            }
-            alert.addAction(action)
-            return
-        }
-        
         if confirmPasswordStackView.isHidden {
             // Sign in existing user
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
@@ -117,13 +118,64 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     self.present(alert, animated: true)
                 } else {
                     self.getUserInformation()
-                    self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+                    
+                    if Auth.auth().currentUser?.isEmailVerified ?? false {
+                        self.performSegue(withIdentifier: "authenticatedSegue", sender: nil) 
+                    } else {
+                        // Passwords to not match, so alert user to try again
+                        let alert = UIAlertController(title: "Are you human...", message: "Or are you dancer? \n\nPlease verify your email and try again.", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "Okay :(", style: .default) {
+                            UIAlertAction in
+                        }
+                        alert.addAction(action)
+                        self.present(alert, animated: true)
+                    }
                 }
             }
         } else {
+            // Check if email contains a valid .edu domain
+            var validDomain = false
+            for (domain, _) in existingBubbleCommunities {
+                if email.contains(domain) {
+                    validDomain = true
+                }
+            }
+            if !validDomain {
+                let alert = UIAlertController(title: "Sorry!", message: "You need a valid .edu email address to use Bubble Wrap.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Okay", style: .default) {
+                    UIAlertAction in
+                    self.emailTextField.text = ""  // Clear the confirmPassword field
+                }
+                alert.addAction(action)
+                self.present(alert, animated: true)
+                return
+            }
+            
             // Verify passwords match and create a new user
             guard let confirmPassword = confirmPasswordTextField.text else { return }
             if password == confirmPassword {
+                if password.count < 8 {
+                    let alert = UIAlertController(title: "You can do better than that!", message: "Your password must be at least 8 characters long.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Okay", style: .default) {
+                        UIAlertAction in
+                        
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    
+                    return
+                } else if password.lowercased().contains("password") {
+                    let alert = UIAlertController(title: "Hey, it's not a race.", message: "Try coming up with a more... sophisticated password. You can't use the word \"password\" in your password.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Okay", style: .default) {
+                        UIAlertAction in
+                        
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    
+                    return
+                }
+                
                 Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                     if error != nil {
                         // Handle error
