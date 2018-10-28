@@ -119,8 +119,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                 } else {
                     self.getUserInformation()
                     
-                    if Auth.auth().currentUser?.isEmailVerified ?? false
-                        || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
+                    if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
                         self.performSegue(withIdentifier: "authenticatedSegue", sender: nil) 
                     } else {
                         // Passwords to not match, so alert user to try again
