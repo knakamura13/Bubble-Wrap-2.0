@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import Firebase
+import FirebaseFirestore
 
 class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     

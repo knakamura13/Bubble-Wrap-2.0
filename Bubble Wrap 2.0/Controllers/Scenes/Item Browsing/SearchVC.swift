@@ -89,6 +89,15 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        self.roundCorners([.topLeft, .topRight], radius: CGFloat(10),self.collectionView(<#T##collectionView: UICollectionView##UICollectionView#>, cellForItemAt: <#T##IndexPath#>))
+//    }
+    
+    
+    
+    
     func customizeView() {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
@@ -151,12 +160,11 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         cell.layer.shadowOffset = CGSize(width: 2, height: 2)
         cell.layer.masksToBounds = false
         
-        // Stylize the cell's imageView
-        let rectShape = CAShapeLayer()
-        rectShape.bounds = cell.cellImg.frame
-        rectShape.position = cell.cellImg.center
-        rectShape.path = UIBezierPath(roundedRect:  cell.cellImg.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
-        cell.cellImg.layer.mask = rectShape
+        // Stylize the image
+        cell.cellImg.layer.masksToBounds = true
+        cell.cellImg.layer.cornerRadius = cornerRadius
+        cell.cellImg.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         
         return cell
     }
@@ -165,6 +173,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         performSegue(withIdentifier: "singleItemSegue", sender: nil)
     }
     
+   
     /*
      MARK: SEARCH BAR
      */

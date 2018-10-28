@@ -434,7 +434,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5s8-KV-vQI">
-                                                <rect key="frame" x="45" y="256" width="285" height="44.5"/>
+                                                <rect key="frame" x="45" y="235" width="285" height="44.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="y1e-JH-mtg">
                                                         <rect key="frame" x="0.0" y="0.0" width="46" height="44.5"/>
@@ -490,13 +490,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UE-M1-2qI">
-                                                <rect key="frame" x="16" y="330.5" width="70" height="21.5"/>
+                                                <rect key="frame" x="16" y="309.5" width="70" height="21.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4ii-OF-9s9">
-                                                <rect key="frame" x="0.0" y="352" width="375" height="225"/>
+                                                <rect key="frame" x="0.0" y="331" width="375" height="225"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="225" id="SfD-SA-7fA"/>
@@ -550,7 +550,7 @@
                                                 </cells>
                                             </collectionView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="2P8-au-wfV">
-                                                <rect key="frame" x="119" y="157" width="137" height="69"/>
+                                                <rect key="frame" x="119" y="157" width="137" height="48"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="Full Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xGB-CV-fw3">
                                                         <rect key="frame" x="15.5" y="0.0" width="106" height="27"/>
@@ -558,14 +558,8 @@
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="email address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c52-pt-Ipw">
-                                                        <rect key="frame" x="18.5" y="29" width="100" height="19"/>
-                                                        <color key="textColor" white="0.0" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
-                                                    </textField>
                                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Bubble Community" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JBP-iw-SHz">
-                                                        <rect key="frame" x="0.0" y="50" width="137" height="19"/>
+                                                        <rect key="frame" x="0.0" y="29" width="137" height="19"/>
                                                         <color key="textColor" white="0.0" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
@@ -625,7 +619,6 @@
                         <outlet property="scrollView" destination="ZuK-pu-UdF" id="lwN-RE-t28"/>
                         <outlet property="signOutBtn" destination="Jhh-f3-cdX" id="lhs-1d-2SC"/>
                         <outlet property="userBubbleField" destination="JBP-iw-SHz" id="Na5-iL-KNc"/>
-                        <outlet property="userEmailField" destination="c52-pt-Ipw" id="qj5-bU-RMa"/>
                         <outlet property="userNameField" destination="xGB-CV-fw3" id="V50-WG-Htk"/>
                         <outlet property="userProfileImg" destination="Spx-Vc-2FJ" id="a9G-Vi-f6b"/>
                     </connections>
@@ -690,15 +683,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Eu1-Qt-3cz" userLabel="Cell Img">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="196"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZL-yH-abU">
                                                     <rect key="frame" x="104" y="211" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Eu1-Qt-3cz" userLabel="Cell Img">
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="196"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -707,7 +700,7 @@
                                             <constraint firstItem="Eu1-Qt-3cz" firstAttribute="leading" secondItem="fgI-ny-Ar5" secondAttribute="leading" id="LbP-B0-PEw"/>
                                             <constraint firstItem="tZL-yH-abU" firstAttribute="centerX" secondItem="fgI-ny-Ar5" secondAttribute="centerX" id="Ozp-vN-uMO"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="tZL-yH-abU" secondAttribute="bottom" constant="10" id="VMc-RD-yhN"/>
-                                            <constraint firstAttribute="trailing" secondItem="Eu1-Qt-3cz" secondAttribute="trailing" id="psO-Ns-jQR"/>
+                                            <constraint firstAttribute="trailing" secondItem="Eu1-Qt-3cz" secondAttribute="trailing" id="kaw-aS-F6a"/>
                                             <constraint firstItem="tZL-yH-abU" firstAttribute="top" secondItem="Eu1-Qt-3cz" secondAttribute="bottom" constant="15" id="tcG-4j-Eeh"/>
                                         </constraints>
                                         <connections>
@@ -1458,6 +1451,10 @@ password is "password"</string>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IBz-la-dZo">
                                                             <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="42" id="rFv-NK-fS9"/>
+                                                                <constraint firstAttribute="height" constant="42" id="rRE-wP-UZs"/>
+                                                            </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1531,9 +1528,9 @@ password is "password"</string>
                                     <outlet property="delegate" destination="uMz-iF-1BP" id="x5w-sH-Hs6"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="lYr-aI-ZZF">
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="lYr-aI-ZZF">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="uMz-iF-1BP" id="0il-C4-Doz"/>

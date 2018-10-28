@@ -12,4 +12,5 @@ Thumbs.db
 ######################
 xcuserdata/
 .plist
-.xcuserstate
+*.xcuserstate
+Bubble Wrap 2.0.xcworkspace/xcuserdata/mariolopez.xcuserdatad/UserInterfaceState.xcuserstate

@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
 
 struct Conversation {
     var recipient: DocumentReference!

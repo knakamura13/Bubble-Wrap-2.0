@@ -221,4 +221,27 @@ extension MessengerVC {
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 1.5
     }
+    
+//    // If keyboard is shown move the view up to show text and the rest of the view
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+//
+//    // Put view and rest of keyboard shown back to normal without keyboard
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+    @objc
+    func keyboardWillShowNotification(_ notification: NSNotification) {}
+    
+    @objc
+    func keyboardWillHideNotification(_ notification: NSNotification) {}
 }
