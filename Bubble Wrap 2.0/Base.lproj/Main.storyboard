@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="081-gq-Fxe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -415,7 +415,7 @@
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6dj-cg-2DF" userLabel="Circular View" customClass="UIControl">
                                                 <rect key="frame" x="127.5" y="25" width="120" height="120"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="picsum-1" translatesAutoresizingMaskIntoConstraints="NO" id="Spx-Vc-2FJ">
+                                                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Portrait_Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Spx-Vc-2FJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                         <gestureRecognizers/>
                                                         <connections>
@@ -434,7 +434,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5s8-KV-vQI">
-                                                <rect key="frame" x="45" y="235" width="285" height="44.5"/>
+                                                <rect key="frame" x="45" y="234.5" width="285" height="44.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="y1e-JH-mtg">
                                                         <rect key="frame" x="0.0" y="0.0" width="46" height="44.5"/>
@@ -490,13 +490,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UE-M1-2qI">
-                                                <rect key="frame" x="16" y="309.5" width="70" height="21.5"/>
+                                                <rect key="frame" x="16" y="309" width="70" height="21.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4ii-OF-9s9">
-                                                <rect key="frame" x="0.0" y="331" width="375" height="225"/>
+                                                <rect key="frame" x="0.0" y="330.5" width="375" height="225"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="225" id="SfD-SA-7fA"/>
@@ -550,16 +550,20 @@
                                                 </cells>
                                             </collectionView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="2P8-au-wfV">
-                                                <rect key="frame" x="119" y="157" width="137" height="48"/>
+                                                <rect key="frame" x="119" y="157" width="137" height="47.5"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="Full Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xGB-CV-fw3">
-                                                        <rect key="frame" x="15.5" y="0.0" width="106" height="27"/>
-                                                        <color key="textColor" white="0.0" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Soz-bb-J3R">
+                                                        <rect key="frame" x="17.5" y="0.0" width="102" height="26.5"/>
+                                                        <gestureRecognizers/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
-                                                    </textField>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="Yxx-YH-38F" appends="YES" id="FTn-yw-27M"/>
+                                                        </connections>
+                                                    </label>
                                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Bubble Community" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JBP-iw-SHz">
-                                                        <rect key="frame" x="0.0" y="29" width="137" height="19"/>
+                                                        <rect key="frame" x="0.0" y="28.5" width="137" height="19"/>
                                                         <color key="textColor" white="0.0" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
@@ -619,7 +623,7 @@
                         <outlet property="scrollView" destination="ZuK-pu-UdF" id="lwN-RE-t28"/>
                         <outlet property="signOutBtn" destination="Jhh-f3-cdX" id="lhs-1d-2SC"/>
                         <outlet property="userBubbleField" destination="JBP-iw-SHz" id="Na5-iL-KNc"/>
-                        <outlet property="userNameField" destination="xGB-CV-fw3" id="V50-WG-Htk"/>
+                        <outlet property="userNameLbl" destination="Soz-bb-J3R" id="IBT-2d-EuK"/>
                         <outlet property="userProfileImg" destination="Spx-Vc-2FJ" id="a9G-Vi-f6b"/>
                     </connections>
                 </viewController>
@@ -627,6 +631,11 @@
                 <tapGestureRecognizer id="mcU-0j-s5n" userLabel="profileImageTap">
                     <connections>
                         <action selector="profileImgTapped:" destination="1i1-iU-akE" id="UrE-oU-Eai"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Yxx-YH-38F">
+                    <connections>
+                        <action selector="nameLblTapped:" destination="1i1-iU-akE" id="LFU-hm-36w"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1542,6 +1551,7 @@ password is "password"</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Portrait_Placeholder" width="600" height="600"/>
         <image name="icon-Bubble-Wrap" width="1113.230712890625" height="1113.230712890625"/>
         <image name="icon-camera" width="25" height="25"/>
         <image name="icon-chat" width="25" height="25"/>
@@ -1551,7 +1561,6 @@ password is "password"</string>
         <image name="icon-profile" width="25" height="25"/>
         <image name="icon-profile-placeholder" width="100.08000183105469" height="104.63999938964844"/>
         <image name="icon-search" width="25" height="25"/>
-        <image name="picsum-1" width="500" height="500"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GDm-b4-eCz"/>

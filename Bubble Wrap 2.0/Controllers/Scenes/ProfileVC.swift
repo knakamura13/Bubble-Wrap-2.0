@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import Photos
 
 var globalProfilePicture: UIImage!
 
@@ -23,6 +24,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     // Variables
     var allReviews: [Review] = []
     var selectedReview: Review?
+    var tappedName: Bool = false
     
     private(set) var datasource = DataSource()  // Datasource for data listener
     
@@ -32,7 +34,7 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var profileImgView: UIControl!
     @IBOutlet weak var userProfileImg: UIImageView!
-    @IBOutlet weak var userNameField: UITextField!
+    @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var userBubbleField: UITextField!
     @IBOutlet weak var ratingLbl: UILabel!
     @IBOutlet weak var itemsSoldLbl: UILabel!
@@ -42,9 +44,8 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        userNameField.delegate = self
        
-        
+        self.checkPermission()
         self.setFields()
         self.customizeView()
         self.displayReviews()
@@ -55,20 +56,32 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     // Set the fields of the profile aspects from the UserDefaults
     func setFields() {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.userNameField.text = UserDefaults.standard.string(forKey: "firstName")! + " " + UserDefaults.standard.string(forKey: "lastName")!
+            self.userNameLbl.text = UserDefaults.standard.string(forKey: "firstName")! + " " + UserDefaults.standard.string(forKey: "lastName")!
             self.userBubbleField.text =  UserDefaults.standard.string(forKey: "bubbleCommunity")
             self.ratingLbl.text = UserDefaults.standard.string(forKey: "rating")
             self.itemsSoldLbl.text = UserDefaults.standard.string(forKey: "itemsSold")
             self.followersLbl.text = UserDefaults.standard.string(forKey:"followers")
             
+            // Upload picture asnc
             if let imgURL = URL(string: UserDefaults.standard.string(forKey: "profileImgURL")!) {
-
                 DispatchQueue.global().async {
                     let data = try? Data(contentsOf: imgURL)
                     DispatchQueue.main.async{
                         if let imageData = data {
                             let image = UIImage(data: imageData)
                             globalProfilePicture = image!
+                            self.userProfileImg.image = image
+                        }
+                    }
+                }
+            } else if let imgURL = URL(string: currentUser.profileImageURL) {
+                DispatchQueue.global().async {
+                    let data = try? Data(contentsOf: imgURL)
+                    DispatchQueue.main.async{
+                        if let imageData = data {
+                            let image = UIImage(data: imageData)
+                            globalProfilePicture = image!
+                            self.userProfileImg.image = image
                         }
                     }
                 }
@@ -148,21 +161,76 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         }
     }
     
+    // Funstion is connected with the tapped gesture in viewDidLoad
+    @IBAction func nameLblTapped (_ gestureRecognizer : UITapGestureRecognizer ) {
+    guard gestureRecognizer.view != nil else { return }
+        if gestureRecognizer.state == .ended {
+        let alert = UIAlertController(title: "Change Your Name", message: "Enter your name!", preferredStyle: .alert)
+        alert.addTextField { (textField1: UITextField) in
+            textField1.placeholder = "First Name"
+        }
+        alert.addTextField { (textField2: UITextField) in
+            textField2.placeholder = "Last Name"
+        }
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) in
+            if let textField1 = alert.textFields?.first {
+                if let textField2 = alert.textFields?[1]{
+                    // Check if both text fields in alert have been updated
+                    if textField1.text?.count == 0 || textField2.text?.count == 0{
+                        print("NOTHING ENTERED IN FIRST NAME & LAST NAME")
+                        let alert = UIAlertController(title: "Error", message: "You have not updated both your first and last name.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                    // If both text fields have been updated, update firestore, and the text fields
+                    else {
+                        if let userID = Auth.auth().currentUser?.uid {
+                            let userRef = Firestore.firestore().collection("users").document(String(userID))
+                            userRef.updateData([
+                                "firstName": textField1.text!,
+                                "lastName": textField2.text!
+                            ]) { err in
+                                if let err = err {
+                                    print("Error updating document: \(err)")
+                                } else {
+                                    print("Document successfully updated")
+                                    let alert = UIAlertController(title: "Name Updated!", message: "Your first and last name have been updated!", preferredStyle: .alert)
+                                    alert.addAction(UIAlertAction(title: "Sweet!", style: .default, handler: nil))
+                                    self.userNameLbl.text = textField1.text! + " " + textField2.text!
+                                    self.present(alert, animated: true)
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                }
+            }
+  
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     
     @IBAction func profileImgTapped(_ sender: Any) {
         let controller = UIImagePickerController()
         controller.delegate = self
         controller.sourceType = .photoLibrary
         controller.allowsEditing = true
-        self.present(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
     }
     
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-       
-        if let image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage {
-            self.userProfileImg.image = image
+    
+    
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let imagePicked = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.userProfileImg.image = imagePicked
             // TODO: Upload this image to Firebase and save to user's document
-            imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
+            imageUploadManager.uploadImage(imagePicked, progressBlock: { (percentage) in
             }, completionBlock: { (fileURL, errorMessage) in
                 if let fileURL = fileURL?.absoluteString {
                     if let userID = Auth.auth().currentUser?.uid {
@@ -185,8 +253,32 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
                     print("Error")
                 }
             })
-        } else {print("MARIO: imge does not equal")}
+        }
         self.dismiss(animated: true, completion: nil)
         
     }
+    
+    //Prompts user to allow access to their Photo Library
+    func checkPermission() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            print("User do not have access to photo album.")
+        case .denied:
+
+            print("User has denied the permission.")
+        }
+    }
+    
 }
