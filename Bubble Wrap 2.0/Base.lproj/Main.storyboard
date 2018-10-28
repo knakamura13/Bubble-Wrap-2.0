@@ -1444,7 +1444,7 @@
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yv3-MN-lpw" userLabel="Image Container">
                                                     <rect key="frame" x="15" y="16" width="42" height="42"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IBz-la-dZo">
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Portrait_Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="IBz-la-dZo">
                                                             <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="42" id="rFv-NK-fS9"/>
