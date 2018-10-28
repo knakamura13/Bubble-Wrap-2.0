@@ -54,9 +54,11 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         logoImageView.image = logoImageView.image!.withRenderingMode(.alwaysTemplate)
         emailImageView.image = emailImageView.image!.withRenderingMode(.alwaysTemplate)
         passwordImageView.image = passwordImageView.image!.withRenderingMode(.alwaysTemplate)
+        confirmPasswordImageView.image = confirmPasswordImageView.image!.withRenderingMode(.alwaysTemplate)
         logoImageView.tintColor = UIColor.white
         emailImageView.tintColor = UIColor.white
         passwordImageView.tintColor = UIColor.white
+        confirmPasswordImageView.tintColor = UIColor.white
         signInButton.layer.cornerRadius = 10
         dividerView1.layer.cornerRadius = 0.5
         dividerView2.layer.cornerRadius = dividerView1.layer.cornerRadius
@@ -208,16 +210,13 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func signUpPressed(_ sender: Any) {
         if confirmPasswordStackView.isHidden {
-            confirmPasswordStackView.isHidden.toggle()
             signUpBtn.setTitle("Already have an account? Sign in", for: .normal)
             signInButton.setTitle("Sign up", for: .normal)
         } else {
             signUpBtn.setTitle("Don't have an account? Sign up", for: .normal)
             signInButton.setTitle("Sign in", for: .normal)
         }
+        
+        confirmPasswordStackView.isHidden.toggle()
     }
-    
-    
-    
-    
 }
