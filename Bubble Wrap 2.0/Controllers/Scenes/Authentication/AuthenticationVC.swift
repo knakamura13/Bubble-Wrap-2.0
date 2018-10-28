@@ -108,9 +108,11 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         
         if confirmPasswordStackView.isHidden {
             // Sign in existing user
-            Auth.auth().signIn(withEmail: email, password: "password") { (result, error) in
+            Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
                 if error != nil {
-                    // Handle error
+                    let alert = UIAlertController(title: "Invalid Login", message: "Your username or password is wrong.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                    self.present(alert, animated: true)
                 } else {
                     self.getUserInformation()
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
