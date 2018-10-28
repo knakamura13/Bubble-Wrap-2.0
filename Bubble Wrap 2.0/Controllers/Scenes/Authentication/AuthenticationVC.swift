@@ -184,7 +184,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                                 UserDefaults.standard.set(user.rating, forKey: "rating")
                                 UserDefaults.standard.set(user.itemsSold, forKey: "itemsSold")
                                 UserDefaults.standard.set(user.followers, forKey: "followers")
-
+                                UserDefaults.standard.set(user.profileImageURL, forKey: "profileImgURL")
                             }
                         }
                     }
