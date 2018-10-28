@@ -43,7 +43,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             self.getUserInformation()
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
-                if Auth.auth().currentUser?.isEmailVerified ?? false {
+                if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
                 } else {
                     // Passwords to not match, so alert user to try again
@@ -119,7 +119,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                 } else {
                     self.getUserInformation()
                     
-                    if Auth.auth().currentUser?.isEmailVerified ?? false {
+                    if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
                         self.performSegue(withIdentifier: "authenticatedSegue", sender: nil) 
                     } else {
                         // Passwords to not match, so alert user to try again
