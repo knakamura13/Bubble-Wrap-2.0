@@ -78,20 +78,69 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBAction func createItemPressed(_ sender: Any) {
         if !createItemWasPressed {
-            // Ensure all information is filled out and not nil
-            if let image = mainImg.image,
-                let price = Int(priceTextField.text!),
-                let title = titleTextField.text,
-                let description = descriptionTextView.text,
-                let userID = Auth.auth().currentUser?.uid{
+            // Check if the input fields (Price, Title, Description) have correct inputs
+            guard let image = mainImg.image else {
+                let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have at least one image.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.createItemWasPressed = false
+                return
+            }
+            
+            /* Check title is at least 4 characters */
+            guard let title = titleTextField.text else {
+                let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a title.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.createItemWasPressed = false
+                return
+            }
+            if title.count < 4 {
+                let alert = UIAlertController(title: "Check Title!", message: "Please make your title has at least 4 characters.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.createItemWasPressed = false
+                return
+            }
+           
+            /* Check price is not higher than $99,999 */
+            guard let price = Int(priceTextField.text!) else {
+                let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a price.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.createItemWasPressed = false
+                return
+            }
+            if price > 99999{
+                let alert = UIAlertController(title: "Check Price!", message: "Look no one can afford that...please consider lowering the price.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.createItemWasPressed = false
+                return
+            }
+            
+            /* Check description is at least 15 characters */
+            guard let description = descriptionTextView.text else {
+                let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a description.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.createItemWasPressed = false
+                return
+            }
+            
+            // Create user's item is all the condition hace been pas
+            if description.count >= 15{
+                if let userID = Auth.auth().currentUser?.uid{
                     let owner = Firestore.firestore().collection("users").document(userID)
                     self.createItem(image: image, price: price, title: title, description: description, owner: owner)
                     self.createItemWasPressed = true
+                }
             } else {
-                    let alert = UIAlertController(title: "You missed something.", message: "Please add an image, title, price, and description.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-                    self.present(alert, animated: true)
-                    self.createItemWasPressed = false
+                let alert = UIAlertController(title: "Check Description!", message: "Please describe your item more.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.createItemWasPressed = false
+                return
             }
             
             // Navigate back to SearchVC
