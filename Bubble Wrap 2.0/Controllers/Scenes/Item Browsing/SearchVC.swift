@@ -53,7 +53,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         }
         
         // Add a data listener to the "items" database
-        datasource.itemsQuery()
+        datasource.generalQuery(collection: "items", orderBy: "title", limit: 25)
             .addSnapshotListener { querySnapshot, error in
                 if let documents = querySnapshot?.documents {
                     self.allItems.removeAll()
@@ -65,15 +65,18 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                             self.searchItems.append(item)
                             
                             // Download the item's image and save as a UIImage
-                            let url = URL(string: item.imageURL!)!
-                            let data = try? Data(contentsOf: url)
-                            if let imageData = data {
-                                let image = UIImage(data: imageData)
-                                self.allItemImages.append(image!)
-                                self.searchItemImages.append(image!)
+                            let httpsReference = Storage.storage().reference(forURL: item.imageURL)
+                            httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                                if let error = error {
+                                    // Uh-oh, an error occurred!
+                                } else {
+                                    if let image = UIImage(data: data!) {
+                                        self.allItemImages.append(image)
+                                        self.searchItemImages.append(image)
+                                        self.collectionView?.reloadData()
+                                    }
+                                }
                             }
-                            
-                            self.collectionView?.reloadData()
                         }
                     }
                 }
@@ -146,6 +149,11 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
+        
+        // Return an empty cell if the index is out of bounds for the images array
+        if indexPath.item >= searchItemImages.count {
+            return cell
+        }
         
         // Populate the cell's data
         cell.cellLbl.text = self.searchItems[indexPath.item].title!
