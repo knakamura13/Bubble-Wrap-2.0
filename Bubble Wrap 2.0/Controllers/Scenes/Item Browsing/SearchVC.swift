@@ -12,7 +12,7 @@ import FirebaseStorage
 import FirebaseAuth
 
 var currentUser: User!
-var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "")
+var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "")
 
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     

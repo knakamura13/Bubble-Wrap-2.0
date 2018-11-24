@@ -12,27 +12,30 @@ import FirebaseFirestore
 
 struct Item {
     var title: String!
+    var category: String!
     var price: NSNumber!
     var image: UIImage?
     var imageURL: String!
     var owner: DocumentReference?
     var itemID: String!
     
+    
     init?(dictionary: [String: Any]?, itemID: String){
         guard let dictionary = dictionary,
             let title = dictionary["title"] as? String,
             let price = dictionary["price"] as? NSNumber,
             let imageURL = dictionary["imageURL"] as? String,
-            let owner = dictionary["owner"] as? DocumentReference
-        else {
-            return nil
+            let owner = dictionary["owner"] as? DocumentReference,
+            let category = dictionary["category"] as? String
+            else {
+                return nil
         }
         
-        self.init(title: title, price: price, imageURL: imageURL, owner: owner, itemID: itemID)
+        self.init(title: title, price: price, imageURL: imageURL, owner: owner, itemID: itemID, category: category)
         
     }
     
-    init(title: String?, price: NSNumber, imageURL: String, owner: DocumentReference?, itemID: String) {
+    init(title: String?, price: NSNumber, imageURL: String, owner: DocumentReference?, itemID: String, category: String) {
         self.title = title
         self.price = price
         self.imageURL = imageURL
@@ -40,15 +43,17 @@ struct Item {
             self.owner = owner!
         }
         self.itemID = itemID
+        self.category = category
     }
-
+    
     
     func dictionary() -> [String: Any] {
         return [
             "title": title,
             "price": price,
             "imageURL": imageURL,
-            "owner": owner
+            "owner": owner,
+            "category": category,
         ]
     }
 }
