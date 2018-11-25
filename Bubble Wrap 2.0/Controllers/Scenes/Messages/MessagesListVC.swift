@@ -40,6 +40,7 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
                     for document in documents {
                         let conversation = Conversation(document: document)
                         self.allConversations.append(conversation!)
+                        self.searchConversations = self.allConversations
                         self.tableView.reloadData()
                     }
                 }

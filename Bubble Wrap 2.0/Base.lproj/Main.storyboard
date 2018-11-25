@@ -21,14 +21,14 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-m9-EYQ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="1017"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4fN-Up-2nz" userLabel="Container View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fN-Up-2nz" userLabel="Container View">
+                                        <rect key="frame" x="0.0" y="-16.5" width="375" height="1150"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiT-1C-yr9" userLabel="Parallax Container">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pkD-4l-xJK">
-                                                        <rect key="frame" x="0.0" y="-221.5" width="375" height="596.5"/>
+                                                        <rect key="frame" x="0.0" y="-46.5" width="375" height="421.5"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MLQ-mz-kAV" userLabel="Images Stack">
                                                         <rect key="frame" x="20" y="256.5" width="335" height="98.5"/>
@@ -218,8 +218,8 @@
                                             <constraint firstItem="yiT-1C-yr9" firstAttribute="top" secondItem="4fN-Up-2nz" secondAttribute="top" id="BGX-dM-yhJ"/>
                                             <constraint firstItem="CZh-2f-efu" firstAttribute="top" secondItem="yiT-1C-yr9" secondAttribute="bottom" constant="25" id="GvJ-3Q-loM"/>
                                             <constraint firstItem="yiT-1C-yr9" firstAttribute="leading" secondItem="4fN-Up-2nz" secondAttribute="leading" id="POL-8K-jpy"/>
+                                            <constraint firstAttribute="height" constant="1150" id="QVg-LW-C2R"/>
                                             <constraint firstItem="CZh-2f-efu" firstAttribute="leading" secondItem="4fN-Up-2nz" secondAttribute="leading" constant="20" id="aef-0J-nAY"/>
-                                            <constraint firstAttribute="height" constant="800" id="yfi-xm-Rwn"/>
                                         </constraints>
                                     </view>
                                 </subviews>

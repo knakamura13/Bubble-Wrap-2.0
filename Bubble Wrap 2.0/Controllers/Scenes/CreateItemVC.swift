@@ -64,7 +64,22 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     func customizeVisuals() {
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
-        scrollView.contentSize.height = 1150 // arbitrary integer; increase if content does not fit in contentSize
+        
+        var heightOfContent: CGFloat = 0.0
+        if let lastView: UIView = scrollView.subviews.last {
+            let yPosition = lastView.frame.origin.y
+            let height = lastView.frame.size.height
+            heightOfContent = yPosition + height
+        } else {
+            heightOfContent = 1150
+        }
+        scrollView.contentSize.height = heightOfContent
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.heightAnchor.constraint(equalToConstant: heightOfContent)
+        
+//        scrollView.contentSize.height = 1150 // arbitrary integer; increase if content does not fit in contentSize
+        
+        
         let cornerRadius = CGFloat(10)
         smallImg1.layer.cornerRadius = cornerRadius
         smallImg2.layer.cornerRadius = cornerRadius
