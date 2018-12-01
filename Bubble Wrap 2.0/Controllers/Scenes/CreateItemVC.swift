@@ -19,17 +19,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     // Variables
     var createItemWasPressed: Bool!
-    private let categories = ["Choose a Category",
-                      "Clothing & Acessories",
-                      "Electronics",
-                      "Furniture & Appliances",
-                      "Entertainment & Media",
-                      "Books",
-                      "Vehicles",
-                      "Services",
-                      "Sports and Outdoors",
-                      "Other"
-    ]
     var categoryChoosen = ""
     
     // Outlets
@@ -216,14 +205,14 @@ extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categories.count
+        return CATEGORIES_LIST.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        categoryChoosen = categories[row]
+        categoryChoosen = CATEGORIES_LIST[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row]
+        return CATEGORIES_LIST[row]
     }
 }

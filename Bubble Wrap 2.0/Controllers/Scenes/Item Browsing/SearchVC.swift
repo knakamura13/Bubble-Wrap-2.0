@@ -37,6 +37,10 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        searchBar.showsBookmarkButton = true
+        let filterIcon = UIImage(named: "filter_slider")?.tinted(with: UIColor(red: 0.5961, green: 0.5961, blue: 0.6157, alpha: 1.0))
+        searchBar.setImage(filterIcon, for: .bookmark, state: .normal)
+        searchBar.setPositionAdjustment(UIOffset(horizontal: 0, vertical: 0), for: .bookmark)
         
         self.customizeView() // Setup the view
         
@@ -132,6 +136,16 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        //performSegue(withIdentifier: "FiltersVC", sender: nil)
+        let filterVC = self.storyboard?.instantiateViewController(withIdentifier: "FiltersVC") as! FiltersVC
+        filterVC.view.backgroundColor = .clear
+        filterVC.modalPresentationStyle = .overCurrentContext
+        self.present(filterVC, animated: true, completion: nil)
+        
+        
+    }
+    
     /*
      MARK: COLLECTION VIEW
      */
@@ -196,4 +210,16 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
 //        let secondViewController = segue.destination as! SingleItemVC
 //        secondViewController.selectedItem = selectedItem
 //    }
+}
+
+/* Enables the tinted color function to work on the filter image (Chagnes the color of the image)*/
+extension UIImage {
+    func tinted(with color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        color.set()
+        withRenderingMode(.alwaysTemplate)
+            .draw(in: CGRect(origin: .zero, size: size))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
 }

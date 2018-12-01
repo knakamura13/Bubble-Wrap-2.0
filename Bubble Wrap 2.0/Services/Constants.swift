@@ -35,12 +35,24 @@ struct Constants {
             static let NotSelected = appPrimaryColor
         }
     }
+    
 }
 
-
+let CATEGORIES_LIST = ["Choose a Category",
+                        "Clothing & Acessories",
+                        "Electronics",
+                        "Furniture & Appliances",
+                        "Entertainment & Media",
+                        "Books",
+                        "Vehicles",
+                        "Services",
+                        "Sports and Outdoors",
+                        "Other"
+]
+//EXISTING_BUBBBLE_COMMUNITIES
 
 // Bubble Communities stored as: [email domain : university name]
-let existingBubbleCommunities: [String : String] = [
+let EXISTING_BUBBBLE_COMMUNITIES: [String : String] = [
     "acu.edu" : "Abilene Christian University",
     "adelphi.edu" : "Adelphi University",
     "scottlan.edu" : "Agnes Scott College",
