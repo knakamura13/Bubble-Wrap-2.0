@@ -67,5 +67,7 @@
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Access your photo library or camera to change your profile picture</string>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 </dict>
 </plist>

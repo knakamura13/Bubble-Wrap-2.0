@@ -68,7 +68,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                             let httpsReference = Storage.storage().reference(forURL: item.imageURL)
                             httpsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
                                 if let error = error {
-                                    // Uh-oh, an error occurred!
+                                    print("error - \(error)")
                                 } else {
                                     if let image = UIImage(data: data!) {
                                         self.allItemImages.append(image)
