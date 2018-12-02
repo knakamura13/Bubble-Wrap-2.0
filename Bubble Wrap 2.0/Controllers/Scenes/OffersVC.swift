@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
 
 class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     

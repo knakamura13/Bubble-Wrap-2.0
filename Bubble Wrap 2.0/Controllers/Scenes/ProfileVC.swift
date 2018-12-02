@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import Firebase
+import Photos
 import FirebaseAuth
 import FirebaseFirestore
-import Photos
 
 var globalProfilePicture: UIImage!
 

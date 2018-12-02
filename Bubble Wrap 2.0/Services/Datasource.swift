@@ -6,7 +6,6 @@
 //  Copyright © 2018 Kyle Nakamura. All rights reserved.
 //
 
-import Foundation
 import FirebaseFirestore
 
 class DataSource: NSObject {

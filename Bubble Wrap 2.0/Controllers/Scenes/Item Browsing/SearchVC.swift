@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseStorage
 import FirebaseAuth
+import FirebaseStorage
+import FirebaseFirestore
 
 var currentUser: User!
 var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "")
