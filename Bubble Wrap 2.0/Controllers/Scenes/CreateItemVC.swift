@@ -102,6 +102,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBAction func createItemPressed(_ sender: Any) {
         if !createItemWasPressed {
             // Check if the input fields (Price, Title, Description) have correct inputs
+            // The gaur let checks first if something has a value if not it excutes the else. If you have other condition you want to chcek you will have to write an if statment after teh gaurd let else statemetn. As it is done for the title propterty in teh following gaurd lets
             guard let image = mainImg.image else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have at least one image.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))

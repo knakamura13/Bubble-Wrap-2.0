@@ -784,7 +784,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xak-dN-5F9">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
-                                        <color key="backgroundColor" red="0.01176470588" green="0.84438530339589024" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="r3x-AP-aEn"/>
                                         </constraints>
@@ -870,7 +870,17 @@
                                         </constraints>
                                         <state key="normal" title="Set"/>
                                         <connections>
-                                            <action selector="setBtn:" destination="rQG-wx-RcC" eventType="touchUpInside" id="ssi-mc-Hnj"/>
+                                            <action selector="setBtn:" destination="rQG-wx-RcC" eventType="touchUpInside" id="bbN-Ps-mpZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAT-8x-cTa">
+                                        <rect key="frame" x="18" y="8" width="48" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="622-sC-Ebl"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelBtn:" destination="rQG-wx-RcC" eventType="touchUpInside" id="W2x-Ts-lih"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -886,6 +896,7 @@
                                     <constraint firstItem="iDW-5G-6my" firstAttribute="top" secondItem="4w4-CC-0V6" secondAttribute="bottom" constant="13.5" id="I9t-Fc-w0K"/>
                                     <constraint firstItem="iDW-5G-6my" firstAttribute="leading" secondItem="OlG-E1-6qg" secondAttribute="leading" constant="8" id="NxO-vh-AZF"/>
                                     <constraint firstItem="PMS-ix-F5A" firstAttribute="leading" secondItem="OlG-E1-6qg" secondAttribute="leading" id="POr-OT-iUX"/>
+                                    <constraint firstItem="vAT-8x-cTa" firstAttribute="top" secondItem="OlG-E1-6qg" secondAttribute="top" constant="8" id="TMY-Fs-vjf"/>
                                     <constraint firstItem="4w4-CC-0V6" firstAttribute="top" secondItem="PMS-ix-F5A" secondAttribute="bottom" constant="13.5" id="WhD-Ot-dbm"/>
                                     <constraint firstAttribute="trailing" secondItem="Xak-dN-5F9" secondAttribute="trailing" id="hOX-w2-b0U"/>
                                     <constraint firstAttribute="bottom" secondItem="iDW-5G-6my" secondAttribute="bottom" constant="8" id="lhX-Ty-dgu"/>
@@ -893,6 +904,7 @@
                                     <constraint firstItem="dVJ-Vl-ylN" firstAttribute="top" secondItem="OlG-E1-6qg" secondAttribute="top" constant="8" id="nk2-7c-HD8"/>
                                     <constraint firstItem="Xak-dN-5F9" firstAttribute="leading" secondItem="OlG-E1-6qg" secondAttribute="leading" id="qLJ-eR-Gi7"/>
                                     <constraint firstItem="4w4-CC-0V6" firstAttribute="leading" secondItem="OlG-E1-6qg" secondAttribute="leading" constant="8" id="r5e-b3-Qsm"/>
+                                    <constraint firstItem="vAT-8x-cTa" firstAttribute="leading" secondItem="OlG-E1-6qg" secondAttribute="leading" constant="18" id="y4w-xV-kRX"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -905,15 +917,16 @@
                         <viewLayoutGuide key="safeArea" id="BdB-0B-XhM"/>
                     </view>
                     <connections>
+                        <outlet property="cancelBtn" destination="vAT-8x-cTa" id="slr-aS-xR2"/>
                         <outlet property="categoryPicker" destination="iDW-5G-6my" id="3ub-2O-T7B"/>
                         <outlet property="maxTxtFld" destination="ehc-LY-xYs" id="lAt-zw-fpE"/>
                         <outlet property="minTxtFld" destination="1It-7c-Svq" id="dWH-cF-otu"/>
-                        <outlet property="setBtn" destination="dVJ-Vl-ylN" id="hWg-Fz-qU4"/>
+                        <outlet property="setBtn" destination="dVJ-Vl-ylN" id="I2C-VL-JXl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="00E-1A-dP1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2239.1999999999998" y="-1265.217391304348"/>
+            <point key="canvasLocation" x="2106" y="-1270"/>
         </scene>
         <!--Details-->
         <scene sceneID="yhQ-0q-Rou">

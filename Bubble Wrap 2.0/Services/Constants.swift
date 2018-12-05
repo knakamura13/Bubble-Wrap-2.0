@@ -11,6 +11,9 @@ import UIKit
 
 var demoPicsumImages: [UIImage] = []
 
+// Tells search whether or not to run a filtered search
+var filterOn = false
+
 struct Constants {
     struct Colors {
         static let appPrimaryColor =  UIColor(red: 99/255, green: 213/255, blue: 255/255, alpha: Alphas.Opaque)  // Bubble Blue

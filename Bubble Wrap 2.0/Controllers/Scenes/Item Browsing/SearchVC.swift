@@ -16,8 +16,9 @@ var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, ite
 
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
+    // Variables
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
-    
+
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
@@ -26,6 +27,10 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     var searchItems: [Item] = []
     var allItemImages: [UIImage] = []
     var searchItemImages: [UIImage] = []
+    
+    var catChoosen = ""
+    var minPrice = 0
+    var maxPrice = 0
     
     private(set) var datasource = DataSource()  // Datasource for data listener
     
@@ -36,13 +41,15 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     // viewDidLoad: runs only once when the scene loads for the first time
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("In Search")
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         searchBar.delegate = self
         searchBar.showsBookmarkButton = true
         let filterIcon = UIImage(named: "filter_slider")?.tinted(with: UIColor(red: 0.5961, green: 0.5961, blue: 0.6157, alpha: 1.0))
         searchBar.setImage(filterIcon, for: .bookmark, state: .normal)
         searchBar.setPositionAdjustment(UIOffset(horizontal: 0, vertical: 0), for: .bookmark)
         
-        self.customizeView() // Setup the view
+        if !filterOn{ self.customizeView() } // Setup the view
         
         // Load current user's profile information from Firebase
         if let userID = Auth.auth().currentUser?.uid {
@@ -55,39 +62,82 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                 }
             }
         }
-        
+
         // Add a data listener to the "items" database
-        datasource.itemsQuery()
-            .addSnapshotListener { querySnapshot, error in
-                if let documents = querySnapshot?.documents {
-                    self.allItems.removeAll()
-                    self.searchItems.removeAll()
-                    
-                    for document in documents {
-                        if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                            self.allItems.append(item)
-                            self.searchItems.append(item)
-                            
-                            // Download the item's image and save as a UIImage
-                            let url = URL(string: item.imageURL!)!
-                            let data = try? Data(contentsOf: url)
-                            if let imageData = data {
-                                let image = UIImage(data: imageData)
-                                self.allItemImages.append(image!)
-                                self.searchItemImages.append(image!)
+        
+        // When filter display all the itemas that fit the constraints within the search
+        if filterOn {
+             print("FilterISOn")
+            datasource.itemsQuery()
+                .addSnapshotListener { querySnapshot, error in
+                    if let documents = querySnapshot?.documents {
+                        self.allItems.removeAll()
+                        self.searchItems.removeAll()
+                        
+                        for document in documents {
+                            if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                                if (item.category == self.catChoosen || "All" == self.catChoosen) &&
+                                    item.price.intValue <= self.maxPrice &&
+                                    item.price.intValue >= self.minPrice
+                                {
+                                    print(item.title)
+                                    self.allItems.append(item)
+                                    self.searchItems.append(item)
+                                
+                                    // Download the item's image and save as a UIImage
+                                    let url = URL(string: item.imageURL!)!
+                                    let data = try? Data(contentsOf: url)
+                                    if let imageData = data {
+                                        let image = UIImage(data: imageData)
+                                        self.allItemImages.append(image!)
+                                        self.searchItemImages.append(image!)
+                                    }
+                                    print("Mario")
+                                    self.collectionView?.reloadData()
+                                }
                             }
-                            
-                            self.collectionView?.reloadData()
+                        }
+                        
+                        if self.allItems.count == 0{
+                            let alert = UIAlertController(title: "Sorry!", message: "There are no items with the filters you have applied.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                            self.present(alert, animated: true)
                         }
                     }
-                }
+            }
+            filterOn = false
+        } else {
+            datasource.itemsQuery()
+                .addSnapshotListener { querySnapshot, error in
+                    if let documents = querySnapshot?.documents {
+                        self.allItems.removeAll()
+                        self.searchItems.removeAll()
+                        
+                        for document in documents {
+                            if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                                self.allItems.append(item)
+                                self.searchItems.append(item)
+                                
+                                // Download the item's image and save as a UIImage
+                                let url = URL(string: item.imageURL!)!
+                                let data = try? Data(contentsOf: url)
+                                if let imageData = data {
+                                    let image = UIImage(data: imageData)
+                                    self.allItemImages.append(image!)
+                                    self.searchItemImages.append(image!)
+                                }
+                                print("Mario")
+                                self.collectionView?.reloadData()
+                            }
+                        }
+                    }
+            }
         }
     }
     
     // viewWillAppear: runs every time the scene is about to appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         UIApplication.shared.applicationIconBadgeNumber = 0 // Reset the badge number on app launch
         
         // Deselect all cells; possibly redundant code
@@ -96,11 +146,11 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        self.roundCorners([.topLeft, .topRight], radius: CGFloat(10),self.collectionView(<#T##collectionView: UICollectionView##UICollectionView#>, cellForItemAt: <#T##IndexPath#>))
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        // Turn of the fitler search
+        print("Out of search")
+        filterOn = false
+    }
     
     
     
@@ -141,10 +191,12 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         let filterVC = self.storyboard?.instantiateViewController(withIdentifier: "FiltersVC") as! FiltersVC
         filterVC.view.backgroundColor = .clear
         filterVC.modalPresentationStyle = .overCurrentContext
+        filterVC.searchVC = self
         self.present(filterVC, animated: true, completion: nil)
-        
-        
     }
+    
+    
+    
     
     /*
      MARK: COLLECTION VIEW
@@ -204,12 +256,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         collectionView!.reloadData()
     }
-    
-    // Pass data from this VC to the segue destination VC
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let secondViewController = segue.destination as! SingleItemVC
-//        secondViewController.selectedItem = selectedItem
-//    }
+
 }
 
 /* Enables the tinted color function to work on the filter image (Chagnes the color of the image)*/
