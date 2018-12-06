@@ -14,7 +14,10 @@ class FiltersVC: UIViewController {
     var createItemWasPressed: Bool!
     var categoryChoosen = ""
     var categoryList = CATEGORIES_LIST
+    //var tapGesture = UITapGestureRecognizer()
     
+    // Set the searchVC controller inorder to access it, when filters need to be set
+    var searchVC:SearchVC!
 
     // Outlets
     @IBOutlet weak var categoryPicker: UIPickerView!
@@ -22,9 +25,9 @@ class FiltersVC: UIViewController {
     @IBOutlet weak var minTxtFld: UITextField!
     @IBOutlet weak var maxTxtFld: UITextField!
     @IBOutlet weak var cancelBtn: UIButton!
-   
-    // Set the searchVC controller inorder to access it, when filters need to be set
-    var searchVC:SearchVC!
+    @IBOutlet weak var FilterView: UIView!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,12 @@ class FiltersVC: UIViewController {
         
         // Turn off the filter
         filterOn = false
+        
+        // Tap Gessuter set when user tap outside of filters
+        //tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.b))
+        //infosView.isUserInteractionEnabled = true
+        //infosView.addGestureRecognizer(tapGesture)
+        //view.addSubview(infosView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -110,6 +119,15 @@ class FiltersVC: UIViewController {
     @IBAction func cancelBtn(_ sender: Any) {
          self.dismiss(animated: true, completion: nil)
     }
+    
+    // Detect if there is a tap outside the filters view.
+    override func touchesBegan(_ touches: Set<UITouch>, with: UIEvent?) {
+        let touch: UITouch? = touches.first
+        if touch?.view != FilterView {
+        self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
 }
 
 /*Set the content for the picker view*/
