@@ -112,16 +112,6 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
         }
     }
     
-    // MARK: Textfields and Keyboard
-    // Jump from userName to userEmail, then hide the keyboard
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        if textField == userNameField {
-//            userEmailField.becomeFirstResponder()
-//        } else {
-//            textField.resignFirstResponder()
-//        }
-//        return true
-//    }
     
     // MARK: Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

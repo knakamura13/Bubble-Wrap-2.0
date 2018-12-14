@@ -7,18 +7,17 @@
 //
 
 import UIKit
+import Photos
 import FirebaseAuth
 import FirebaseFirestore
 
-class NewUserInformationVC: UIViewController, UITextFieldDelegate {
+class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Outlets
     // Image Views
     @IBOutlet weak var profileImageView: UIImageView!
     // Labels
     @IBOutlet weak var titleLbl: UILabel!
-    //@IBOutlet weak var firstNameLbl: UILabel!
-    //@IBOutlet weak var lastNameLbl: UILabel!
     // Text Fields
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
@@ -40,6 +39,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate {
         }
 
         self.setupStyles()
+        self.checkPermission()
     }
     
     func setupStyles() {
@@ -58,35 +58,47 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func profileTapped(_ sender: Any) {
-        print("Profile image tapped")
+        print("PROFILE TAPPED")
+        let controller = UIImagePickerController()
+        controller.delegate = self
+        controller.sourceType = .photoLibrary
+        controller.allowsEditing = true
+        self.present(controller, animated: true, completion: nil)
     }
     
     @IBAction func letsGoTapped(_ sender: Any) {
         
         let firstName = firstNameTextField.text ?? ""
         let lastName = lastNameTextField.text ?? ""
-        
-        let noFirstName: Bool = (firstName == "")
-        let noLastName: Bool = (lastName == "")
-        
+        let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+       
+
         // Display an alert message if a textField is empty
         var alertMessage = ""
-        if noFirstName {
-            if noLastName {
-                alertMessage = "You need to add your first and last name."
+        if (firstNameTextField.text?.isEmptyOrWhitespace())! {
+            if (lastNameTextField.text?.isEmptyOrWhitespace())! {
+                alertMessage = "Invalid First Name and Last Name inputed."
             } else {
                 // Has last name but no first name
-                alertMessage = "You need to add your first name."
+                alertMessage = "Invalid First Name inputed."
             }
         } else {
-            if noLastName {
+            if (lastNameTextField.text?.isEmptyOrWhitespace())! {
                 // Has first name, but no last name
-                alertMessage = "You need to add your last name."
+                alertMessage = "Invalid Last Name inputed."
             }
         }
-        if noFirstName || noLastName {
+        if firstName.rangeOfCharacter(from: characterset.inverted) != nil || lastName.rangeOfCharacter(from: characterset.inverted) != nil {
+            let alert = UIAlertController(title: "Oops!", message: "Sorry, your name does not need special characters. You are already special enough!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        if (firstNameTextField.text?.isEmptyOrWhitespace())! || (lastNameTextField.text?.isEmptyOrWhitespace())! {
             let alert = UIAlertController(title: "Oops!", message: alertMessage, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .default))
+            self.present(alert, animated: true)
+            return
         } // End: Display an alert message if a textField is empty
         
         // Get profile image from the UIView if it's defined, or apply a placeholder image to the user profile
@@ -98,7 +110,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate {
                 userRef.updateData(([
                     "firstName": firstName,
                     "lastName": lastName,
-                    "profileImageURL": placeholderImageURL
+                    "profileImageURL": profileImageView
                     ])) { (error) in
                         if error != nil {
                             print("KYLE: error \(error!)")
@@ -138,4 +150,62 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate {
             })
         }
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let imagePicked = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.profileImageView.image = imagePicked
+            // TODO: Upload this image to Firebase and save to user's document
+            imageUploadManager.uploadImage(imagePicked, progressBlock: { (percentage) in
+            }, completionBlock: { (fileURL, errorMessage) in
+                if let fileURL = fileURL?.absoluteString {
+                    if let userID = Auth.auth().currentUser?.uid {
+                        let userRef = Firestore.firestore().collection("users").document(String(userID))
+                        userRef.updateData([
+                            "profileImageURL": fileURL
+                        ]) { err in
+                            if let err = err {
+                                print("Error updating document: \(err)")
+                            } else {
+                                print("Document successfully updated")
+                                let alert = UIAlertController(title: "Image Uploaded", message: "Your profile picture has been updated", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Sweet!", style: .default, handler: nil))
+                                self.present(alert, animated: true)
+                            }
+                        }
+                        
+                    }
+                } else {
+                    print("Error")
+                }
+            })
+        }
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    //Prompts user to allow access to their Photo Library
+    func checkPermission() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            print("User do not have access to photo album.")
+        case .denied:
+            
+            print("User has denied the permission.")
+        }
+    }
+
 }
+

@@ -1122,7 +1122,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-pm-zhG">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-pm-zhG">
                                 <rect key="frame" x="112.5" y="118.5" width="150" height="150"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -1148,7 +1148,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wHI-XJ-z1R">
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="18"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="First Name" clearsOnBeginEditing="YES" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="gRQ-Ui-wyR">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" clearsOnBeginEditing="YES" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="gRQ-Ui-wyR">
                                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="18"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -1189,7 +1189,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y4D-OF-V4c">
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="18"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Last Name" clearsOnBeginEditing="YES" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="GCX-X3-OPD">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" clearsOnBeginEditing="YES" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="GCX-X3-OPD">
                                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="18"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -1220,8 +1220,14 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to add a profile picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5I2-Yn-Sv6">
+                                <rect key="frame" x="98" y="281" width="179.5" height="17.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wY-mB-z8m">
-                                <rect key="frame" x="40" y="537" width="295" height="50"/>
+                                <rect key="frame" x="40" y="456" width="295" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="smp-53-tXS"/>
@@ -1235,24 +1241,18 @@
                                     <action selector="signInPressed:" destination="081-gq-Fxe" eventType="touchUpInside" id="TG2-z2-Wgc"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Tap to add a profile picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5I2-Yn-Sv6">
-                                <rect key="frame" x="97" y="281" width="180" height="17.5"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fQZ-pm-zhG" firstAttribute="top" secondItem="Vxb-JV-JGR" secondAttribute="bottom" constant="60" id="1GF-KL-0db"/>
                             <constraint firstItem="Vxb-JV-JGR" firstAttribute="centerX" secondItem="8w4-oW-K67" secondAttribute="centerX" id="2vA-U7-yzm"/>
                             <constraint firstItem="tya-hK-wtd" firstAttribute="leading" secondItem="o4J-9g-0UO" secondAttribute="leading" constant="30" id="AmY-VU-JCe"/>
-                            <constraint firstItem="o4J-9g-0UO" firstAttribute="bottom" secondItem="9wY-mB-z8m" secondAttribute="bottom" priority="750" constant="80" id="DOI-gs-1cF"/>
                             <constraint firstItem="fQZ-pm-zhG" firstAttribute="centerX" secondItem="8w4-oW-K67" secondAttribute="centerX" id="GnI-S3-EL1"/>
-                            <constraint firstItem="9wY-mB-z8m" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tya-hK-wtd" secondAttribute="bottom" id="LAO-Ov-8L9"/>
+                            <constraint firstItem="5I2-Yn-Sv6" firstAttribute="centerX" secondItem="8w4-oW-K67" secondAttribute="centerX" id="HbE-Jt-YDk"/>
                             <constraint firstItem="5I2-Yn-Sv6" firstAttribute="top" secondItem="fQZ-pm-zhG" secondAttribute="bottom" constant="12.5" id="OT9-62-oG7"/>
                             <constraint firstItem="o4J-9g-0UO" firstAttribute="trailing" secondItem="tya-hK-wtd" secondAttribute="trailing" constant="30" id="Ok4-f2-Q5w"/>
                             <constraint firstItem="tya-hK-wtd" firstAttribute="top" secondItem="fQZ-pm-zhG" secondAttribute="bottom" constant="65" id="Tuy-sM-9M5"/>
+                            <constraint firstItem="9wY-mB-z8m" firstAttribute="top" secondItem="CQi-D0-gad" secondAttribute="bottom" constant="44.5" id="aCS-qv-Gou"/>
                             <constraint firstItem="o4J-9g-0UO" firstAttribute="trailing" secondItem="9wY-mB-z8m" secondAttribute="trailing" constant="40" id="afa-8Y-3TO"/>
                             <constraint firstItem="9wY-mB-z8m" firstAttribute="leading" secondItem="o4J-9g-0UO" secondAttribute="leading" constant="40" id="bBv-VF-bFq"/>
                             <constraint firstItem="Vxb-JV-JGR" firstAttribute="top" secondItem="o4J-9g-0UO" secondAttribute="top" constant="12" id="vUc-EF-saY"/>
@@ -1622,6 +1622,6 @@
         <image name="icon-search" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GDm-b4-eCz"/>
+        <segue reference="Nf6-1A-au1"/>
     </inferredMetricsTieBreakers>
 </document>
