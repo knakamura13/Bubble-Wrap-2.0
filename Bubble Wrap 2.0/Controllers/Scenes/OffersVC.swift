@@ -36,6 +36,9 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         listenForOffers()
     }
     
+    
+    
+    
     func listenForOffers() {
         // Get UserID and create a document reference for the WHERE parameter
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -175,5 +178,28 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         cell.layer.masksToBounds = false
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var vc: UIViewController?
+        if collectionView == self.topCollectionView {
+            vc = storyboard?.instantiateViewController(withIdentifier: "SingleItemVC")
+            self.definesPresentationContext = true
+            vc?.modalPresentationStyle = .overCurrentContext
+            
+            topOffers[indexPath.row].item.getDocument { (document, error) in
+                if let document = document {
+                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                        selectedItem = item
+                        self.present(vc!, animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            vc = storyboard?.instantiateViewController(withIdentifier: "MessagesListVC")
+            self.definesPresentationContext = true
+            vc?.modalPresentationStyle = .overCurrentContext
+            self.present(vc!, animated: true, completion: nil)
+        }
     }
 }

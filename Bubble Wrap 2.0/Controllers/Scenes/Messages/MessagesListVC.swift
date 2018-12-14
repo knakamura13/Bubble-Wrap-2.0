@@ -10,6 +10,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+var selectedConversation: Conversation?
+
 class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     var allConversations: [Conversation] = []
@@ -20,7 +22,6 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
     var selectedConversationRecipient: String = ""
     
     private(set) var datasource = DataSource()  // Datasource for data listener
-    var selectedConversation: Conversation?
     
     // Outlets
     @IBOutlet weak var tableView: UITableView!
