@@ -649,7 +649,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RST-LQ-6wL">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="34y-99-Arm" kind="relationship" relationship="rootViewController" id="blv-VD-H2G"/>
@@ -738,7 +738,7 @@
                         <viewLayoutGuide key="safeArea" id="VEk-Sf-th6"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="icon-search" id="Rcy-hR-dLx"/>
-                    <navigationItem key="navigationItem" title="Search" id="a30-70-gnV"/>
+                    <navigationItem key="navigationItem" title="Home" id="a30-70-gnV"/>
                     <connections>
                         <outlet property="collectionView" destination="o4c-rx-uip" id="gI1-lz-Rt9"/>
                         <outlet property="searchBar" destination="ROH-hi-liR" id="paD-hS-Qmh"/>
@@ -1069,7 +1069,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.38823529411764707" green="0.83529411764705885" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="bxD-9L-Vtf" firstAttribute="top" secondItem="c2T-Fs-FOY" secondAttribute="bottom" constant="40" id="El5-AV-TVh"/>
                             <constraint firstItem="bv2-l3-4nQ" firstAttribute="bottom" secondItem="odL-xW-Ton" secondAttribute="bottom" constant="20" id="JQp-68-UBJ"/>
@@ -1242,7 +1242,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fQZ-pm-zhG" firstAttribute="top" secondItem="Vxb-JV-JGR" secondAttribute="bottom" constant="60" id="1GF-KL-0db"/>
                             <constraint firstItem="Vxb-JV-JGR" firstAttribute="centerX" secondItem="8w4-oW-K67" secondAttribute="centerX" id="2vA-U7-yzm"/>
@@ -1307,7 +1307,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nKN-Fc-UHX">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.10196078431372549" green="0.60784313725490191" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="uMz-iF-1BP" kind="relationship" relationship="rootViewController" id="Y0G-Tb-DpY"/>
@@ -1325,7 +1325,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nfE-Q6-Gql">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="k4m-kT-xqT" kind="relationship" relationship="rootViewController" id="zVu-jP-d0U"/>
@@ -1343,7 +1343,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Owb-c2-sw7">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="cFj-Qc-7dt" kind="relationship" relationship="rootViewController" id="MZt-zL-LUX"/>
@@ -1361,7 +1361,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6ns-eE-oV8">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="1i1-iU-akE" kind="relationship" relationship="rootViewController" id="SNS-W3-bVf"/>
