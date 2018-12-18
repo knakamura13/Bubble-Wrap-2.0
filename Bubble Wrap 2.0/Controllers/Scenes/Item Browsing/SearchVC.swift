@@ -67,8 +67,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         // When filter display all the itemas that fit the constraints within the search
         if filterOn {
-             print("FilterISOn")
-            datasource.itemsQuery()
+            datasource.generalQuery(collection: "items", orderBy: "title", limit: 5)
                 .addSnapshotListener { querySnapshot, error in
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
@@ -107,7 +106,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             }
             filterOn = false
         } else {
-            datasource.itemsQuery()
+            datasource.generalQuery(collection: "items", orderBy: "title", limit: 5)
                 .addSnapshotListener { querySnapshot, error in
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()

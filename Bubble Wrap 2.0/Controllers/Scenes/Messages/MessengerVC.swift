@@ -21,6 +21,7 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     @IBOutlet weak var sendBtn: UIButton!
     
     
+    
     // MARK: Properties
     
     var prevChatBubble: UIImageView!
@@ -28,17 +29,18 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     var allMessages: [Message] = []
     var isFirstLoad: Bool = true
     
-    // MARK: View Load and Appear
+    
+    
+    // MARK: View loading and appearing
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.messageTextField.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.hideKeyboardWhenTappedAround()     // Hide keyboard on background tap
         
+        self.hideKeyboardWhenTappedAround()
         self.customizeViews()
-        
         self.fetchAllMessages()
         
         // Get recipient's name for nav bar title
@@ -48,6 +50,12 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
                     self.title = document.data()!["firstName"] as? String
                 }
             }
+        }
+        
+        guard let recipientRef = conversation?.recipient else { return }
+        recipientRef.getDocument { (document, error) in
+            guard let document = document else { return }
+            self.title = document.data()!["firstName"] as? String
         }
     }
     
@@ -61,7 +69,6 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         self.tableView.rowHeight = UITableView.automaticDimension
     }
     
-    
     // Set up the styles for this view
     func customizeViews() {
         self.messageTextField.layer.cornerRadius = 15.0
@@ -69,6 +76,7 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         self.messageTextField.layer.borderColor = UIColor.lightGray.cgColor
         self.messageTextField.clipsToBounds = true
     }
+    
     
     
     // MARK: TableView
@@ -81,40 +89,21 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageBubbleCell", for: indexPath as IndexPath) as! MessageBubbleCell
         let message = allMessages[indexPath.row]
         
-        cell.messageBubble.translatesAutoresizingMaskIntoConstraints = false
-
         // Create a label within the bubble, bound to top, right, bottom, left of the cell's container view
         cell.messageLbl.text = message.contents
-        cell.messageLbl.textAlignment = .left
         cell.messageLbl.lineBreakMode = NSLineBreakMode.byWordWrapping
-        cell.messageLbl.sizeToFit()
-        cell.messageLbl.translatesAutoresizingMaskIntoConstraints = false
 
-        // Randomly switch between sent and received style messages
         if message.senderIsCurrUser {
-            // Image should be stuck to right
-            switchImage(imageView: cell.messageBubble, to: "sent")
+            // Text should be stuck to right
             cell.messageLbl.textColor = UIColor.white
-            
-            cell.messageLbl.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 30).isActive = true
-            cell.messageLbl.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -50).isActive = true
-            
-            cell.messageBubble.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 50).isActive = true
-            cell.messageBubble.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: 0).isActive = true
+            cell.messageLbl.textAlignment = .right
+            cell.containerView.backgroundColor = UIColor.init(hex: 0x00a4db)
         } else {
-            // Image should be stuck to left
-            switchImage(imageView: cell.messageBubble, to: "received")
+            // Text should be stuck to left
             cell.messageLbl.textColor = UIColor.black
-            
-            cell.messageLbl.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 50).isActive = true
-            cell.messageLbl.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -30).isActive = true
-            
-            cell.messageBubble.leftAnchor.constraint(equalTo: cell.messageBubble.leftAnchor, constant: 0).isActive = true
-            cell.messageBubble.rightAnchor.constraint(equalTo: cell.messageBubble.rightAnchor, constant: -50).isActive = true
+            cell.messageLbl.textAlignment = .left
+            cell.containerView.backgroundColor = UIColor.init(hex: 0xe0e0e0)
         }
-        
-        cell.messageBubble.heightAnchor.constraint(equalToConstant: cell.messageLbl.frame.size.height + CGFloat(40)).isActive = true
-        cell.messageBubble.widthAnchor.constraint(equalToConstant: cell.messageLbl.frame.size.width + CGFloat(50)).isActive = true
         
         return cell
     }
@@ -124,10 +113,13 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     }
     
     
+    
     // MARK: Actions
+    
     @IBAction func newSendBtnPressed(_ sender: Any) {
         self.createUserTypedMessage()
     }
+    
     
     
     // MARK: Messages
@@ -162,7 +154,10 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
                     }
                 }
                 
-                self.allMessages.reverse()              // Reverse the messages array to show them in ascending order
+                // Reverse the messages array to show them in ascending order
+                self.allMessages.reverse()
+                
+                // Reload the interface
                 self.tableView.reloadData()
             }
             
@@ -173,28 +168,20 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         }
     }
     
-    // Choose either "sent" or "received" for each new chat bubble
-    func switchImage(imageView: UIImageView, to type: String) {
-        if type == "sent" {
-            imageView.image = UIImage(named: "chat_bubble_sent")
-        } else {
-            imageView.image = UIImage(named: "chat_bubble_received")
-        }
-    }
     
     
     // MARK: Keyboard
     
     @objc func keyboardWillShow(with notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: AnyObject],
-            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             else {
                 return
         }
         
         for constraint in self.view.constraints {
             if constraint.identifier == "textFieldContainerViewBottom" {
-                constraint.constant = -(keyboardFrame.height - 50)
+                constraint.constant = 80 - keyboardFrame.height
                 self.view.layoutIfNeeded()
             }
         }
@@ -212,6 +199,10 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     }
 }
 
+
+
+// MARK: Class Extensions
+
 extension MessengerVC {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = Constants.Colors.appPrimaryColor.cgColor
@@ -223,26 +214,7 @@ extension MessengerVC {
         textField.layer.borderWidth = 1.5
     }
     
-//    // If keyboard is shown move the view up to show text and the rest of the view
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0{
-//                self.view.frame.origin.y -= keyboardSize.height
-//            }
-//        }
-//    }
-//
-//    // Put view and rest of keyboard shown back to normal without keyboard
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0{
-//                self.view.frame.origin.y -= keyboardSize.height
-//            }
-//        }
-//    }
-    @objc
-    func keyboardWillShowNotification(_ notification: NSNotification) {}
+    @objc func keyboardWillShowNotification(_ notification: NSNotification) {}
     
-    @objc
-    func keyboardWillHideNotification(_ notification: NSNotification) {}
+    @objc func keyboardWillHideNotification(_ notification: NSNotification) {}
 }

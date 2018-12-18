@@ -10,8 +10,8 @@ import UIKit
 
 class MessageBubbleCell: UITableViewCell {
     
-    @IBOutlet weak var messageBubble: UIImageView!
     @IBOutlet weak var messageLbl: UILabel!
+    @IBOutlet weak var containerView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

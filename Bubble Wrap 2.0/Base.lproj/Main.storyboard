@@ -1611,27 +1611,35 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oti-rb-0nS">
-                                                    <rect key="frame" x="15" y="11" width="345" height="74"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aO7-ae-k0F">
-                                                    <rect key="frame" x="55" y="21" width="265" height="54"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uza-eK-vEv" userLabel="Container">
+                                                    <rect key="frame" x="8" y="4" width="359" height="88"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aO7-ae-k0F">
+                                                            <rect key="frame" x="20" y="20" width="319" height="48"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="aO7-ae-k0F" secondAttribute="bottom" constant="20" id="12J-ty-a2E"/>
+                                                        <constraint firstItem="aO7-ae-k0F" firstAttribute="top" secondItem="Uza-eK-vEv" secondAttribute="top" constant="20" id="1hZ-Im-bHy"/>
+                                                        <constraint firstItem="aO7-ae-k0F" firstAttribute="leading" secondItem="Uza-eK-vEv" secondAttribute="leading" constant="20" id="Wis-lG-jrx"/>
+                                                        <constraint firstAttribute="trailing" secondItem="aO7-ae-k0F" secondAttribute="trailing" constant="20" id="ZyS-35-gqd"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="aO7-ae-k0F" firstAttribute="top" secondItem="ng9-xe-emH" secondAttribute="topMargin" constant="10" id="8Kr-uG-ezW"/>
-                                                <constraint firstItem="Oti-rb-0nS" firstAttribute="top" secondItem="ng9-xe-emH" secondAttribute="topMargin" id="98a-WX-DJG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="aO7-ae-k0F" secondAttribute="trailing" constant="40" id="9ka-0M-Rda"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="aO7-ae-k0F" secondAttribute="bottom" constant="10" id="VTh-Aj-s4V"/>
-                                                <constraint firstItem="aO7-ae-k0F" firstAttribute="leading" secondItem="ng9-xe-emH" secondAttribute="leadingMargin" constant="40" id="d9S-Fv-heg"/>
-                                                <constraint firstItem="Oti-rb-0nS" firstAttribute="bottom" secondItem="aO7-ae-k0F" secondAttribute="bottom" constant="10" id="shm-wd-Oec"/>
+                                                <constraint firstItem="Uza-eK-vEv" firstAttribute="leading" secondItem="ng9-xe-emH" secondAttribute="leading" constant="8" id="6rS-y6-Oi8"/>
+                                                <constraint firstAttribute="trailing" secondItem="Uza-eK-vEv" secondAttribute="trailing" constant="8" id="JUW-a2-RaT"/>
+                                                <constraint firstAttribute="bottom" secondItem="Uza-eK-vEv" secondAttribute="bottom" constant="4" id="R8C-Y5-3B6"/>
+                                                <constraint firstItem="Uza-eK-vEv" firstAttribute="top" secondItem="ng9-xe-emH" secondAttribute="top" constant="4" id="lmK-nq-h4t"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="messageBubble" destination="Oti-rb-0nS" id="i5w-Id-j1G"/>
+                                            <outlet property="containerView" destination="Uza-eK-vEv" id="i2d-mg-yDB"/>
+                                            <outlet property="contentView" destination="ng9-xe-emH" id="4R5-h2-HVU"/>
                                             <outlet property="messageLbl" destination="aO7-ae-k0F" id="IUk-29-LVH"/>
                                         </connections>
                                     </tableViewCell>
@@ -1655,6 +1663,7 @@
                         <outlet property="messageTextField" destination="3aH-i6-YpP" id="zoK-Fx-Nak"/>
                         <outlet property="sendBtn" destination="8Ek-Nh-uuM" id="omn-Cd-E0M"/>
                         <outlet property="tableView" destination="zfc-Sc-9KG" id="Les-A5-BYO"/>
+                        <outlet property="textFieldContainerView" destination="veG-Nm-oLn" id="tj4-93-pcS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8d-ES-SfX" sceneMemberID="firstResponder"/>
