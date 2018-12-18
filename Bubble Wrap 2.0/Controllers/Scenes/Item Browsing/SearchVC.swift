@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseStorage
 import FirebaseAuth
+import FirebaseStorage
+import FirebaseFirestore
 
 var currentUser: User!
 var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "")
@@ -212,6 +212,11 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
+        
+        // Return an empty cell if the index is out of bounds for the images array
+        if indexPath.item >= searchItemImages.count {
+            return cell
+        }
         
         // Populate the cell's data
         cell.cellLbl.text = self.searchItems[indexPath.item].title!

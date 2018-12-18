@@ -25,6 +25,4 @@ class ReviewCell: UICollectionViewCell {
         guard selectedBackgroundView == nil else { return }
         contentView.backgroundColor = newValue ? highlightedColor : UIColor.clear
     }
-    
-
 }

@@ -6,10 +6,7 @@
 //  Copyright © 2018 Kyle Nakamura. All rights reserved.
 //
 
-import Foundation
 import UIKit
-import Alamofire
-import RxAlamofire
 
 // Allow UIColor to be created using hexadecimals instead of regular RGB values
 // Example usage: let customColor = UIColor(hex: 0xAABBCC).withAlphaComponent(1.0)

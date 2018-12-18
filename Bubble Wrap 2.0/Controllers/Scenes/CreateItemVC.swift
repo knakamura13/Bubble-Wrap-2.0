@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import Foundation
-import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 
 class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
@@ -187,7 +186,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                         print("Error adding document: \(err)")
                     } else {
                         print("Document added with ID: \(ref!.documentID)")
-                        ref!.updateData(["itemRef": ref])
+                        ref!.updateData(["itemRef": ref!])
                     }
                 }
             }

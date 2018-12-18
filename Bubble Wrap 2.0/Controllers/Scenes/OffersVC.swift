@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
 
 class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -124,7 +123,9 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             topOffers[indexPath.item].item.getDocument { (document, error) in
                 if let document = document {
                     if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        cell2.cellImg.image = self.topOfferImages[indexPath.item]
+                        if self.topOfferImages.indices.contains(indexPath.item) {
+                            cell2.cellImg.image = self.topOfferImages[indexPath.item]
+                        }
                         cell2.cellLbl.text = item.title
                     }
                 }
@@ -144,7 +145,9 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             bottomOffers[indexPath.item].item.getDocument { (document, error) in
                 if let document = document {
                     if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        cell2.cellImg.image = self.bottomOfferImages[indexPath.item]
+                        if self.bottomOfferImages.indices.contains(indexPath.item) {
+                            cell2.cellImg.image = self.bottomOfferImages[indexPath.item]
+                        }
                         cell2.cellLbl.text = item.title
                     }
                 }

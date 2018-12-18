@@ -6,8 +6,6 @@
 //  Copyright © 2018 Kyle Nakamura. All rights reserved.
 //
 
-import UIKit
-import Firebase
 import FirebaseFirestore
 
 struct Offer {
