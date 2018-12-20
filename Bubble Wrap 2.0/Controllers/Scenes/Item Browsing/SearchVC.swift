@@ -39,6 +39,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         searchBar.delegate = self
         
         self.customizeView() // Setup the view
+        self.setupNavigationBarItems() // Setup Navigation Bar with BubbleWrap Logo
         
         // Load current user's profile information from Firebase
         if let userID = Auth.auth().currentUser?.uid {
@@ -197,6 +198,14 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         }
         
         collectionView!.reloadData()
+    }
+    
+    func setupNavigationBarItems(){
+        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "bubblewrap_logo"))
+        titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        titleImageView.contentMode = .scaleAspectFit
+        
+        navigationItem.titleView = titleImageView
     }
     
     // Pass data from this VC to the segue destination VC

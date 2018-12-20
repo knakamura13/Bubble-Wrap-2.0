@@ -36,6 +36,8 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         titleTextField.delegate = self
         priceTextField.delegate = self
         descriptionTextView.delegate = self
+        // Code to make NavBar white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         self.customizeVisuals() // Setup the visuals
         self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
