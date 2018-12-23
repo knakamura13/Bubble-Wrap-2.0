@@ -12,6 +12,7 @@ private let highlightedColor = Constants.Colors.appPrimaryColor.withAlphaCompone
 
 class MyCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var cellPriceLbl: UILabel!
     @IBOutlet weak var cellLbl: UILabel!
     @IBOutlet weak var cellImg: UIImageView!
     

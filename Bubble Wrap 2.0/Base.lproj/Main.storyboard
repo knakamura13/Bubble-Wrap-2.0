@@ -723,20 +723,33 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Eu1-Qt-3cz" userLabel="Cell Img">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="198"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCF-xj-pKi" userLabel="Cell Price Lbl">
+                                                    <rect key="frame" x="5" y="0.0" width="100" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="7tB-Kf-ha8"/>
+                                                        <constraint firstAttribute="height" constant="50" id="dLL-kB-67r"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="34"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstItem="Eu1-Qt-3cz" firstAttribute="top" secondItem="SCF-xj-pKi" secondAttribute="bottom" constant="-50" id="2yo-xi-1Si"/>
                                             <constraint firstItem="Eu1-Qt-3cz" firstAttribute="top" secondItem="fgI-ny-Ar5" secondAttribute="top" id="BrW-la-uFB"/>
                                             <constraint firstItem="Eu1-Qt-3cz" firstAttribute="leading" secondItem="fgI-ny-Ar5" secondAttribute="leading" id="LbP-B0-PEw"/>
                                             <constraint firstItem="tZL-yH-abU" firstAttribute="centerX" secondItem="fgI-ny-Ar5" secondAttribute="centerX" id="Ozp-vN-uMO"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="tZL-yH-abU" secondAttribute="bottom" constant="10" id="VMc-RD-yhN"/>
+                                            <constraint firstItem="SCF-xj-pKi" firstAttribute="leading" secondItem="fgI-ny-Ar5" secondAttribute="leading" constant="5" id="iKl-fu-Q3d"/>
                                             <constraint firstAttribute="trailing" secondItem="Eu1-Qt-3cz" secondAttribute="trailing" id="kaw-aS-F6a"/>
                                             <constraint firstItem="tZL-yH-abU" firstAttribute="top" secondItem="Eu1-Qt-3cz" secondAttribute="bottom" constant="15" id="tcG-4j-Eeh"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="cellImg" destination="Eu1-Qt-3cz" id="tXG-Mc-VZv"/>
                                             <outlet property="cellLbl" destination="tZL-yH-abU" id="bZp-97-t1F"/>
+                                            <outlet property="cellPriceLbl" destination="SCF-xj-pKi" id="Y4u-FX-HWv"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -969,7 +982,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$350" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GS-HC-GNa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GS-HC-GNa">
                                 <rect key="frame" x="0.0" y="99" width="120" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="4dV-GI-tvk"/>
