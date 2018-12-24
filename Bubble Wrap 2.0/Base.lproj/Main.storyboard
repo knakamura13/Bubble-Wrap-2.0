@@ -304,6 +304,7 @@
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="x8N-2b-zah" firstAttribute="top" secondItem="8rp-GF-TGl" secondAttribute="bottom" constant="4" id="2vl-rp-kfH"/>
                                             <constraint firstItem="8rp-GF-TGl" firstAttribute="leading" secondItem="KrO-Ks-H3O" secondAttribute="leading" id="8wY-Se-aC4"/>
@@ -317,6 +318,7 @@
                                             <outlet property="cellImg" destination="8rp-GF-TGl" id="iB8-hr-Gjq"/>
                                             <outlet property="cellLbl" destination="x8N-2b-zah" id="nIP-cr-Jff"/>
                                             <segue destination="j3Z-yn-jXH" kind="show" id="htR-HE-RIt"/>
+                                            <outletCollection property="gestureRecognizers" destination="68s-az-C7p" appends="YES" id="YnB-u3-cVF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -366,6 +368,7 @@
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="CNj-Hg-KgO" firstAttribute="top" secondItem="xBZ-UY-Dkm" secondAttribute="top" id="5zW-0m-qpq"/>
                                             <constraint firstItem="0Am-o2-IyI" firstAttribute="top" secondItem="CNj-Hg-KgO" secondAttribute="bottom" constant="4" id="H07-TL-M9v"/>
@@ -378,6 +381,7 @@
                                         <connections>
                                             <outlet property="cellImg" destination="CNj-Hg-KgO" id="d6e-Kg-AnS"/>
                                             <outlet property="cellLbl" destination="0Am-o2-IyI" id="e6y-LH-o8A"/>
+                                            <outletCollection property="gestureRecognizers" destination="eoJ-Qe-85F" appends="YES" id="qzx-iE-2em"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -418,6 +422,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6sh-HS-owW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="68s-az-C7p" userLabel="topOfferCellTapGesture"/>
+                <tapGestureRecognizer id="eoJ-Qe-85F" userLabel="bottomOfferCellTapGesture"/>
             </objects>
             <point key="canvasLocation" x="-639" y="1125"/>
         </scene>
@@ -1031,7 +1037,7 @@
         <!--Details-->
         <scene sceneID="yhQ-0q-Rou">
             <objects>
-                <viewController title="Details" id="mdn-hF-nsd" customClass="SingleItemVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingleItemVC" title="Details" id="mdn-hF-nsd" customClass="SingleItemVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XJc-nI-6xq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1653,7 +1659,7 @@
         <!--Chat-->
         <scene sceneID="GHV-FL-k3n">
             <objects>
-                <viewController title="Chat" id="uci-9T-fgR" customClass="MessengerVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessengerVC" title="Chat" id="uci-9T-fgR" customClass="MessengerVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ICy-76-F3g">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1766,7 +1772,7 @@
         <!--Chat-->
         <scene sceneID="PtW-Y1-DEZ">
             <objects>
-                <viewController title="Chat" id="uMz-iF-1BP" customClass="MessagesListVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessagesListVC" title="Chat" id="uMz-iF-1BP" customClass="MessagesListVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q9O-Sd-Lgi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
