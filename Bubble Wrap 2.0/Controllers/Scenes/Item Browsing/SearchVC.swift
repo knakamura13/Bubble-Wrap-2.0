@@ -91,7 +91,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                                         self.allItemImages.append(image!)
                                         self.searchItemImages.append(image!)
                                     }
-                                    print("Mario")
                                     self.collectionView?.reloadData()
                                 }
                             }
@@ -220,6 +219,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         // Populate the cell's data
         cell.cellLbl.text = self.searchItems[indexPath.item].title!
         cell.cellImg.image = self.searchItemImages[indexPath.item]
+        cell.cellPriceLbl.text = "$\(self.searchItems[indexPath.item].price!)"
         
         // Stylize the cell
         let cornerRadius = CGFloat(10)
