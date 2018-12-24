@@ -18,6 +18,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     // Variables
     var createItemWasPressed: Bool!
+    var categoryChoosen = ""
     
     // Outlets
     @IBOutlet weak var scrollView: UIScrollView!
@@ -30,6 +31,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var createItemBtn: UIButton!
+    @IBOutlet weak var categoryPicker: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,9 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         // Code to make NavBar white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
+        categoryPicker.dataSource = self
+        categoryPicker.delegate = self
+
         self.customizeVisuals() // Setup the visuals
         self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
     }
@@ -49,7 +54,22 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     func customizeVisuals() {
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
-        scrollView.contentSize.height = 750 // arbitrary integer; increase if content does not fit in contentSize
+        
+        var heightOfContent: CGFloat = 0.0
+        if let lastView: UIView = scrollView.subviews.last {
+            let yPosition = lastView.frame.origin.y
+            let height = lastView.frame.size.height
+            heightOfContent = yPosition + height
+        } else {
+            heightOfContent = 1150
+        }
+        scrollView.contentSize.height = heightOfContent
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.heightAnchor.constraint(equalToConstant: heightOfContent)
+        
+//        scrollView.contentSize.height = 1150 // arbitrary integer; increase if content does not fit in contentSize
+        
+        
         let cornerRadius = CGFloat(10)
         smallImg1.layer.cornerRadius = cornerRadius
         smallImg2.layer.cornerRadius = cornerRadius
@@ -77,9 +97,13 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         return true
     }
     
+    //Create category function
+    
+    
     @IBAction func createItemPressed(_ sender: Any) {
         if !createItemWasPressed {
             // Check if the input fields (Price, Title, Description) have correct inputs
+            // The gaur let checks first if something has a value if not it excutes the else. If you have other condition you want to chcek you will have to write an if statment after teh gaurd let else statemetn. As it is done for the title propterty in teh following gaurd lets
             guard let image = mainImg.image else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have at least one image.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -103,7 +127,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 self.createItemWasPressed = false
                 return
             }
-           
+            
             /* Check price is not higher than $99,999 */
             guard let price = Int(priceTextField.text!) else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a price.", preferredStyle: .alert)
@@ -133,7 +157,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             if description.count >= 15{
                 if let userID = Auth.auth().currentUser?.uid{
                     let owner = Firestore.firestore().collection("users").document(userID)
-                    self.createItem(image: image, price: price, title: title, description: description, owner: owner)
+                    self.createItem(image: image, price: price, title: title, description: description, owner: owner, category: categoryChoosen)
                     self.createItemWasPressed = true
                 }
             } else {
@@ -153,11 +177,11 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     }
     
     // Create Item object and send its data to Firebase
-    func createItem(image: UIImage, price: Int, title: String, description: String, owner: DocumentReference) {
+    func createItem(image: UIImage, price: Int, title: String, description: String, owner: DocumentReference, category: String!) {
         imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
         }, completionBlock: { (fileURL, errorMessage) in
             if let fileURL = fileURL {
-                let item = Item(title: title, price: NSNumber(value: price), imageURL: fileURL.absoluteString, owner: owner, itemID: "")
+                let item = Item(title: title, price: NSNumber(value: price), imageURL: fileURL.absoluteString, owner: owner, itemID: "", category: category)
                 var ref: DocumentReference? = nil
                 ref = self.collection.addDocument(data: item.dictionary()) { err in
                     if let err = err {
@@ -169,5 +193,28 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 }
             }
         })
+    }
+    
+    
+    
+   
+}
+
+/*Set the content for the picker view*/
+extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource{
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return CATEGORIES_LIST.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryChoosen = CATEGORIES_LIST[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return CATEGORIES_LIST[row]
     }
 }

@@ -135,7 +135,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         } else {
             // Check if email contains a valid .edu domain
             var validDomain = false
-            for (domain, _) in existingBubbleCommunities {
+            for (domain, _) in EXISTING_BUBBBLE_COMMUNITIES {
                 if email.contains(domain) {
                     validDomain = true
                 }
@@ -213,7 +213,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     // Create User object and send its data to Firebase
     func createUser(email: String) {
         var bubble = ""
-        for (domain, university) in existingBubbleCommunities {
+        for (domain, university) in EXISTING_BUBBBLE_COMMUNITIES {
             if email.contains(domain) {
                 bubble = university
             }
