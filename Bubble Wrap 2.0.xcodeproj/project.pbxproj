@@ -12,6 +12,12 @@
 		66CFBDEB21AB97CC00F0690E /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */; };
 		66EA58C721D1600D00A85A4C /* OffersMadeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */; };
 		66EA58CB21D165AC00A85A4C /* OffersMadeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA58CA21D165AC00A85A4C /* OffersMadeCell.swift */; };
+		0DE5AA2021D1557B00A06A3B /* ImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0DE5AA1F21D1557B00A06A3B /* ImageClassifier.mlmodel */; };
+		0DEC161121D0A1510010786B /* ImageClassificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEC161021D0A1510010786B /* ImageClassificationViewController.swift */; };
+		0DEC161321D0A17C0010786B /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0DEC161221D0A17C0010786B /* MobileNet.mlmodel */; };
+		0DEC161521D0A1890010786B /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEC161421D0A1890010786B /* CGImagePropertyOrientation+UIImageOrientation.swift */; };
+		6684673520F2E1D8000A689B /* PlaceOfferVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6684673420F2E1D8000A689B /* PlaceOfferVC.swift */; };
+		66CFBDEB21AB97CC00F0690E /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */; };
 		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
 		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
 		BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */; };
@@ -56,6 +62,10 @@
 		66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
 		66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersMadeVC.swift; sourceTree = "<group>"; };
 		66EA58CA21D165AC00A85A4C /* OffersMadeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersMadeCell.swift; sourceTree = "<group>"; };
+		0DE5AA1F21D1557B00A06A3B /* ImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ImageClassifier.mlmodel; sourceTree = "<group>"; };
+		0DEC161021D0A1510010786B /* ImageClassificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassificationViewController.swift; sourceTree = "<group>"; };
+		0DEC161221D0A17C0010786B /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
+		0DEC161421D0A1890010786B /* CGImagePropertyOrientation+UIImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+UIImageOrientation.swift"; sourceTree = "<group>"; };
 		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF27037420D2506C00F89FFD /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
 		BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProfileCell.swift; sourceTree = "<group>"; };
@@ -118,6 +128,10 @@
 				BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */,
 				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
 				66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */,
+				0DEC161021D0A1510010786B /* ImageClassificationViewController.swift */,
+				0DEC161421D0A1890010786B /* CGImagePropertyOrientation+UIImageOrientation.swift */,
+				0DEC161221D0A17C0010786B /* MobileNet.mlmodel */,
+				0DE5AA1F21D1557B00A06A3B /* ImageClassifier.mlmodel */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -434,16 +448,20 @@
 				BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */,
 				BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */,
 				BF5E5CA020EE69B70026EE26 /* NewUserInformationVC.swift in Sources */,
+				0DEC161521D0A1890010786B /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */,
 				BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */,
 				BFF78A7420D4491300819CA8 /* Item.swift in Sources */,
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
+				0DEC161321D0A17C0010786B /* MobileNet.mlmodel in Sources */,
 				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
 				BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */,
 				BF9D8A6620F6803100FBE1A2 /* Message.swift in Sources */,
 				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
+				0DE5AA2021D1557B00A06A3B /* ImageClassifier.mlmodel in Sources */,
 				BFF7D45520E0B16800AF120F /* User.swift in Sources */,
 				BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */,
 				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
+				0DEC161121D0A1510010786B /* ImageClassificationViewController.swift in Sources */,
 				BF9D8A6420F67AAB00FBE1A2 /* Conversation.swift in Sources */,
 				BF57040420F5B72400A32190 /* MessagesCell.swift in Sources */,
 				BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */,
