@@ -15,4 +15,5 @@ class DataSource: NSObject {
         }
         return Firestore.firestore().collection(collection).order(by: orderBy)
     }
+    
 }
