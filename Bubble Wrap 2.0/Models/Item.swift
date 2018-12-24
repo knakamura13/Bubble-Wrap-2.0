@@ -50,7 +50,7 @@ struct Item {
             "title": title,
             "price": price,
             "imageURL": imageURL,
-            "owner": owner,
+            "owner": owner as Any,
             "category": category,
         ]
     }
