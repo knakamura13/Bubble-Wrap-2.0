@@ -24,9 +24,11 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         super.viewDidLoad()
 
     }
-    
+    let itemSelected = DocumentReference = Firestore.firestore().collection("item")
     func arrayOfOffersMade(){
-       
+       Firestore.firestore()
+        .collection("offers")
+        .whereField("item", isEqualTo: itemSelected)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
