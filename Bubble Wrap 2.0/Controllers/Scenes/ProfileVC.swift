@@ -13,8 +13,7 @@ import FirebaseFirestore
 
 var globalProfilePicture: UIImage!
 
-class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     // MARK: Properties
     
@@ -24,7 +23,7 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     var allReviews: [Review] = []
     var selectedReview: Review?
     var tappedName: Bool = false
-    private(set) var datasource = DataSource()  // Datasource for data listener
+    private(set) var datasource = DataSource()
     
     
     // MARK: IBOutlets
@@ -34,6 +33,7 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     @IBOutlet weak var userProfileImg: UIImageView!
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var userBubbleField: UITextField!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
     // MARK: View load and appear
@@ -78,6 +78,15 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         
         // Dismiss the keyboard on background tap.
         self.hideKeyboardWhenTappedAround()
+        
+        // Setup custom layout for the collection view.
+        let screenWidth = UIScreen.main.bounds.width
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
+        layout.itemSize = CGSize(width: screenWidth/3-2, height: screenWidth/3-2)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 2
+        collectionView!.collectionViewLayout = layout
     }
     
     /**
@@ -159,14 +168,12 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action: UIAlertAction) in
             if let textField1 = alert.textFields?.first {
                 if let textField2 = alert.textFields?[1]{
-                    // Check if both text fields in alert have been updated
                     if textField1.text?.count == 0 || textField2.text?.count == 0{
                         let alert = UIAlertController(title: "Error", message: "You have not updated both your first and last name.", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
                         self.present(alert, animated: true)
-                    }
-                        // If both text fields have been updated, update firestore, and the text fields
-                    else {
+                    } else {
+                        // If both text fields have text, update Firestore values.
                         if let userID = Auth.auth().currentUser?.uid {
                             let userRef = Firestore.firestore().collection("users").document(String(userID))
                             userRef.updateData([
@@ -182,10 +189,8 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                                     self.present(alert, animated: true)
                                 }
                             }
-                            
                         }
                     }
-                    
                 }
             }
         }))
@@ -238,5 +243,21 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         }
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // MARK: Collection View
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileItemCell", for: indexPath as IndexPath) as! ProfileItemCell
+        
+        cell.cellLbl.text = "Item Name"
+        cell.cellImg.image = UIImage(named: "item-img-3")
+        
+        return cell
     }
 }
