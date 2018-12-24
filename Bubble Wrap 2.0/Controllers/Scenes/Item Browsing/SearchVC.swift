@@ -201,8 +201,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     }
     
     func setupNavigationBarItems(){
-        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "bubblewrap_logo"))
-        titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        let titleImageView = UIImageView(image: #imageLiteral(resourceName: "BubbleWrapLogo"))
+        titleImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         titleImageView.contentMode = .scaleAspectFit
         
         navigationItem.titleView = titleImageView
