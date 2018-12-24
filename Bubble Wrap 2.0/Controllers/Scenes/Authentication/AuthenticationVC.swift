@@ -174,6 +174,16 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     self.present(alert, animated: true)
                     
                     return
+                } else if password.isEmptyOrWhitespace() {
+                    let alert = UIAlertController(title: "Hey, it's not a race.", message: "Try coming up with a more... sophisticated password. You can't only use white spaces.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Okay", style: .default) {
+                        UIAlertAction in
+                        
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    
+                    return
                 }
                 
                 Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
@@ -270,5 +280,17 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         }
         
         confirmPasswordStackView.isHidden.toggle()
+    }
+}
+
+extension String {
+    func isEmptyOrWhitespace() -> Bool {
+        
+        // Check empty string
+        if self.isEmpty {
+            return true
+        }
+        // Trim and check empty string
+        return (self.trimmingCharacters(in: .whitespaces) == "")
     }
 }
