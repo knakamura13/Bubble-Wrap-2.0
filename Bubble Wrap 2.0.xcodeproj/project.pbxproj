@@ -44,10 +44,12 @@
 		BFF7D45520E0B16800AF120F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF7D45420E0B16800AF120F /* User.swift */; };
 		BFFA086E20CA7A4400D3679C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFFA086D20CA7A4400D3679C /* Images.xcassets */; };
 		BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */; };
+		FB17BEFE593F4DC571796BB7 /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A4444EDAABFC5E4DBC77605 /* Pods_Bubble_Wrap_2_0.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A38B9172F8222973F149749 /* Pods-Bubble Wrap 2.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.debug.xcconfig"; sourceTree = "<group>"; };
+		1A4444EDAABFC5E4DBC77605 /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46404F75FD78F487A748B724 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		6684673420F2E1D8000A689B /* PlaceOfferVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOfferVC.swift; sourceTree = "<group>"; };
 		66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			files = (
 				BFDF150320BAB85800CD4BBB /* MapKit.framework in Frameworks */,
 				BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */,
+				FB17BEFE593F4DC571796BB7 /* Pods_Bubble_Wrap_2_0.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +236,7 @@
 			children = (
 				BFDF150220BAB85800CD4BBB /* MapKit.framework */,
 				BFEB612920BAA76A007DC098 /* StoreKit.framework */,
+				1A4444EDAABFC5E4DBC77605 /* Pods_Bubble_Wrap_2_0.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -353,17 +357,13 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates-Firestore.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Firestore.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -374,8 +374,6 @@
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0-frameworks.sh",
@@ -390,8 +388,6 @@
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -413,15 +409,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Bubble Wrap 2.0-checkManifestLockResult.txt",
 			);

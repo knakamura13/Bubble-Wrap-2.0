@@ -20,6 +20,8 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     var bottomOffers: [Offer] = []
     var topOfferImages: [UIImage] = []
     var bottomOfferImages: [UIImage] = []
+    private(set) public var selectedItemOffer: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "")
+    //private(set) public var selectedItemID:
     
     private(set) var datasource = DataSource()  // Datasource for data listener
 
@@ -180,26 +182,74 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("IN HERE")
+        if let offersMadeVC = segue.destination as? OffersMadeVC {
+            let barBtn = UIBarButtonItem()
+            barBtn.title = ""
+            navigationItem.backBarButtonItem = barBtn
+            print("THIS IS SENDER: \(sender)")
+            offersMadeVC.getSelectedItemOffer(item: sender as! DocumentReference)
+            print("IN IN HERE")
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == self.topCollectionView {
+            DispatchQueue.main.async {
+                let selectedItemOfferRef = self.topOffers[indexPath.row].item
+                /*getDocument { (document, error) in
+                 print("THIS WORKS5")
+                 if let document = document {
+                 print("THIS WORKS6")
+                 if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                 print("THIS WORKS7")
+                 self.selectedItemOffer = item
+                 let nothing = "Nothing was sent"
+                 print("\(self.selectedItemOffer.itemID ?? nothing)")
+                 }
+                 }
+                 }*/
+                print("THIS IS selectedItemOffer: \(self.selectedItemOffer.itemID)")
+                self.performSegue(withIdentifier: "OffersMadeVC", sender: selectedItemOfferRef!)
+            }
+            
+        } else {
+            // Bottom collection view item clicked goes to MessagesListVS
+            performSegue(withIdentifier: "MessagesListVC", sender: nil)
+        }
+        
+        
+        /*
         var vc: UIViewController?
         if collectionView == self.topCollectionView {
-            vc = storyboard?.instantiateViewController(withIdentifier: "SingleItemVC")
+            print("THIS WORKS1")
+            // Top collection view item clicked goes to OffersMadeVC
+            vc = storyboard?.instantiateViewController(withIdentifier: "OffersMadeVC")
+            print("THIS WORKS2")
             self.definesPresentationContext = true
+            print("THIS WORKS3")
             vc?.modalPresentationStyle = .overCurrentContext
-            
+            print("THIS WORKS4")
             topOffers[indexPath.row].item.getDocument { (document, error) in
+                 print("THIS WORKS5")
                 if let document = document {
+                     print("THIS WORKS6")
                     if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        selectedItem = item
+                        print("THIS WORKS7")
+                        self.selectedItemOffer = item
+                        let nothing = "Nothing was sent"
+                        print("\(self.selectedItemOffer.itemID ?? nothing)")
                         self.present(vc!, animated: true, completion: nil)
                     }
                 }
             }
         } else {
+            // Bottom collection view item clicked goes to MessagesListVS
             vc = storyboard?.instantiateViewController(withIdentifier: "MessagesListVC")
             self.definesPresentationContext = true
             vc?.modalPresentationStyle = .overCurrentContext
             self.present(vc!, animated: true, completion: nil)
-        }
+        }*/
     }
 }
