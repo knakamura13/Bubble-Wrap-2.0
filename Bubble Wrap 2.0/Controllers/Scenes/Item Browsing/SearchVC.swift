@@ -12,7 +12,7 @@ import FirebaseStorage
 import FirebaseFirestore
 
 var currentUser: User!
-var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "")
+var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "", bubble: "")
 
 class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
@@ -67,7 +67,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         // When filter display all the itemas that fit the constraints within the search
         if filterOn {
-            datasource.generalQuery(collection: "items", orderBy: "title", limit: 5)
+            datasource.generalQuery(collection: "items", orderBy: "title", limit: nil).whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
@@ -105,7 +105,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             }
             filterOn = false
         } else {
-            datasource.generalQuery(collection: "items", orderBy: "title", limit: 5)
+            datasource.generalQuery(collection: "items", orderBy: "title", limit: nil).whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
