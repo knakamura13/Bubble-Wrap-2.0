@@ -179,7 +179,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
         }, completionBlock: { (fileURL, errorMessage) in
             if let fileURL = fileURL {
-                let item = Item(title: title, price: NSNumber(value: price), imageURL: fileURL.absoluteString, owner: owner, itemID: "", category: category)
+                let item = Item(title: title, price: NSNumber(value: price), imageURL: fileURL.absoluteString, owner: owner, itemID: "", category: category, bubble: userBubble)
                 var ref: DocumentReference? = nil
                 ref = self.collection.addDocument(data: item.dictionary()) { err in
                     if let err = err {

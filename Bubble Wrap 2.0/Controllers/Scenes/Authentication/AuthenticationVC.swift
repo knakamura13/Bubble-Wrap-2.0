@@ -10,6 +10,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+var userBubble: String!
+
 class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
     // MARK: Outlets
@@ -44,6 +46,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
                 if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
+                    
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
                 } else {
                     // Passwords to not match, so alert user to try again
@@ -222,13 +225,12 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
     // Create User object and send its data to Firebase
     func createUser(email: String) {
-        var bubble = ""
         for (domain, university) in EXISTING_BUBBBLE_COMMUNITIES {
             if email.contains(domain) {
-                bubble = university
+                userBubble = university
             }
         }
-        let user = User(firstName: "", lastName: "", profileImageURL: "", bubbleCommunity: bubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
+        let user = User(firstName: "", lastName: "", profileImageURL: "", bubbleCommunity: userBubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
         let data = user.dictionary()
         if let uid = Auth.auth().currentUser?.uid {
             Firestore.firestore().collection("users").document(uid).setData(data)

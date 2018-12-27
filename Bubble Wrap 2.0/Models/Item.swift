@@ -15,6 +15,7 @@ struct Item {
     var image: UIImage?
     var imageURL: String!
     var owner: DocumentReference?
+    var bubble: String!
     var itemID: String!
     
     
@@ -24,16 +25,17 @@ struct Item {
             let price = dictionary["price"] as? NSNumber,
             let imageURL = dictionary["imageURL"] as? String,
             let owner = dictionary["owner"] as? DocumentReference,
-            let category = dictionary["category"] as? String
+            let category = dictionary["category"] as? String,
+            let bubble = dictionary["bubble"] as? String
             else {
                 return nil
         }
         
-        self.init(title: title, price: price, imageURL: imageURL, owner: owner, itemID: itemID, category: category)
+        self.init(title: title, price: price, imageURL: imageURL, owner: owner, itemID: itemID, category: category, bubble: bubble)
         
     }
     
-    init(title: String?, price: NSNumber, imageURL: String, owner: DocumentReference?, itemID: String, category: String) {
+    init(title: String?, price: NSNumber, imageURL: String, owner: DocumentReference?, itemID: String, category: String, bubble: String) {
         self.title = title
         self.price = price
         self.imageURL = imageURL
@@ -42,6 +44,7 @@ struct Item {
         }
         self.itemID = itemID
         self.category = category
+        self.bubble = bubble
     }
     
     
@@ -52,6 +55,7 @@ struct Item {
             "imageURL": imageURL,
             "owner": owner,
             "category": category,
+            "bubble": bubble,
         ]
     }
 }
