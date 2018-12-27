@@ -114,8 +114,8 @@
 				BF5E5CA220EE69E90026EE26 /* Item Browsing */,
 				BF88C7B620F3FFD600428BB2 /* Messages */,
 				BFDF14FA20BAB22800CD4BBB /* CreateItemVC.swift */,
-				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
 				BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */,
+				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
 				66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */,
 			);
 			path = Scenes;
