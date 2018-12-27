@@ -80,5 +80,15 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     // Sets the title of the item
     func setStyles(){
         itemNameLbl.text = "Offers for \(currentItem.title!)"
+        let navBar = navigationController?.navigationBar
+        self.view.addSubview(navBar!);
+        let navItem = UINavigationItem(title: "Delete");
+        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: nil, action: #selector(deleteButtonTapped(_:)));
+        navItem.rightBarButtonItem = doneItem;
+        navBar!.setItems([navItem], animated: false);
+    }
+    
+    @objc func deleteButtonTapped(_ sender : UIButton) {
+        print("button tapped")
     }
 }

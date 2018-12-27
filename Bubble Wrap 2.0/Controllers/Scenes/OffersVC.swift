@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 // Global Variable
-var currentItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "", bubble: userBubble)
+var currentItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "", bubble: userBubble, isSold: false)
 
 class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
