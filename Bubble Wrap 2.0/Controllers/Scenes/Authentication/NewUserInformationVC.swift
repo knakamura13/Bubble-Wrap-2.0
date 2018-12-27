@@ -43,7 +43,19 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     func setupStyles() {
+        // Attributes for the user's name textFields
+        let attributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Light", size: 14)! // Note the !
+        ]
         letsGoBtn.layer.cornerRadius = cornerRadius
+        profileImageView.layer.borderWidth = 0
+        profileImageView.layer.masksToBounds = false
+        profileImageView.layer.borderColor = UIColor.black.cgColor
+        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
+        profileImageView.clipsToBounds = true
+        firstNameTextField.attributedPlaceholder = NSAttributedString(string: "First Name",attributes: attributes)
+        lastNameTextField.attributedPlaceholder = NSAttributedString(string: "Last Name",attributes: attributes)
         self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
     }
     
