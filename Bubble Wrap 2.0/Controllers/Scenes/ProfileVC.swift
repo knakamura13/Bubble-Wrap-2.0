@@ -20,9 +20,9 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     let cornerRadius = CGFloat(10)
     private let imageUploadManager = ImageUploadManager()
     private let collection = Firestore.firestore().collection("users")
-    var allReviews: [Review] = []
-    var selectedReview: Review?
     var tappedName: Bool = false
+    var allItemImages: [UIImage] = []
+    var allItems: [Item] = []
     private(set) var datasource = DataSource()
     
     
@@ -42,6 +42,10 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         self.customizeViews()
         self.updateContentsFromUserDefaults()
         self.checkPhotoLibraryPermissions()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchUsersItems()
     }
     
     // MARK: IBActions
@@ -212,6 +216,32 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         self.present(controller, animated: true, completion: nil)
     }
     
+    func fetchUsersItems() {
+        var userRef: DocumentReference!
+        
+        userRef = Firestore.firestore().collection("users").document((Auth.auth().currentUser?.uid)!)
+        Firestore.firestore().collection("items").whereField("owner", isEqualTo: userRef).addSnapshotListener { (snapshot, error) in
+            if let documents = snapshot?.documents {
+                self.allItems.removeAll()
+                
+                for document in documents {
+                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                        self.allItems.append(item)
+                        
+                        // Download the item's image and save as a UIImage
+                        let url = URL(string: item.imageURL!)!
+                        let data = try? Data(contentsOf: url)
+                        if let imageData = data {
+                            let image = UIImage(data: imageData)
+                            self.allItemImages.append(image!)
+                        }
+                        self.collectionView?.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
     
     // MARK: Image Picker
     
@@ -249,15 +279,21 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     // MARK: Collection View
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return allItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileItemCell", for: indexPath as IndexPath) as! ProfileItemCell
         
-        cell.cellLbl.text = "Item Name"
-        cell.cellImg.image = UIImage(named: "item-img-3")
+        cell.cellLbl.text = allItems[indexPath.row].title
+        cell.cellImg.image = allItemImages[indexPath.row]
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SingleItemVC")
+        selectedItem = allItems[indexPath.row]
+        navigationController?.pushViewController(vc!, animated: true)
     }
 }
