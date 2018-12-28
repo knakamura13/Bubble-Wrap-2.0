@@ -41,14 +41,14 @@ struct Constants {
 }
 
 let CATEGORIES_LIST = ["Choose a Category",
-                        "Clothing & Acessories",
+                        "Clothing & Accessories",
                         "Electronics",
                         "Furniture & Appliances",
                         "Entertainment & Media",
                         "Books",
                         "Vehicles",
                         "Services",
-                        "Sports and Outdoors",
+                        "Sports & Outdoors",
                         "Other"
 ]
 //EXISTING_BUBBBLE_COMMUNITIES

@@ -88,10 +88,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         smallImg1.layer.cornerRadius = cornerRadius
         smallImg2.layer.cornerRadius = cornerRadius
         smallImg3.layer.cornerRadius = cornerRadius
-        mainImg.image = demoPicsumImages.randomElement()
-        smallImg1.image = demoPicsumImages.randomElement()
-        smallImg2.image = demoPicsumImages.randomElement()
-        smallImg3.image = demoPicsumImages.randomElement()
         descriptionTextView.layer.borderColor = UIColor(hex: 0xcdcdcd).cgColor   // light grey
         descriptionTextView.layer.borderWidth = 1/3
         descriptionTextView.layer.cornerRadius = 6
@@ -113,13 +109,40 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     
     
-    // MARK: Actions
+    // MARK: Image Actions
     
+    @IBAction func mainImageTapped(_ sender: Any) {
+        // Show options for the source picker only if the camera is available.
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            presentPhotoPicker(sourceType: .photoLibrary)
+            return
+        }
+        
+        let photoSourcePicker = UIAlertController()
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { [unowned self] _ in
+            self.presentPhotoPicker(sourceType: .camera)
+        }
+        let choosePhoto = UIAlertAction(title: "Choose Photo", style: .default) { [unowned self] _ in
+            self.presentPhotoPicker(sourceType: .photoLibrary)
+        }
+        
+        photoSourcePicker.addAction(takePhoto)
+        photoSourcePicker.addAction(choosePhoto)
+        photoSourcePicker.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(photoSourcePicker, animated: true)
+    }
+    
+    func presentPhotoPicker(sourceType: UIImagePickerController.SourceType) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = sourceType
+        present(picker, animated: true)
+    }
     
     @IBAction func createItemPressed(_ sender: Any) {
+        // Form validation.
         if !createItemWasPressed {
-            // Check if the input fields (Price, Title, Description) have correct inputs
-            // The gaur let checks first if something has a value if not it excutes the else. If you have other condition you want to chcek you will have to write an if statment after teh gaurd let else statemetn. As it is done for the title propterty in teh following gaurd lets
             guard let image = mainImg.image else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have at least one image.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -128,7 +151,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            /* Check title is at least 4 characters */
             guard let title = titleTextField.text else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a title.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -144,7 +166,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            /* Check price is not higher than $99,999 */
             guard let price = Int(priceTextField.text!) else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a price.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -160,7 +181,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            /* Check description is at least 15 characters */
             guard let description = descriptionTextView.text else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a description.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -169,7 +189,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            // Create user's item is all the condition hace been pas
             if description.count >= 15{
                 if let userID = Auth.auth().currentUser?.uid{
                     let owner = Firestore.firestore().collection("users").document(userID)
@@ -188,8 +207,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
             self.present(vc!, animated: false, completion: nil)
         }
-        
-        
     }
     
     // Create Item object and send its data to Firebase
@@ -212,7 +229,9 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     }
     
     
+    
     // MARK: Image Classification
+    
     
     lazy var classificationRequest: VNCoreMLRequest = {
         do {
@@ -251,52 +270,40 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             let classifications = results as! [VNClassificationObservation]
             
             if classifications.isEmpty {
+                return
             } else {
-                // Display top classifications ranked by confidence in the UI.
-                let topClassifications = classifications.prefix(2)
-                let descriptions = topClassifications.map { classification in
-                    // Formats the classification for display; e.g. "(0.37) cliff, drop, drop-off".
-                    return String(format: "(%.2f) %@", classification.confidence, classification.identifier)
+                let descriptions = classifications.prefix(2).map { classification -> String in
+                    return "\(classification.confidence)|\(classification.identifier)"
                 }
                 
-                // Print the predictions
-                print(descriptions[0].components(separatedBy: ")")[1].components(separatedBy: ", ")[0])
+                // Get the highest prediction.
+                let highestProbability: Double = Double(descriptions[0].components(separatedBy: "|")[0])!
+                let categorySuggestion: String = descriptions[0].components(separatedBy: "|")[1]
+                var rowSuggestion = 0
+                
+                print("KYLE: highest probability category = \(categorySuggestion) (\(highestProbability))")
+                
+                if highestProbability < 0.5 {
+                    // Do nothing if the classification has a low probability.
+                    return
+                }
+                
+                switch categorySuggestion.lowercased() {
+                    case "books":       rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Books")!
+                    case "clothing":    rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Clothing & Accessories")!
+                    case "electronics": rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Electronics")!
+                    case "furniture":   rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Furniture & Appliances")!
+                    case "media":       rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Entertainment & Media")!
+                    case "sports":      rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Sports & Outdoors")!
+                    case "vehicles":    rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Vehicles")!
+                    default:            rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Other")!
+                }
+                
+                // Programatically select the suggested row in the UIPickerView.
+                self.categoryPicker.selectRow(rowSuggestion, inComponent: 0, animated: true)
             }
         }
     }
-    
-    // MARK: Photo Actions
-    
-    @IBAction func takePicture() {
-        // Show options for the source picker only if the camera is available.
-        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-            presentPhotoPicker(sourceType: .photoLibrary)
-            return
-        }
-        
-        let photoSourcePicker = UIAlertController()
-        let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { [unowned self] _ in
-            self.presentPhotoPicker(sourceType: .camera)
-        }
-        let choosePhoto = UIAlertAction(title: "Choose Photo", style: .default) { [unowned self] _ in
-            self.presentPhotoPicker(sourceType: .photoLibrary)
-        }
-        
-        photoSourcePicker.addAction(takePhoto)
-        photoSourcePicker.addAction(choosePhoto)
-        photoSourcePicker.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        present(photoSourcePicker, animated: true)
-    }
-    
-    func presentPhotoPicker(sourceType: UIImagePickerController.SourceType) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = sourceType
-        present(picker, animated: true)
-    }
-    
-   
 }
 
 
