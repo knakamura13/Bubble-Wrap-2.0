@@ -40,13 +40,28 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
+        if let uid = Auth.auth().currentUser?.uid  {
+            print("CHECK: AUTH userBubble before set")
+            let userDocument = Firestore.firestore().collection("users").document(uid)
+            userDocument.getDocument { (document, error) in
+                if let document = document {
+                    if document.data() != nil {
+                        if let user = User(dictionary: document.data()!, itemID: document.documentID) {
+                            print("CHECK: AUTH userBubble set")
+                            userBubble = user.bubbleCommunity
+                            print("CHECK USERBUBBLE: \(userBubble)")
+                        }
+                    }
+                }
+            }
+        }
         if Auth.auth().currentUser != nil {
+            print("CHECK: Start getinfo()")
             self.getUserInformation()
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
                 if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
-                    
+                    print("CHECK: Move from getinfo()")
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
                 } else {
                     // Passwords to not match, so alert user to try again
