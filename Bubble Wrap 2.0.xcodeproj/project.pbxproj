@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6684673520F2E1D8000A689B /* PlaceOfferVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6684673420F2E1D8000A689B /* PlaceOfferVC.swift */; };
 		66CFBDEB21AB97CC00F0690E /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */; };
-		80D63B8B9EF5FC97762016EB /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */; };
+		B0D1B7BFD12A6B2E6C0C4E84 /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20F0D71C15E6151A05BB19F2 /* Pods_Bubble_Wrap_2_0.framework */; };
 		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
 		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
 		BF3EE79120CB3D4C00F6A24E /* TopProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */; };
@@ -47,11 +47,10 @@
 
 /* Begin PBXFileReference section */
 		0A38B9172F8222973F149749 /* Pods-Bubble Wrap 2.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.debug.xcconfig"; sourceTree = "<group>"; };
+		20F0D71C15E6151A05BB19F2 /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46404F75FD78F487A748B724 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		6684673420F2E1D8000A689B /* PlaceOfferVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOfferVC.swift; sourceTree = "<group>"; };
 		66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
-		6920E57404C211D66103867C /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		77242446470B9D9A7115DD36 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF27037420D2506C00F89FFD /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
 		BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProfileCell.swift; sourceTree = "<group>"; };
@@ -97,7 +96,7 @@
 			files = (
 				BFDF150320BAB85800CD4BBB /* MapKit.framework in Frameworks */,
 				BFEB612A20BAA76A007DC098 /* StoreKit.framework in Frameworks */,
-				7F741412279A8231F392F645 /* Pods_Bubble_Wrap_2_0.framework in Frameworks */,
+				B0D1B7BFD12A6B2E6C0C4E84 /* Pods_Bubble_Wrap_2_0.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +230,7 @@
 			children = (
 				BFDF150220BAB85800CD4BBB /* MapKit.framework */,
 				BFEB612920BAA76A007DC098 /* StoreKit.framework */,
-				740C5685214B02645549648C /* Pods_Bubble_Wrap_2_0.framework */,
+				20F0D71C15E6151A05BB19F2 /* Pods_Bubble_Wrap_2_0.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -352,17 +351,13 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates-Firestore.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Firestore.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -373,8 +368,6 @@
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0-frameworks.sh",
@@ -389,8 +382,6 @@
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -412,15 +403,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Bubble Wrap 2.0-checkManifestLockResult.txt",
 			);
