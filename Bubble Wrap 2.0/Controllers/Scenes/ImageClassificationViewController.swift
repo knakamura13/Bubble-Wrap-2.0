@@ -11,21 +11,16 @@ import Vision
 import ImageIO
 
 class ImageClassificationViewController: UIViewController {
-    // MARK: - IBOutlets
+    // MARK: IBOutlets
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var classificationLabel: UILabel!
     
-    // MARK: - Image Classification
+    // MARK: Image Classification
     
     lazy var classificationRequest: VNCoreMLRequest = {
         do {
-            /*
-             Use the Swift class `MobileNet` Core ML generates from the model.
-             To use a different Core ML classifier model, add it to the project
-             and replace `MobileNet` with that model's generated Swift class.
-             */
             let model = try VNCoreMLModel(for: ImageClassifier().model)
             
             let request = VNCoreMLRequest(model: model, completionHandler: { [weak self] request, error in
@@ -61,7 +56,6 @@ class ImageClassificationViewController: UIViewController {
                 self.classificationLabel.text = "Unable to classify image.\n\(error!.localizedDescription)"
                 return
             }
-            // The `results` will always be `VNClassificationObservation`s, as specified by the Core ML model in this project.
             let classifications = results as! [VNClassificationObservation]
             
             if classifications.isEmpty {
@@ -79,7 +73,7 @@ class ImageClassificationViewController: UIViewController {
         }
     }
     
-    // MARK: - Photo Actions
+    // MARK: Photo Actions
     
     @IBAction func takePicture() {
         // Show options for the source picker only if the camera is available.
@@ -108,21 +102,5 @@ class ImageClassificationViewController: UIViewController {
         picker.delegate = self
         picker.sourceType = sourceType
         present(picker, animated: true)
-    }
-}
-
-extension ImageClassificationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    // MARK: - Handling Image Picker Selection
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
-        
-        // We always expect `imagePickerController(:didFinishPickingMediaWithInfo:)` to supply the original image.
-        guard let image = info[.originalImage] as? UIImage else {
-            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
-        }
-        
-        imageView.image = image
-        updateClassifications(for: image)
     }
 }

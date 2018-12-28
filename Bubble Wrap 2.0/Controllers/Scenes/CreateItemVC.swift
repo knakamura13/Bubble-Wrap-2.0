@@ -7,20 +7,29 @@
 //
 
 import UIKit
+import CoreML
+import Vision
+import ImageIO
 import FirebaseAuth
 import FirebaseFirestore
 
 class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
-    // Constants
+    
+    
+    // MARK: Properties
+    
+    
     private let imageUploadManager = ImageUploadManager()
     private let collection = Firestore.firestore().collection("items")
-    
-    // Variables
     var createItemWasPressed: Bool!
     var categoryChoosen = ""
     
-    // Outlets
+    
+    
+    // MARK: Outlets
+    
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var mainImg: UIImageView!
@@ -33,27 +42,38 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var createItemBtn: UIButton!
     @IBOutlet weak var categoryPicker: UIPickerView!
     
+    
+    
+    // MARK: View Load and Appear
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         titleTextField.delegate = self
         priceTextField.delegate = self
-        descriptionTextView.delegate = self
-        
-        categoryPicker.dataSource = self
         categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+        descriptionTextView.delegate = self
 
-        self.customizeVisuals() // Setup the visuals
-        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
+        self.customizeVisuals()
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         createItemWasPressed = false
     }
     
+    
+    
+    // MARK: Custom functions
+    
+    
     func customizeVisuals() {
+        let cornerRadius = CGFloat(10)
+        var heightOfContent: CGFloat = 0.0
+        
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
         
-        var heightOfContent: CGFloat = 0.0
         if let lastView: UIView = scrollView.subviews.last {
             let yPosition = lastView.frame.origin.y
             let height = lastView.frame.size.height
@@ -61,14 +81,10 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         } else {
             heightOfContent = 1150
         }
+        
         scrollView.contentSize.height = heightOfContent
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.heightAnchor.constraint(equalToConstant: heightOfContent)
-        
-//        scrollView.contentSize.height = 1150 // arbitrary integer; increase if content does not fit in contentSize
-        
-        
-        let cornerRadius = CGFloat(10)
         smallImg1.layer.cornerRadius = cornerRadius
         smallImg2.layer.cornerRadius = cornerRadius
         smallImg3.layer.cornerRadius = cornerRadius
@@ -95,7 +111,9 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         return true
     }
     
-    //Create category function
+    
+    
+    // MARK: Actions
     
     
     @IBAction func createItemPressed(_ sender: Any) {
@@ -194,14 +212,102 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     }
     
     
+    // MARK: Image Classification
+    
+    lazy var classificationRequest: VNCoreMLRequest = {
+        do {
+            let model = try VNCoreMLModel(for: ImageClassifier().model)
+            
+            let request = VNCoreMLRequest(model: model, completionHandler: { [weak self] request, error in
+                self?.processClassifications(for: request, error: error)
+            })
+            request.imageCropAndScaleOption = .centerCrop
+            return request
+        } catch {
+            fatalError("Failed to load Vision ML model: \(error)")
+        }
+    }()
+    
+    func updateClassifications(for image: UIImage) {
+        let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
+        guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation!)
+            do {
+                try handler.perform([self.classificationRequest])
+            } catch {
+                print("Failed to perform classification.\n\(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Updates the UI with the results of the classification.
+    func processClassifications(for request: VNRequest, error: Error?) {
+        DispatchQueue.main.async {
+            guard let results = request.results else {
+                return
+            }
+            let classifications = results as! [VNClassificationObservation]
+            
+            if classifications.isEmpty {
+            } else {
+                // Display top classifications ranked by confidence in the UI.
+                let topClassifications = classifications.prefix(2)
+                let descriptions = topClassifications.map { classification in
+                    // Formats the classification for display; e.g. "(0.37) cliff, drop, drop-off".
+                    return String(format: "(%.2f) %@", classification.confidence, classification.identifier)
+                }
+                
+                // Print the predictions
+                print(descriptions[0].components(separatedBy: ")")[1].components(separatedBy: ", ")[0])
+            }
+        }
+    }
+    
+    // MARK: Photo Actions
+    
+    @IBAction func takePicture() {
+        // Show options for the source picker only if the camera is available.
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            presentPhotoPicker(sourceType: .photoLibrary)
+            return
+        }
+        
+        let photoSourcePicker = UIAlertController()
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { [unowned self] _ in
+            self.presentPhotoPicker(sourceType: .camera)
+        }
+        let choosePhoto = UIAlertAction(title: "Choose Photo", style: .default) { [unowned self] _ in
+            self.presentPhotoPicker(sourceType: .photoLibrary)
+        }
+        
+        photoSourcePicker.addAction(takePhoto)
+        photoSourcePicker.addAction(choosePhoto)
+        photoSourcePicker.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(photoSourcePicker, animated: true)
+    }
+    
+    func presentPhotoPicker(sourceType: UIImagePickerController.SourceType) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = sourceType
+        present(picker, animated: true)
+    }
     
    
 }
 
-/*Set the content for the picker view*/
-extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource{
+
+
+// MARK: Extensions
+
+
+// Picker View
+extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource {
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1;
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -214,5 +320,19 @@ extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return CATEGORIES_LIST[row]
+    }
+}
+
+// Image Picker View
+extension CreateItemVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
+        guard let image = info[.originalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        mainImg.image = image
+        updateClassifications(for: image)
     }
 }
