@@ -9,11 +9,18 @@
 import FirebaseFirestore
 
 class DataSource: NSObject {
+    func generalQuerySearch(collection: String, orderBy: String, limit: Int?) -> Query {
+        if let lim = limit {
+            return Firestore.firestore().collection(collection).whereField("bubble", isEqualTo: userBubble).order(by: orderBy).limit(to: lim)
+        }
+        return Firestore.firestore().collection(collection).whereField("bubble", isEqualTo: userBubble).order(by: orderBy)
+    }
     func generalQuery(collection: String, orderBy: String, limit: Int?) -> Query {
         if let lim = limit {
             return Firestore.firestore().collection(collection).order(by: orderBy).limit(to: lim)
         }
         return Firestore.firestore().collection(collection).order(by: orderBy)
     }
+    
     
 }

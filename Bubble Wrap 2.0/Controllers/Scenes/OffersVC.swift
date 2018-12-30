@@ -48,7 +48,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         // Get UserID and create a document reference for the WHERE parameter
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userDocument: DocumentReference = Firestore.firestore().collection("users").document(userID)
-        
+        print("Listen for offers")
         // Listen to "offers" collection WHERE "receiver" is current user
         Firestore.firestore()
             .collection("offers")
@@ -56,7 +56,12 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             .order(by: "price")
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error retreiving collection RECIPIENT: \(error)")
+                }
+
                 if let documents = querySnapshot?.documents {
+                    print("Recipent: \(documents.count)")
                     for document in documents {
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
                             self.topOffers.append(offer)
@@ -79,7 +84,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                         }
                         
                     }
-                }
+                } else {print("REC: Query does not work")}
             }
         
         // Listen to "offers" collection WHERE "creator" is current user
@@ -89,8 +94,13 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             .order(by: "price")
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error retreiving collection CREATOR: \(error)")
+                }
+
                 if let documents = querySnapshot?.documents {
                     for document in documents {
+                        print("Creator: \(documents.count)")
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
                             self.bottomOffers.append(offer)
                             
@@ -109,7 +119,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                             }
                             
                             self.bottomCollectionView?.reloadData()     // Refresh the collection view
-                        }
+                        } else {print("CRE: Query does not work")}
                     }
                 }
             }

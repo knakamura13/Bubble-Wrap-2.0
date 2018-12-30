@@ -67,7 +67,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         // When filter display all the itemas that fit the constraints within the search
         if filterOn {
-            datasource.generalQuery(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
+            datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
@@ -107,8 +107,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         } else {
             print("CHECK: In else Search")
             print("CHECK: SEARCHVC userBubble: \(userBubble)")
-            userBubble="Azusa Pacific University"
-            datasource.generalQuery(collection: "items", orderBy: "title", limit: 10)//.whereField("bubble", isEqualTo: userBubble)
+            //userBubble="Azusa Pacific University"
+            datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
