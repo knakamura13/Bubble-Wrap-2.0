@@ -7,20 +7,29 @@
 //
 
 import UIKit
+import CoreML
+import Vision
+import ImageIO
 import FirebaseAuth
 import FirebaseFirestore
 
 class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
-    // Constants
+    
+    
+    // MARK: Properties
+    
+    
     private let imageUploadManager = ImageUploadManager()
     private let collection = Firestore.firestore().collection("items")
-    
-    // Variables
     var createItemWasPressed: Bool!
     var categoryChoosen = ""
     
-    // Outlets
+    
+    
+    // MARK: Outlets
+    
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var mainImg: UIImageView!
@@ -33,27 +42,38 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var createItemBtn: UIButton!
     @IBOutlet weak var categoryPicker: UIPickerView!
     
+    
+    
+    // MARK: View Load and Appear
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         titleTextField.delegate = self
         priceTextField.delegate = self
-        descriptionTextView.delegate = self
-        
-        categoryPicker.dataSource = self
         categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+        descriptionTextView.delegate = self
 
-        self.customizeVisuals() // Setup the visuals
-        self.hideKeyboardWhenTappedAround() // Hide keyboard on background tap
+        self.customizeVisuals()
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         createItemWasPressed = false
     }
     
+    
+    
+    // MARK: Custom functions
+    
+    
     func customizeVisuals() {
+        let cornerRadius = CGFloat(10)
+        var heightOfContent: CGFloat = 0.0
+        
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
         
-        var heightOfContent: CGFloat = 0.0
         if let lastView: UIView = scrollView.subviews.last {
             let yPosition = lastView.frame.origin.y
             let height = lastView.frame.size.height
@@ -61,21 +81,13 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         } else {
             heightOfContent = 1150
         }
+        
         scrollView.contentSize.height = heightOfContent
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.heightAnchor.constraint(equalToConstant: heightOfContent)
-        
-//        scrollView.contentSize.height = 1150 // arbitrary integer; increase if content does not fit in contentSize
-        
-        
-        let cornerRadius = CGFloat(10)
         smallImg1.layer.cornerRadius = cornerRadius
         smallImg2.layer.cornerRadius = cornerRadius
         smallImg3.layer.cornerRadius = cornerRadius
-        mainImg.image = demoPicsumImages.randomElement()
-        smallImg1.image = demoPicsumImages.randomElement()
-        smallImg2.image = demoPicsumImages.randomElement()
-        smallImg3.image = demoPicsumImages.randomElement()
         descriptionTextView.layer.borderColor = UIColor(hex: 0xcdcdcd).cgColor   // light grey
         descriptionTextView.layer.borderWidth = 1/3
         descriptionTextView.layer.cornerRadius = 6
@@ -95,13 +107,42 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         return true
     }
     
-    //Create category function
     
+    
+    // MARK: Image Actions
+    
+    @IBAction func mainImageTapped(_ sender: Any) {
+        // Show options for the source picker only if the camera is available.
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            presentPhotoPicker(sourceType: .photoLibrary)
+            return
+        }
+        
+        let photoSourcePicker = UIAlertController()
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { [unowned self] _ in
+            self.presentPhotoPicker(sourceType: .camera)
+        }
+        let choosePhoto = UIAlertAction(title: "Choose Photo", style: .default) { [unowned self] _ in
+            self.presentPhotoPicker(sourceType: .photoLibrary)
+        }
+        
+        photoSourcePicker.addAction(takePhoto)
+        photoSourcePicker.addAction(choosePhoto)
+        photoSourcePicker.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(photoSourcePicker, animated: true)
+    }
+    
+    func presentPhotoPicker(sourceType: UIImagePickerController.SourceType) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = sourceType
+        present(picker, animated: true)
+    }
     
     @IBAction func createItemPressed(_ sender: Any) {
+        // Form validation.
         if !createItemWasPressed {
-            // Check if the input fields (Price, Title, Description) have correct inputs
-            // The gaur let checks first if something has a value if not it excutes the else. If you have other condition you want to chcek you will have to write an if statment after teh gaurd let else statemetn. As it is done for the title propterty in teh following gaurd lets
             guard let image = mainImg.image else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have at least one image.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -110,7 +151,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            /* Check title is at least 4 characters */
             guard let title = titleTextField.text else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a title.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -126,7 +166,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            /* Check price is not higher than $99,999 */
             guard let price = Int(priceTextField.text!) else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a price.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -142,7 +181,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            /* Check description is at least 15 characters */
             guard let description = descriptionTextView.text else {
                 let alert = UIAlertController(title: "You missed something.", message: "Please make sure you have a description.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
@@ -151,7 +189,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 return
             }
             
-            // Create user's item is all the condition hace been pas
             if description.count >= 15{
                 if let userID = Auth.auth().currentUser?.uid{
                     let owner = Firestore.firestore().collection("users").document(userID)
@@ -170,8 +207,6 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             let vc = storyboard?.instantiateViewController(withIdentifier: "TabBarController")
             self.present(vc!, animated: false, completion: nil)
         }
-        
-        
     }
     
     // Create Item object and send its data to Firebase
@@ -195,13 +230,91 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     
     
-   
+    // MARK: Image Classification
+    
+    
+    lazy var classificationRequest: VNCoreMLRequest = {
+        do {
+            let model = try VNCoreMLModel(for: ImageClassifier().model)
+            
+            let request = VNCoreMLRequest(model: model, completionHandler: { [weak self] request, error in
+                self?.processClassifications(for: request, error: error)
+            })
+            request.imageCropAndScaleOption = .centerCrop
+            return request
+        } catch {
+            fatalError("Failed to load Vision ML model: \(error)")
+        }
+    }()
+    
+    func updateClassifications(for image: UIImage) {
+        let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
+        guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation!)
+            do {
+                try handler.perform([self.classificationRequest])
+            } catch {
+                print("Failed to perform classification.\n\(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Updates the UI with the results of the classification.
+    func processClassifications(for request: VNRequest, error: Error?) {
+        DispatchQueue.main.async {
+            guard let results = request.results else {
+                return
+            }
+            let classifications = results as! [VNClassificationObservation]
+            
+            if classifications.isEmpty {
+                return
+            } else {
+                let descriptions = classifications.prefix(2).map { classification -> String in
+                    return "\(classification.confidence)|\(classification.identifier)"
+                }
+                
+                // Get the highest prediction.
+                let highestProbability: Double = Double(descriptions[0].components(separatedBy: "|")[0])!
+                let categorySuggestion: String = descriptions[0].components(separatedBy: "|")[1]
+                var rowSuggestion = 0
+                
+                print("KYLE: highest probability category = \(categorySuggestion) (\(highestProbability))")
+                
+                if highestProbability < 0.5 {
+                    // Do nothing if the classification has a low probability.
+                    return
+                }
+                
+                switch categorySuggestion.lowercased() {
+                    case "books":       rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Books")!
+                    case "clothing":    rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Clothing & Accessories")!
+                    case "electronics": rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Electronics")!
+                    case "furniture":   rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Furniture & Appliances")!
+                    case "media":       rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Entertainment & Media")!
+                    case "sports":      rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Sports & Outdoors")!
+                    case "vehicles":    rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Vehicles")!
+                    default:            rowSuggestion = CATEGORIES_LIST.firstIndex(of: "Other")!
+                }
+                
+                // Programatically select the suggested row in the UIPickerView.
+                self.categoryPicker.selectRow(rowSuggestion, inComponent: 0, animated: true)
+            }
+        }
+    }
 }
 
-/*Set the content for the picker view*/
-extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource{
+
+
+// MARK: Extensions
+
+
+// Picker View
+extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource {
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1;
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -214,5 +327,19 @@ extension CreateItemVC: UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return CATEGORIES_LIST[row]
+    }
+}
+
+// Image Picker View
+extension CreateItemVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
+        guard let image = info[.originalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        mainImg.image = image
+        updateClassifications(for: image)
     }
 }

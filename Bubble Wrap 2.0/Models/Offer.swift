@@ -14,28 +14,25 @@ struct Offer {
     var item: DocumentReference!
     var creator: DocumentReference!
     var recipient: DocumentReference!
-    var bubble: String!
     
     init?(dictionary: [String: Any]?, itemID: String){
         guard let dictionary = dictionary,
             let price = dictionary["price"] as? Int,
             let item = dictionary["item"] as? DocumentReference,
             let creator = dictionary["creator"] as? DocumentReference,
-            let recipient = dictionary["recipient"] as? DocumentReference,
-            let bubble = dictionary["bubble"] as? String
+            let recipient = dictionary["recipient"] as? DocumentReference
             else {
                 return nil
         }
         
-        self.init(price: price, item: item, creator: creator, recipient: recipient, bubble: bubble)
+        self.init(price: price, item: item, creator: creator, recipient: recipient)
     }
     
-    init(price: Int, item: DocumentReference, creator: DocumentReference, recipient: DocumentReference, bubble: String) {
+    init(price: Int, item: DocumentReference, creator: DocumentReference, recipient: DocumentReference) {
         self.price = price
         self.item = item
         self.creator = creator
         self.recipient = recipient
-        self.bubble = bubble
     }
     
     func dictionary() -> [String: Any] {
@@ -44,7 +41,6 @@ struct Offer {
             "item": item,
             "creator": creator,
             "recipient": recipient,
-            "bubble": bubble,
         ]
     }
 }

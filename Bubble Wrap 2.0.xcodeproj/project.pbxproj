@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1EC28069F13371C4892E6E2A /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAA52A678B653E458064F12 /* Pods_Bubble_Wrap_2_0.framework */; };
+		0D72497421D5B0B500852F04 /* ImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0D72497321D5B0B400852F04 /* ImageClassifier.mlmodel */; };
+		0DEC161321D0A17C0010786B /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0DEC161221D0A17C0010786B /* MobileNet.mlmodel */; };
 		6684673520F2E1D8000A689B /* PlaceOfferVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6684673420F2E1D8000A689B /* PlaceOfferVC.swift */; };
 		66CFBDEB21AB97CC00F0690E /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */; };
 		66EA58C721D1600D00A85A4C /* OffersMadeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */; };
@@ -50,6 +51,8 @@
 
 /* Begin PBXFileReference section */
 		0A38B9172F8222973F149749 /* Pods-Bubble Wrap 2.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.debug.xcconfig"; sourceTree = "<group>"; };
+		0D72497321D5B0B400852F04 /* ImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ImageClassifier.mlmodel; sourceTree = "<group>"; };
+		0DEC161221D0A17C0010786B /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
 		1A4444EDAABFC5E4DBC77605 /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46404F75FD78F487A748B724 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		6684673420F2E1D8000A689B /* PlaceOfferVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOfferVC.swift; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 				BFDF14FE20BAB27C00CD4BBB /* ProfileVC.swift */,
 				BFDF14FC20BAB26000CD4BBB /* OffersVC.swift */,
 				66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */,
+				0DEC161221D0A17C0010786B /* MobileNet.mlmodel */,
+				0D72497321D5B0B400852F04 /* ImageClassifier.mlmodel */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -435,8 +440,10 @@
 				BF4969FB20DB135D003F69D7 /* ReviewCell.swift in Sources */,
 				BF5E5CA020EE69B70026EE26 /* NewUserInformationVC.swift in Sources */,
 				BFDF14FF20BAB27C00CD4BBB /* ProfileVC.swift in Sources */,
+				0D72497421D5B0B500852F04 /* ImageClassifier.mlmodel in Sources */,
 				BFF78A7420D4491300819CA8 /* Item.swift in Sources */,
 				BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */,
+				0DEC161321D0A17C0010786B /* MobileNet.mlmodel in Sources */,
 				BFFB76A820BCCD10009617DD /* MyCollectionViewCell.swift in Sources */,
 				BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */,
 				BF9D8A6620F6803100FBE1A2 /* Message.swift in Sources */,

@@ -48,7 +48,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         // Get UserID and create a document reference for the WHERE parameter
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userDocument: DocumentReference = Firestore.firestore().collection("users").document(userID)
-        
+        print("Listen for offers")
         // Listen to "offers" collection WHERE "receiver" is current user
         Firestore.firestore()
             .collection("offers")
@@ -56,6 +56,10 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             .order(by: "price")
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error retreiving collection RECIPIENT: \(error)") // Displays error if the listener fails
+                }
+
                 if let documents = querySnapshot?.documents {
                     for document in documents {
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
@@ -76,7 +80,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                             }
                             
                             self.topCollectionView?.reloadData()     // Refresh the collection view
-                        }
+                        } else {print("RECIPIENT: Offer is not created")}      // Make's sure that the offeris created if not, this prints
                         
                     }
                 }
@@ -89,8 +93,13 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             .order(by: "price")
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error retreiving collection CREATOR: \(error)") // Displays error if the listener fails
+                }
+
                 if let documents = querySnapshot?.documents {
                     for document in documents {
+                        print("Creator: \(documents.count)")
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
                             self.bottomOffers.append(offer)
                             
@@ -108,8 +117,8 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                                 }
                             }
                             
-                            self.bottomCollectionView?.reloadData()     // Refresh the collection view
-                        }
+                            self.bottomCollectionView?.reloadData()             // Refresh the collection view
+                        } else {print("CREATOR: Offer is not created")}         // Makes sure that the if let goes through and the offer is created, if not this prints
                     }
                 }
             }

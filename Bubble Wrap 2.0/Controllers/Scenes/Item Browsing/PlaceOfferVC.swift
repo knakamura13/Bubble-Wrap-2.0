@@ -57,7 +57,7 @@ class PlaceOfferVC: UIViewController {
                     let creator = Firestore.firestore().collection("users").document(userID)
                     let itemID = selectedItem.itemID
                     let recipient = selectedItem.owner
-                self.createOffer(price: price!, creator: creator, item: Firestore.firestore().collection("items").document(itemID!), recipient: recipient!, bubble: userBubble)
+                self.createOffer(price: price!, creator: creator, item: Firestore.firestore().collection("items").document(itemID!), recipient: recipient!)
                     placeOfferWasPressed = true
             } else{
                 placeOfferWasPressed = false
@@ -90,8 +90,8 @@ class PlaceOfferVC: UIViewController {
         
     }
     // Create Offer object and send its data to firebase
-    func createOffer(price: Int, creator:DocumentReference, item: DocumentReference, recipient: DocumentReference, bubble: String){
-        let offer = Offer(price: price, item: item, creator: creator, recipient: recipient, bubble: bubble)
+    func createOffer(price: Int, creator:DocumentReference, item: DocumentReference, recipient: DocumentReference){
+        let offer = Offer(price: price, item: item, creator: creator, recipient: recipient)
         self.collection.addDocument(data: offer.dictionary()){ err in
             if err != nil{
                 let alert = UIAlertController(title: "Error", message: "You missed something", preferredStyle: .alert)

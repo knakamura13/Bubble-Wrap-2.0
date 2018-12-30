@@ -30,6 +30,10 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pkD-4l-xJK">
                                                         <rect key="frame" x="0.0" y="-46.5" width="375" height="421.5"/>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="1gA-vY-e3z" appends="YES" id="6vV-rq-wdm"/>
+                                                        </connections>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MLQ-mz-kAV" userLabel="Images Stack">
                                                         <rect key="frame" x="20" y="256.5" width="335" height="98.5"/>
@@ -258,6 +262,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtv-Fw-2pK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="1gA-vY-e3z" userLabel="MainImageTapped">
+                    <connections>
+                        <action selector="mainImageTapped:" destination="k4m-kT-xqT" id="2l1-yk-pd5"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-639" y="183"/>
         </scene>
