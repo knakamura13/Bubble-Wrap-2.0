@@ -45,7 +45,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             print("CHECK: Start getinfo()")
             self.getUserInformation()
             
-            // Wait for 1/1000th of a second to ensure performSegue is not interrupted
+            // Wait for 1/1000th of a second to ensure performSegue is not interrupted /*THIS GOT CHANGED IN TICKET 063 TO 1 SECOND BECAUSE IT WOULF NOT BE ABLE TO SET THE userBubble OTHERWISE*/
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
                     print("CHECK: Move from getinfo()")
@@ -248,7 +248,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     if let document = document {
                         if document.data() != nil {
                             if let user = User(dictionary: document.data()!, itemID: document.documentID) {
-                                userBubble = user.bubbleCommunity
+                                userBubble = user.bubbleCommunity // Set the user's bubble community for the app
                                 UserDefaults.standard.set(user.firstName, forKey: "firstName")
                                 UserDefaults.standard.set(user.lastName, forKey: "lastName")
                                 UserDefaults.standard.set(user.bubbleCommunity, forKey: "bubbleCommunity")

@@ -57,11 +57,10 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
-                    print("Error retreiving collection RECIPIENT: \(error)")
+                    print("Error retreiving collection RECIPIENT: \(error)") // Displays error if the listener fails
                 }
 
                 if let documents = querySnapshot?.documents {
-                    print("Recipent: \(documents.count)")
                     for document in documents {
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
                             self.topOffers.append(offer)
@@ -81,10 +80,10 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                             }
                             
                             self.topCollectionView?.reloadData()     // Refresh the collection view
-                        }
+                        } else {print("RECIPIENT: Offer is not created")}      // Make's sure that the offeris created if not, this prints
                         
                     }
-                } else {print("REC: Query does not work")}
+                }
             }
         
         // Listen to "offers" collection WHERE "creator" is current user
@@ -95,7 +94,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
-                    print("Error retreiving collection CREATOR: \(error)")
+                    print("Error retreiving collection CREATOR: \(error)") // Displays error if the listener fails
                 }
 
                 if let documents = querySnapshot?.documents {
@@ -118,8 +117,8 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                                 }
                             }
                             
-                            self.bottomCollectionView?.reloadData()     // Refresh the collection view
-                        } else {print("CRE: Query does not work")}
+                            self.bottomCollectionView?.reloadData()             // Refresh the collection view
+                        } else {print("CREATOR: Offer is not created")}         // Makes sure that the if let goes through and the offer is created, if not this prints
                     }
                 }
             }
