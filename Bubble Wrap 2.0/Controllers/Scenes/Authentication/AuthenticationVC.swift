@@ -46,7 +46,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
             self.getUserInformation()
             
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted /*THIS GOT CHANGED IN TICKET 063 TO 1 SECOND BECAUSE IT WOULF NOT BE ABLE TO SET THE userBubble OTHERWISE*/
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
                     print("CHECK: Move from getinfo()")
                     self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
