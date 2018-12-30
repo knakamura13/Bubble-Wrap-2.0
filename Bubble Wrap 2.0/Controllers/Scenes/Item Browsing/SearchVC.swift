@@ -108,14 +108,14 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             print("CHECK: In else Search")
             print("CHECK: SEARCHVC userBubble: \(userBubble)")
             userBubble="Azusa Pacific University"
-            datasource.generalQuery(collection: "items", orderBy: "title", limit: 5)//.whereField("bubble", isEqualTo: userBubble)
+            datasource.generalQuery(collection: "items", orderBy: "title", limit: 10)//.whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
                         self.searchItems.removeAll()
-                        
+                         print("CHECK: In else search documents count: \(documents.count)")
                         for document in documents {
-                            print("CHECK: In else search documents count: \(documents.count)")
+                           
                             if let item = Item(dictionary: document.data(), itemID: document.documentID) {
                                 self.allItems.append(item)
                                 self.searchItems.append(item)
@@ -132,7 +132,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                                 self.collectionView?.reloadData()
                             }
                         }
-                    }
+                    } 
             }
         }
     }
