@@ -273,7 +273,7 @@
         <!--Offers-->
         <scene sceneID="lT2-BF-GeY">
             <objects>
-                <viewController id="cFj-Qc-7dt" customClass="OffersVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OffersVC" id="cFj-Qc-7dt" customClass="OffersVC" customModule="Bubble_Wrap_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="shZ-P1-X0c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -291,7 +291,7 @@
                                     <inset key="sectionInset" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopOffersCell" id="KrO-Ks-H3O" userLabel="Top Offers Cell" customClass="TopOffersCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopOffersCell" id="KrO-Ks-H3O" userLabel="Top Items Cell" customClass="TopItemsCell" customModule="Bubble_Wrap_2_0" customModuleProvider="target">
                                         <rect key="frame" x="16" y="12.5" width="167" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1942,6 +1942,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nf6-1A-au1"/>
+        <segue reference="GDm-b4-eCz"/>
     </inferredMetricsTieBreakers>
 </document>

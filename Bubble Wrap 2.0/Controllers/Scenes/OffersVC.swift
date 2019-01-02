@@ -19,12 +19,11 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     let cornerRadius = CGFloat(10)
     
     // Variables
-    var topOffers: [Offer] = []
+    var topItems: [Item] = []
     var bottomOffers: [Offer] = []
-    var topOfferImages: [UIImage] = []
+    var topItemImages: [UIImage] = []
     var bottomOfferImages: [UIImage] = []
-    //private(set) public var selectedItemOffer: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "")
-    //private(set) public var selectedItemID:
+    var cellTapped: Bool! // Checks whether cell is tapped to prevent users from breaking the app by tapping twice rapidly
     
     private(set) var datasource = DataSource()  // Datasource for data listener
 
@@ -37,10 +36,13 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
-        
+        cellTapped = false
         listenForOffers()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        cellTapped = false
+    }
     
     
     
@@ -51,39 +53,33 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         print("Listen for offers")
         // Listen to "offers" collection WHERE "receiver" is current user
         Firestore.firestore()
-            .collection("offers")
-            .whereField("recipient", isEqualTo: userDocument)
+            .collection("items")
+            .whereField("owner", isEqualTo: userDocument)
+            .whereField("isSold", isEqualTo: false)
             .order(by: "price")
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
-                    print("Error retreiving collection RECIPIENT: \(error)") // Displays error if the listener fails
+                    print("CHECKING CODE (OffersVC), listenForOffers() [owner] - Error retreiving collection: \(error)") // Displays error if the listener fails
                 }
-
+                self.topItems.removeAll()
+                self.topItemImages.removeAll()
+                
                 if let documents = querySnapshot?.documents {
                     for document in documents {
-                        if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
-                            self.topOffers.append(offer)
-                            
-                            // Download the offer's items image and save as a UIImage; append to images array
-                            offer.item!.getDocument { (document, error) in
-                                if let document = document {
-                                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                                        let url = URL(string: item.imageURL!)!
-                                        let data = try? Data(contentsOf: url)
-                                        if let imageData = data {
-                                            let image = UIImage(data: imageData)
-                                            self.topOfferImages.append(image!)
-                                        }
-                                    }
-                                }
+                        // THhis documents would be changed  to be items
+                        if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                            self.topItems.append(item)
+                            let url = URL(string: item.imageURL!)!
+                            let data = try? Data(contentsOf: url)
+                            if let imageData = data {
+                                let image = UIImage(data: imageData)
+                                self.topItemImages.append(image!)
                             }
-                            
-                            self.topCollectionView?.reloadData()     // Refresh the collection view
-                        } else {print("RECIPIENT: Offer is not created")}      // Make's sure that the offeris created if not, this prints
-                        
+                        }
+                        self.topCollectionView?.reloadData() // Refresh the collection view
                     }
-                }
+                } else {print("CHECKING CODE (OffersVC), listenForOffers() [OWNER]: Documents not queried")}      // Make's sure that the offeris created if not, this prints
             }
         
         // Listen to "offers" collection WHERE "creator" is current user
@@ -94,12 +90,11 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             .limit(to: 100)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
-                    print("Error retreiving collection CREATOR: \(error)") // Displays error if the listener fails
+                    print("CHECKING CODE (OffersVC), listenForOffers() [creator] - Error retreiving collection: \(error)") // Displays error if the listener fails
                 }
 
                 if let documents = querySnapshot?.documents {
                     for document in documents {
-                        print("Creator: \(documents.count)")
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
                             self.bottomOffers.append(offer)
                             
@@ -118,7 +113,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                             }
                             
                             self.bottomCollectionView?.reloadData()             // Refresh the collection view
-                        } else {print("CREATOR: Offer is not created")}         // Makes sure that the if let goes through and the offer is created, if not this prints
+                        } else {print("CHECKING CODE (OffersVC), listenForOffers() [CREATOR]: Documents not queried")}         // Makes sure that the if let goes through and the offer is created, if not this prints
                     }
                 }
             }
@@ -127,7 +122,7 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     // MARK: Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.topCollectionView {
-            return topOffers.count
+            return topItems.count
         } else {
             return bottomOffers.count
         }
@@ -136,17 +131,11 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         var cell: UICollectionViewCell
         if collectionView == self.topCollectionView {
             // Populate the top collection view
-            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "TopOffersCell", for: indexPath as IndexPath) as! TopOffersCell
-            topOffers[indexPath.item].item.getDocument { (document, error) in
-                if let document = document {
-                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        if self.topOfferImages.indices.contains(indexPath.item) {
-                            cell2.cellImg.image = self.topOfferImages[indexPath.item]
-                        }
-                        cell2.cellLbl.text = item.title
-                    }
-                }
+            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "TopOffersCell", for: indexPath as IndexPath) as! TopItemsCell
+            if self.topItemImages.indices.contains(indexPath.item) {
+                cell2.cellImg.image = self.topItemImages[indexPath.item]
             }
+            cell2.cellLbl.text = topItems[indexPath.row].title
             
             // Stylize the cell's imageView
             let rectShape = CAShapeLayer()
@@ -196,28 +185,29 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var vc: UIViewController?
-        if collectionView == self.topCollectionView {
-            // Set up the ViewController that the user will be "pushed" to when item is click in collection view
-            vc = storyboard?.instantiateViewController(withIdentifier: "OffersMadeVC")
-            self.definesPresentationContext = true
-            vc?.modalPresentationStyle = .overCurrentContext
-            
-            // Make query to the database to gather the information of the item that was selected and set it to the gobal variable currentitem to be used in OffersMadeVC
-            self.topOffers[indexPath.row].item.getDocument { (document, error) in
-                if let document = document {
-                    if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                        currentItem = item
-                        // Allows the OffersMadeVC to have the NavigationBar with the back button
-                        self.navigationController!.pushViewController(vc!, animated:true)
-                    }
-                }
+        if cellTapped == false {
+            if collectionView == self.topCollectionView {
+                // Set the Cell tapped button to true
+                cellTapped = true
+                // Set up the ViewController that the user will be "pushed" to when item is click in collection view
+                vc = storyboard?.instantiateViewController(withIdentifier: "OffersMadeVC")
+                self.definesPresentationContext = true
+                vc?.modalPresentationStyle = .overCurrentContext
+                
+                // Sets current Item seleceted to the gobal variable currentItem to be used in OffersMadeVC
+                currentItem = self.topItems[indexPath.row]
+                // Allows the OffersMadeVC to have the NavigationBar with the back button
+                self.navigationController!.pushViewController(vc!, animated:true)
+                
+            } else {
+                // Set the Cell tapped button to true
+                cellTapped = true
+                // Bottom collection view item clicked goes to MessagesListVS
+                vc = storyboard?.instantiateViewController(withIdentifier: "MessagesListVC")
+                self.definesPresentationContext = true
+                vc?.modalPresentationStyle = .overCurrentContext
+                self.present(vc!, animated: true, completion: nil)
             }
-        } else {
-            // Bottom collection view item clicked goes to MessagesListVS
-            vc = storyboard?.instantiateViewController(withIdentifier: "MessagesListVC")
-            self.definesPresentationContext = true
-            vc?.modalPresentationStyle = .overCurrentContext
-            self.present(vc!, animated: true, completion: nil)
         }
     }
 }

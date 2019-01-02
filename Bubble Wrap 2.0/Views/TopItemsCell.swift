@@ -10,7 +10,7 @@ import UIKit
 
 private let highlightedColor = Constants.Colors.appPrimaryColor.withAlphaComponent(0.1)
 
-class TopOffersCell: UICollectionViewCell {
+class TopItemsCell: UICollectionViewCell {
     
     @IBOutlet weak var cellLbl: UILabel!
     @IBOutlet weak var cellImg: UIImageView!

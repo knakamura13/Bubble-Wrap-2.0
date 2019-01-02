@@ -43,6 +43,9 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             .whereField("item", isEqualTo: itemSelected)
             .order(by: "price")
             .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("CHECKING CODE (OffersMadeVC), arrayOfOffersMade() - Error retreiving collection: \(error)") // Displays error if the listener fails
+                }
                 if let documents = querySnapshot?.documents {
                     for document in documents {
                         if let offer = Offer(dictionary: document.data(), itemID: document.documentID) {
@@ -59,6 +62,11 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Set the amount of cells for the table depending on the number of offers in offersArray
+        if offersArray.count == 0 {
+            let noOffersAlert = UIAlertController(title: "Sorry!", message: "There have been no offers on you item yet.", preferredStyle: .alert)
+            noOffersAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            self.present(noOffersAlert, animated: true)
+        }
         return offersArray.count
     }
     
@@ -68,6 +76,9 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         // Make a query to the database to get the name and price of the person making the offer
         Firestore.firestore().collection("users").document(offersArray[indexPath.row].creator.documentID).getDocument { (document, error) in
+            if let error = error {
+                print("CHECKING CODE (OffersMadeVC), cellForRowAt() - Error retreiving collection: \(error)") // Displays error if the listener fails
+            }
             let dictionary = document?.data()
             let user = User(dictionary: dictionary, itemID: (document?.documentID)!)
             cell?.nameLbl.text = (user?.firstName)! + " " + (user?.lastName)!
@@ -80,15 +91,138 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     // Sets the title of the item
     func setStyles(){
         itemNameLbl.text = "Offers for \(currentItem.title!)"
-        let navBar = navigationController?.navigationBar
-        self.view.addSubview(navBar!);
-        let navItem = UINavigationItem(title: "Delete");
-        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: nil, action: #selector(deleteButtonTapped(_:)));
-        navItem.rightBarButtonItem = doneItem;
-        navBar!.setItems([navItem], animated: false);
+        let doneItem = UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(deleteButtonTapped));
+        self.navigationItem.rightBarButtonItem = doneItem
+
+        
     }
     
-    @objc func deleteButtonTapped(_ sender : UIButton) {
-        print("button tapped")
+    @objc func deleteButtonTapped() {
+        let deleteAlert = UIAlertController(title: "Delete Item?", message: "Did you sell it", preferredStyle: .alert)
+        
+        // Handles when "Cancel" Button is pressed
+        let actionCancel_Delete = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+         /**** SOLD IT BUTTON ****/
+        let actionSoldIt = UIAlertAction(title: "Sold it!", style: UIAlertAction.Style.default, handler: {
+            _ in
+            // Alert to double check if Item is Sold
+            let verify_SoldItAlert = UIAlertController(title: "Are you sure?", message: "Just want to make sure you meant to press 'Sold it!', this will delete the item and mark it as 'Sold' on your profile", preferredStyle: .alert)
+            
+            // Verify that they meant to 'Sold it' if so do the following
+            let actionYes = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {
+                _ in
+                // itemSelected is the item the user want to edit
+                let itemSelected = Firestore.firestore().collection("items").document(currentItem.itemID)
+                let refItemSelected: DocumentReference = Firestore.firestore().collection("items").document(currentItem.itemID)
+                itemSelected.updateData(["isSold" : true]){ err in
+                    if let err = err {
+                        print("CHECKING CODE (OffersMadeVC), Sold It Button - Error updating document: \(err)")
+                    }
+                }
+                
+                // Delete all offers that have refItemSelected as there item
+                Firestore.firestore()
+                    .collection("offers")
+                    .whereField("item", isEqualTo: refItemSelected)
+                    .addSnapshotListener { querySnapshot, error in
+                        if let error = error {
+                            print("CHECKING CODE (OffersMadeVC), Sold It Button - Error retreiving collection: \(error)") // Displays error if the listener fails
+                        }
+                        // Goes through each document and deletes each offer
+                        if let documents = querySnapshot?.documents {
+                            for document in documents {
+                                Firestore.firestore().collection("offers").document(document.documentID).delete()
+                            }
+                        } else {
+                            print("CHECKING CODE (OffersMadeVC), Sold It Button - Documents not queried") // Make's sure that all offers document queried if not, this prints
+                        }
+                }
+                // If 'YES' is pressed than go back to the OffersVC
+                self.segueBack()
+            })
+            
+            // Cancel button
+            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            // Add the actions
+            verify_SoldItAlert.addAction(actionYes)
+            verify_SoldItAlert.addAction(actionCancel)
+            
+            // Add styles
+            actionCancel.setValue(UIColor.red, forKey: "titleTextColor")
+            
+            // Display alert
+            self.present(verify_SoldItAlert, animated: true)
+  
+        })
+        
+         /**** DELETE BUTTON ****/
+        let actionDelete = UIAlertAction(title: "Delete", style: .default, handler: {
+            _ in
+            // Alert to double check if Item is Sold
+            let verify_DeleteAlert = UIAlertController(title: "Are you sure?", message: "Just want to make sure you meant to press 'Delete', this will completely delete the item.", preferredStyle: .alert)
+            
+            // Verify that they meant to 'Sold it' if so do the following
+            let actionYes = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {
+                _ in
+                // itemSelected is the item the user want to edit
+                let itemSelected = Firestore.firestore().collection("items").document(currentItem.itemID)
+                let refItemSelected: DocumentReference = Firestore.firestore().collection("items").document(currentItem.itemID)
+                
+                // Delete all offers that have refItemSelected as there item
+                Firestore.firestore()
+                    .collection("offers")
+                    .whereField("item", isEqualTo: refItemSelected)
+                    .addSnapshotListener { querySnapshot, error in
+                        if let error = error {
+                            print("CHECKING CODE (OffersMadeVC), Delete Button - Error retreiving collection: \(error)") // Displays error if the listener fails
+                        }
+                        // Goes through each document and deletes each offer
+                        if let documents = querySnapshot?.documents {
+                            for document in documents {
+                                Firestore.firestore().collection("offers").document(document.documentID).delete()
+                            }
+                        } else {
+                            print("CHECKING CODE (OffersMadeVC), Delete Button - Documents not queried") // Make's sure that all offers document queried if not, this prints
+                            
+                        }
+                }
+                // Delete the item from the database
+                itemSelected.delete()
+                
+                // If 'YES' is pressed than go back to the OffersVC
+                self.segueBack()
+            })
+            // Cancel button
+            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            // Add the actions
+            verify_DeleteAlert.addAction(actionYes)
+            verify_DeleteAlert.addAction(actionCancel)
+            
+            // Add styles
+            actionCancel.setValue(UIColor.red, forKey: "titleTextColor")
+            
+            // Display alert
+            self.present(verify_DeleteAlert, animated: true)
+        })
+    
+        /**** CANCEL BUTTON ****/
+        actionDelete.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        // Actions added
+        deleteAlert.addAction(actionSoldIt)
+        deleteAlert.addAction(actionDelete)
+        deleteAlert.addAction(actionCancel_Delete)
+        
+        // Display alert
+        self.present(deleteAlert, animated: true)
+
     }
+    
+    func segueBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }

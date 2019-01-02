@@ -26,7 +26,7 @@
 		BF88C7B820F3FFFC00428BB2 /* MessagesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88C7B720F3FFFC00428BB2 /* MessagesListVC.swift */; };
 		BF9D8A6420F67AAB00FBE1A2 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9D8A6320F67AAB00FBE1A2 /* Conversation.swift */; };
 		BF9D8A6620F6803100FBE1A2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9D8A6520F6803100FBE1A2 /* Message.swift */; };
-		BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */; };
+		BFB7E6A920CA2F6300F32D2E /* TopItemsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6A820CA2F6300F32D2E /* TopItemsCell.swift */; };
 		BFB7E6AB20CA340300F32D2E /* BottomOffersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */; };
 		BFDDDE2120BE9DDE002B511C /* SingleItemVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */; };
 		BFDF14F920BAB19700CD4BBB /* MessengerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */; };
@@ -72,7 +72,7 @@
 		BF88C7B720F3FFFC00428BB2 /* MessagesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesListVC.swift; sourceTree = "<group>"; };
 		BF9D8A6320F67AAB00FBE1A2 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		BF9D8A6520F6803100FBE1A2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOffersCell.swift; sourceTree = "<group>"; };
+		BFB7E6A820CA2F6300F32D2E /* TopItemsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopItemsCell.swift; sourceTree = "<group>"; };
 		BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOffersCell.swift; sourceTree = "<group>"; };
 		BFDDDE2020BE9DDE002B511C /* SingleItemVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleItemVC.swift; sourceTree = "<group>"; };
 		BFDF14F820BAB19700CD4BBB /* MessengerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerVC.swift; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				BFFB76A720BCCD10009617DD /* MyCollectionViewCell.swift */,
-				BFB7E6A820CA2F6300F32D2E /* TopOffersCell.swift */,
+				BFB7E6A820CA2F6300F32D2E /* TopItemsCell.swift */,
 				BFB7E6AA20CA340300F32D2E /* BottomOffersCell.swift */,
 				BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */,
 				BF4969FA20DB135D003F69D7 /* ReviewCell.swift */,
@@ -449,7 +449,7 @@
 				BF9D8A6620F6803100FBE1A2 /* Message.swift in Sources */,
 				BFDF14FB20BAB22800CD4BBB /* CreateItemVC.swift in Sources */,
 				BFF7D45520E0B16800AF120F /* User.swift in Sources */,
-				BFB7E6A920CA2F6300F32D2E /* TopOffersCell.swift in Sources */,
+				BFB7E6A920CA2F6300F32D2E /* TopItemsCell.swift in Sources */,
 				BFEB611220BAA704007DC098 /* SearchVC.swift in Sources */,
 				BF9D8A6420F67AAB00FBE1A2 /* Conversation.swift in Sources */,
 				BF57040420F5B72400A32190 /* MessagesCell.swift in Sources */,

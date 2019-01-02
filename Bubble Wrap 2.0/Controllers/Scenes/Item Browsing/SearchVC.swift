@@ -69,9 +69,14 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         if filterOn {
             datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
+                    if let error = error {
+                        print("CHECKING CODE searchVC), viewDidLoad(): [if] - Error retreiving collection: \(error)") // Displays error if the listener fails
+                    }
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
                         self.searchItems.removeAll()
+                        self.allItemImages.removeAll()
+                        self.searchItemImages.removeAll()
                         
                         for document in documents {
                             if let item = Item(dictionary: document.data(), itemID: document.documentID) {
@@ -105,15 +110,19 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             }
             filterOn = false
         } else {
-            print("CHECK: In else Search")
-            print("CHECK: SEARCHVC userBubble: \(userBubble)")
-            //userBubble="Azusa Pacific University"
-            datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
+   
+           
+            datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)
                 .addSnapshotListener { querySnapshot, error in
+                    if let error = error {
+                        print("CHECKING CODE searchVC), viewDidLoad(): [else] - Error retreiving collection: \(error)") // Displays error if the listener fails
+                    }
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
                         self.searchItems.removeAll()
-                         print("CHECK: In else search documents count: \(documents.count)")
+                        self.allItemImages.removeAll()
+                        self.searchItemImages.removeAll()
+
                         for document in documents {
                            
                             if let item = Item(dictionary: document.data(), itemID: document.documentID) {
@@ -128,7 +137,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                                     self.allItemImages.append(image!)
                                     self.searchItemImages.append(image!)
                                 }
-                                print("Mario")
                                 self.collectionView?.reloadData()
                             }
                         }
