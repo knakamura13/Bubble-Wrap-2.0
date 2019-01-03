@@ -51,6 +51,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         // NavBar title color
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
+        
         if !filterOn{ self.customizeView() } // Setup the view
         
         // Load current user's profile information from Firebase
