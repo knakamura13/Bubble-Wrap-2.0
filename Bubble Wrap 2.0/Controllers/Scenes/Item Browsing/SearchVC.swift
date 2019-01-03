@@ -42,13 +42,15 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         print("In Search")
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         searchBar.delegate = self
         searchBar.showsBookmarkButton = true
         let filterIcon = UIImage(named: "filter_slider")?.tinted(with: UIColor(red: 0.5961, green: 0.5961, blue: 0.6157, alpha: 1.0))
         searchBar.setImage(filterIcon, for: .bookmark, state: .normal)
         searchBar.setPositionAdjustment(UIOffset(horizontal: 0, vertical: 0), for: .bookmark)
         
+        // NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
         if !filterOn{ self.customizeView() } // Setup the view
         
         // Load current user's profile information from Firebase
@@ -149,6 +151,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.applicationIconBadgeNumber = 0 // Reset the badge number on app launch
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         
         // Deselect all cells; possibly redundant code
         for selectedCell in (collectionView?.indexPathsForSelectedItems)! {
@@ -158,6 +161,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     override func viewWillDisappear(_ animated: Bool) {
         // Turn of the fitler search
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         print("Out of search")
         filterOn = false
     }
@@ -272,7 +276,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         collectionView!.reloadData()
     }
-
 }
 
 /* Enables the tinted color function to work on the filter image (Chagnes the color of the image)*/

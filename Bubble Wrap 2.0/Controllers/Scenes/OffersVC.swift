@@ -36,6 +36,9 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor
+        // NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
+        
         cellTapped = false
         listenForOffers()
     }

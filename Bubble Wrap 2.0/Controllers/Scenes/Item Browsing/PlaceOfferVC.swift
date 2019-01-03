@@ -66,6 +66,8 @@ class PlaceOfferVC: UIViewController {
         }
     }
     func setupStyles() {
+        // NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
         // Add blur effect to background picture
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)

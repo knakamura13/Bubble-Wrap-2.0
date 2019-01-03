@@ -90,6 +90,9 @@ class ProfileVC: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     // Customize visuals
     func customizeView() {
+        // NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
+        
         signOutBtn.tintColor = Constants.Colors.TextColors.secondaryBlack
         scrollView.contentSize.height = 800
         navigationController?.navigationBar.barTintColor = Constants.Colors.appPrimaryColor

@@ -26,6 +26,8 @@ class SingleItemVC: UIViewController {
     
     // Stylize all views for initial page load
     func setupStyles() {
+        // NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
         // Make Offer Button
         btnMakeOffer.backgroundColor = Constants.Colors.appPrimaryColor
         btnMakeOffer.setTitleColor(Constants.Colors.TextColors.primaryWhite, for: UIControl.State.normal)

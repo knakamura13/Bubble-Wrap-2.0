@@ -763,15 +763,19 @@
             </objects>
             <point key="canvasLocation" x="-639" y="1862"/>
         </scene>
-        <!--Search-->
+        <!--Bubble-->
         <scene sceneID="q6L-cg-bb4">
             <objects>
                 <navigationController storyboardIdentifier="SearchVC" id="f2o-mp-aAW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="icon-search" id="q8L-lO-BAN"/>
+                    <tabBarItem key="tabBarItem" title="Bubble" image="icon-bubble" id="q8L-lO-BAN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RST-LQ-6wL">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.047058823529411764" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="34y-99-Arm" kind="relationship" relationship="rootViewController" id="blv-VD-H2G"/>
@@ -789,13 +793,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="ROH-hi-liR">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="ROH-hi-liR">
                                 <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="mcJ-Bu-pKL"/>
                                 </constraints>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="search" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="no" textContentType="name"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o4c-rx-uip">
                                 <rect key="frame" x="0.0" y="120" width="375" height="498"/>
@@ -897,12 +905,12 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xak-dN-5F9">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
-                                        <color key="backgroundColor" red="0.10196078431372549" green="0.60784313725490191" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.047058823530000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="r3x-AP-aEn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="21"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBe-jW-pz4">
@@ -1132,19 +1140,19 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZz-WW-zvn">
-                                <rect key="frame" x="168" y="237" width="39.5" height="19"/>
+                                <rect key="frame" x="168" y="274" width="39.5" height="19"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ShS-sI-u8f">
-                                <rect key="frame" x="110" y="127" width="155" height="30"/>
+                                <rect key="frame" x="110" y="164" width="155" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPp-5a-rMx">
-                                <rect key="frame" x="73" y="538" width="229" height="60"/>
+                                <rect key="frame" x="73" y="443" width="229" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="qya-Qh-VUP"/>
                                 </constraints>
@@ -1160,13 +1168,13 @@
                             <constraint firstItem="jLC-m4-Xz1" firstAttribute="top" secondItem="2sF-Wr-Qzk" secondAttribute="top" id="9TQ-an-9O4"/>
                             <constraint firstItem="2sF-Wr-Qzk" firstAttribute="trailing" secondItem="gPp-5a-rMx" secondAttribute="trailing" constant="73" id="Avo-Zz-bgR"/>
                             <constraint firstItem="jLC-m4-Xz1" firstAttribute="bottom" secondItem="2sF-Wr-Qzk" secondAttribute="bottom" id="IYa-5Z-GMg"/>
-                            <constraint firstItem="2sF-Wr-Qzk" firstAttribute="bottom" secondItem="gPp-5a-rMx" secondAttribute="bottom" constant="20" id="Kal-uz-pHE"/>
                             <constraint firstItem="ShS-sI-u8f" firstAttribute="leading" secondItem="2sF-Wr-Qzk" secondAttribute="leading" constant="110" id="Q4B-SS-GHV"/>
                             <constraint firstItem="jLC-m4-Xz1" firstAttribute="leading" secondItem="2sF-Wr-Qzk" secondAttribute="leading" id="aEm-Ip-517"/>
                             <constraint firstItem="gPp-5a-rMx" firstAttribute="leading" secondItem="2sF-Wr-Qzk" secondAttribute="leading" constant="73" id="dsG-qg-bAB"/>
                             <constraint firstItem="FZz-WW-zvn" firstAttribute="centerX" secondItem="AJb-hl-W8X" secondAttribute="centerX" id="gE9-HB-nJy"/>
                             <constraint firstItem="jLC-m4-Xz1" firstAttribute="trailing" secondItem="2sF-Wr-Qzk" secondAttribute="trailing" id="hlV-pZ-Vrh"/>
-                            <constraint firstItem="ShS-sI-u8f" firstAttribute="top" secondItem="2sF-Wr-Qzk" secondAttribute="top" constant="63" id="kE5-k0-bue"/>
+                            <constraint firstItem="ShS-sI-u8f" firstAttribute="top" secondItem="2sF-Wr-Qzk" secondAttribute="top" constant="100" id="kE5-k0-bue"/>
+                            <constraint firstItem="gPp-5a-rMx" firstAttribute="top" secondItem="FZz-WW-zvn" secondAttribute="bottom" constant="150" id="s4R-Na-pF8"/>
                             <constraint firstItem="2sF-Wr-Qzk" firstAttribute="trailing" secondItem="ShS-sI-u8f" secondAttribute="trailing" constant="110" id="yDo-kC-9BZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2sF-Wr-Qzk"/>
@@ -1191,7 +1199,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-Bubble-Wrap" translatesAutoresizingMaskIntoConstraints="NO" id="oHg-ED-u77" userLabel="Logo Image View">
-                                <rect key="frame" x="87.5" y="40" width="200" height="200"/>
+                                <rect key="frame" x="87.5" y="50" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="1qE-Ad-rYM"/>
                                     <constraint firstAttribute="height" constant="200" id="NSW-Q1-BA9"/>
@@ -1368,13 +1376,13 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.38823529411764707" green="0.83529411764705885" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.047058823530000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="bxD-9L-Vtf" firstAttribute="top" secondItem="c2T-Fs-FOY" secondAttribute="bottom" constant="40" id="El5-AV-TVh"/>
                             <constraint firstItem="bv2-l3-4nQ" firstAttribute="bottom" secondItem="odL-xW-Ton" secondAttribute="bottom" constant="20" id="JQp-68-UBJ"/>
-                            <constraint firstItem="c2T-Fs-FOY" firstAttribute="top" secondItem="oHg-ED-u77" secondAttribute="bottom" constant="20" id="MKh-RU-EIM"/>
+                            <constraint firstItem="c2T-Fs-FOY" firstAttribute="top" secondItem="oHg-ED-u77" secondAttribute="bottom" constant="10" id="MKh-RU-EIM"/>
                             <constraint firstItem="bxD-9L-Vtf" firstAttribute="leading" secondItem="bv2-l3-4nQ" secondAttribute="leading" constant="40" id="SHB-aZ-dFU"/>
-                            <constraint firstItem="oHg-ED-u77" firstAttribute="top" secondItem="bv2-l3-4nQ" secondAttribute="top" constant="20" id="dAe-kd-83X"/>
+                            <constraint firstItem="oHg-ED-u77" firstAttribute="top" secondItem="bv2-l3-4nQ" secondAttribute="top" constant="30" id="dAe-kd-83X"/>
                             <constraint firstItem="bv2-l3-4nQ" firstAttribute="trailing" secondItem="bxD-9L-Vtf" secondAttribute="trailing" constant="40" id="esT-9I-39d"/>
                             <constraint firstItem="bv2-l3-4nQ" firstAttribute="trailing" secondItem="c2T-Fs-FOY" secondAttribute="trailing" constant="40" id="heT-6t-yLg"/>
                             <constraint firstItem="c2T-Fs-FOY" firstAttribute="leading" secondItem="bv2-l3-4nQ" secondAttribute="leading" constant="40" id="ohc-LB-VDT"/>
@@ -1546,7 +1554,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.047058823530000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fQZ-pm-zhG" firstAttribute="top" secondItem="Vxb-JV-JGR" secondAttribute="bottom" constant="40" id="1GF-KL-0db"/>
@@ -1612,7 +1620,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nKN-Fc-UHX">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.047058823529411764" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="uMz-iF-1BP" kind="relationship" relationship="rootViewController" id="Y0G-Tb-DpY"/>
@@ -1630,7 +1642,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nfE-Q6-Gql">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.054901960784313725" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="k4m-kT-xqT" kind="relationship" relationship="rootViewController" id="zVu-jP-d0U"/>
@@ -1648,7 +1660,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Owb-c2-sw7">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.047058823530000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="cFj-Qc-7dt" kind="relationship" relationship="rootViewController" id="MZt-zL-LUX"/>
@@ -1666,7 +1678,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6ns-eE-oV8">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.38823529410000002" green="0.83529411760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.047058823530000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="1i1-iU-akE" kind="relationship" relationship="rootViewController" id="SNS-W3-bVf"/>
@@ -1925,7 +1937,8 @@
     </scenes>
     <resources>
         <image name="Portrait_Placeholder" width="600" height="600"/>
-        <image name="icon-Bubble-Wrap" width="1113.230712890625" height="1113.230712890625"/>
+        <image name="icon-Bubble-Wrap" width="401" height="401"/>
+        <image name="icon-bubble" width="50" height="50"/>
         <image name="icon-camera" width="25" height="25"/>
         <image name="icon-chat" width="25" height="25"/>
         <image name="icon-email" width="25.5" height="25"/>

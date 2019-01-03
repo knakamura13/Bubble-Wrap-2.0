@@ -15,7 +15,7 @@ var filterOn = false
 
 struct Constants {
     struct Colors {
-        static let appPrimaryColor =  UIColor(red: 99/255, green: 213/255, blue: 255/255, alpha: Alphas.Opaque)  // Bubble Blue
+        static let appPrimaryColor =  UIColor(red: 21/255, green: 166/255, blue: 231/255, alpha: Alphas.Opaque)  // Bubble Blue
         static let appSecondaryColor =  UIColor.blue.withAlphaComponent(Alphas.Opaque)                           // Transparent Blue
         
         private struct Alphas {

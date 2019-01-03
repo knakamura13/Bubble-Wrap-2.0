@@ -71,6 +71,8 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
     
     // Set up the styles for this view
     func customizeViews() {
+        // NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
         self.messageTextField.layer.cornerRadius = 15.0
         self.messageTextField.layer.borderWidth = 1.5
         self.messageTextField.layer.borderColor = UIColor.lightGray.cgColor

@@ -90,11 +90,13 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     // Sets the title of the item
     func setStyles(){
+        /// NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
+        
         itemNameLbl.text = "Offers for \(currentItem.title!)"
         let doneItem = UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(deleteButtonTapped));
         self.navigationItem.rightBarButtonItem = doneItem
 
-        
     }
     
     @objc func deleteButtonTapped() {

@@ -69,6 +69,9 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     
     func customizeVisuals() {
+        // NavBar title color
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
+        
         let cornerRadius = CGFloat(10)
         var heightOfContent: CGFloat = 0.0
         

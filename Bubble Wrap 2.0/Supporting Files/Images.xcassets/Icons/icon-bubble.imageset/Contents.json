@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bubble-camel_301.png",
+      "filename" : "bubble_25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bubble-camel_401.png",
+      "filename" : "bubble_50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bubble-camel_501.png",
+      "filename" : "bubble_75.png",
       "scale" : "3x"
     }
   ],

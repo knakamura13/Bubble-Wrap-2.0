@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bubble-camel_301.png",
+      "filename" : "bubble-wrap-logo-transparent-word.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bubble-camel_401.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "bubble-camel_501.png",
       "scale" : "3x"
     }
   ],
