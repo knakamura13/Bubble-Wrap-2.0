@@ -1,8 +1,8 @@
 //
-//  ReviewsCell.swift
+//  ProfileItemCell.swift
 //  Bubble Wrap 2.0
 //
-//  Created by Kyle Nakamura on 6/20/18.
+//  Created by Kyle Nakamura on 12/24/18.
 //  Copyright © 2018 Kyle Nakamura. All rights reserved.
 //
 
@@ -10,10 +10,10 @@ import UIKit
 
 private let highlightedColor = Constants.Colors.appPrimaryColor.withAlphaComponent(0.1)
 
-class ReviewCell: UICollectionViewCell {
+class ProfileItemCell: UICollectionViewCell {
     
-    @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var bodyLbl: UILabel!
+    @IBOutlet weak var cellLbl: UILabel!
+    @IBOutlet weak var cellImg: UIImageView!
     
     override var isSelected: Bool {
         willSet {
