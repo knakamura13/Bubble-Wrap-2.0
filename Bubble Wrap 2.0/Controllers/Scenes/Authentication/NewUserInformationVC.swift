@@ -42,6 +42,12 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
         self.checkPermission()
     }
     
+    // Wipe the global variable clean of the information they carried over from AuthVC when information goes through
+    override func viewWillDisappear(_ animated: Bool) {
+        userEmail = nil
+        userPassword = nil
+    }
+    
     func setupStyles() {
         // Attributes for the user's name textFields
         let attributes = [
@@ -80,8 +86,8 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
     
     @IBAction func letsGoTapped(_ sender: Any) {
         
-        let firstName = firstNameTextField.text ?? ""
-        let lastName = lastNameTextField.text ?? ""
+        let firstName = firstNameTextField.text!
+        let lastName = lastNameTextField.text!
         let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
        
 
@@ -113,9 +119,22 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
             return
         } // End: Display an alert message if a textField is empty
         
+        // Creates the user once all the conditions have been met
+        Auth.auth().createUser(withEmail: userEmail, password: userPassword) { (result, error) in
+            if error != nil {
+                // Handle error
+            } else {
+                let email = userEmail
+                self.createUser(email: email!)
+                self.sendEmailVerification()
+            }
+        }
+        
         // Get profile image from the UIView if it's defined, or apply a placeholder image to the user profile
         if let profileImage = profileImageView.image {
+            print("BOOM: In Profile Image")
             updateUserData(firstName: firstName, lastName: lastName, profileImage: profileImage)
+            AuthenticationVC.getUserInformation()
         } else {
             if let userID = Auth.auth().currentUser?.uid {
                 let userRef = Firestore.firestore().collection("users").document(String(userID))
@@ -125,25 +144,29 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
                     "profileImageURL": profileImageView
                     ])) { (error) in
                         if error != nil {
-                            print("KYLE: error \(error!)")
+                            print("KYLE: errorProfile \(error!)")
                         }
                         
                         self.performSegue(withIdentifier: "segueNewUserToTabBar", sender: nil)
                     }
             }
+            AuthenticationVC.getUserInformation()
         }
     }
     
     // Set firstName, lastName, and profileImageURL fields of the user's FireStore document
     func updateUserData(firstName: String, lastName: String, profileImage: UIImage?) {
+        print("In updateUserData")
         if let image = profileImage {
+            print("updateUserData print statement")
             imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
             }, completionBlock: { (fileURL, error) in
                 if error != nil {
-                    print("KYLE: error \(error!)")
+                    print("KYLE: errorItem \(error!)")
                 }
                 
                 if let url = fileURL?.absoluteString {
+                    print("SETTING THE INFOR")
                     if let userID = Auth.auth().currentUser?.uid {
                         // Update the user's FireStore data
                         let userRef = Firestore.firestore().collection("users").document(String(userID))
@@ -152,7 +175,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
                             "lastName": lastName,
                             "profileImageURL": url
                         ])
-                    }
+                    } else {print("userID not not set")}
                     
                     self.performSegue(withIdentifier: "segueNewUserToTabBar", sender: nil)
                 } else {
@@ -162,6 +185,28 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
             })
         }
     }
+    
+    func sendEmailVerification() {
+        Auth.auth().currentUser?.sendEmailVerification { (error) in
+            if error != nil {
+                // Handle error
+            }
+        }
+    }
+    
+    // Create User object and send its data to Firebase
+    func createUser(email: String) {
+        for (domain, university) in EXISTING_BUBBBLE_COMMUNITIES {
+            if email.contains(domain) {
+                userBubble = university
+            }
+        }
+        let user = User(firstName: "", lastName: "", profileImageURL: "", bubbleCommunity: userBubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
+        let data = user.dictionary()
+        if let uid = Auth.auth().currentUser?.uid {
+            Firestore.firestore().collection("users").document(uid).setData(data)
+        }
+    } 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         

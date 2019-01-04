@@ -11,6 +11,8 @@ import FirebaseAuth
 import FirebaseFirestore
 
 var userBubble: String!
+var userEmail: String!
+var userPassword: String!
 
 class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
@@ -36,14 +38,25 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var textFieldsStackView: UIStackView!
     @IBOutlet weak var confirmPasswordStackView: UIStackView!
     
+    // MARK: Variables
+    // Array to clear all userDefaults Keys with User information
+    var userAttributes = ["itemsSold",
+                          "rating",
+                          "lastName",
+                          "firstName",
+                          "profileImgURL",
+                          "bubbleCommunity",
+                          "followers"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-
+        clearUserDefaults()
+        
         if Auth.auth().currentUser != nil {
             print("CHECK: Start getinfo()")
-            self.getUserInformation()
+             AuthenticationVC.getUserInformation()
             
             // Wait for 1/1000th of a second to ensure performSegue is not interrupted /*THIS GOT CHANGED IN TICKET 063 TO 1 SECOND BECAUSE IT WOULF NOT BE ABLE TO SET THE userBubble OTHERWISE*/
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -122,7 +135,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
                     self.present(alert, animated: true)
                 } else {
-                    self.getUserInformation()
+                    AuthenticationVC.getUserInformation()
                     
                     if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
                         self.performSegue(withIdentifier: "authenticatedSegue", sender: nil) 
@@ -191,18 +204,10 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                    if error != nil {
-                        // Handle error
-                    } else {
-                        let email = email
-                        self.createUser(email: email)
-                        self.sendEmailVerification()
-                        self.getUserInformation()
-                        self.performSegue(withIdentifier: "segueToNewUserInformation", sender: nil)
-                        
-                    }
-                }
+                userEmail = email
+                userPassword = password
+                self.performSegue(withIdentifier: "segueToNewUserInformation", sender: nil)
+                
             } else {
                 // Passwords to not match, so alert user to try again
                 let alert = UIAlertController(title: "Try that again", message: "Your passwords do not match.", preferredStyle: .alert)
@@ -217,30 +222,9 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func sendEmailVerification() {
-        Auth.auth().currentUser?.sendEmailVerification { (error) in
-            if error != nil {
-                // Handle error
-            }
-        }
-    }
-    
-    // Create User object and send its data to Firebase
-    func createUser(email: String) {
-        for (domain, university) in EXISTING_BUBBBLE_COMMUNITIES {
-            if email.contains(domain) {
-                userBubble = university
-            }
-        }
-        let user = User(firstName: "", lastName: "", profileImageURL: "", bubbleCommunity: userBubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
-        let data = user.dictionary()
-        if let uid = Auth.auth().currentUser?.uid {
-            Firestore.firestore().collection("users").document(uid).setData(data)
-        }
-    }
     
     // Load current user's profile information from Firebase and store in UserDeults
-    func getUserInformation() {
+    class func getUserInformation() {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if let uid = Auth.auth().currentUser?.uid  {
                 let userDocument = Firestore.firestore().collection("users").document(uid)
@@ -264,7 +248,33 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // Function to clear all the UserDefaults incase there is another user that wants to sign in, no information of pass user would be saved
+    func clearUserDefaults(){
+        let defaults = UserDefaults.standard
+        let dictionary = defaults.dictionaryRepresentation()
+        print(dictionary.count)
+        
+        dictionary.keys.forEach
+            { key in
+                print(key)
+                if checkKey(key: key) {
+                    print("old \(dictionary.index(forKey: key)!)")
+                    defaults.removeObject(forKey: key)
+                    print("new \(dictionary.index(forKey: key)!)")
+                }
+        }
+        print(dictionary.count)
+    }
     
+    func checkKey(key: String!) -> Bool {
+        for index in 0..<userAttributes.count {
+            if(userAttributes[index] == key){
+                userAttributes.remove(at: index)
+                return true
+            }
+        }
+        return false
+    }
     
     // Actions
     @IBAction func signInPressed(_ sender: Any) {
