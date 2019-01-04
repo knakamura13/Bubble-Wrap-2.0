@@ -16,7 +16,6 @@ import FirebaseFirestore
 class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     
-    
     // MARK: Properties
     
     
@@ -41,7 +40,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var createItemBtn: UIButton!
     @IBOutlet weak var categoryPicker: UIPickerView!
-    
+
     
     
     // MARK: View Load and Appear
@@ -49,6 +48,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
         titleTextField.delegate = self
         priceTextField.delegate = self
         categoryPicker.delegate = self
@@ -91,6 +91,7 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         smallImg1.layer.cornerRadius = cornerRadius
         smallImg2.layer.cornerRadius = cornerRadius
         smallImg3.layer.cornerRadius = cornerRadius
+        
         descriptionTextView.layer.borderColor = UIColor(hex: 0xcdcdcd).cgColor   // light grey
         descriptionTextView.layer.borderWidth = 1/3
         descriptionTextView.layer.cornerRadius = 6
@@ -115,17 +116,21 @@ class CreateItemVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     // MARK: Image Actions
     
     @IBAction func mainImageTapped(_ sender: Any) {
+        print("In MainImageTapped")
         // Show options for the source picker only if the camera is available.
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            print("In Source available MainImageTapped")
             presentPhotoPicker(sourceType: .photoLibrary)
             return
         }
         
         let photoSourcePicker = UIAlertController()
         let takePhoto = UIAlertAction(title: "Take Photo", style: .default) { [unowned self] _ in
+            print("In Take Photo")
             self.presentPhotoPicker(sourceType: .camera)
         }
         let choosePhoto = UIAlertAction(title: "Choose Photo", style: .default) { [unowned self] _ in
+            print("In choose photo")
             self.presentPhotoPicker(sourceType: .photoLibrary)
         }
         
@@ -346,3 +351,4 @@ extension CreateItemVC: UIImagePickerControllerDelegate, UINavigationControllerD
         updateClassifications(for: image)
     }
 }
+
