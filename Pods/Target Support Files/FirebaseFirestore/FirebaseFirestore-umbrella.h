@@ -19,6 +19,7 @@
 #import "FIRFieldValue.h"
 #import "FIRFirestore.h"
 #import "FIRFirestoreErrors.h"
+#import "FIRFirestoreSettings 3.h"
 #import "FIRFirestoreSettings.h"
 #import "FIRFirestoreSource.h"
 #import "FIRGeoPoint.h"
