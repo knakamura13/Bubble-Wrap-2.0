@@ -73,7 +73,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
                     if let error = error {
-                        print("CHECKING CODE searchVC), viewDidLoad(): [if] - Error retreiving collection: \(error)") // Displays error if the listener fails
+                        print("CHECKING CODE (searchVC), viewDidLoad(): [if] - Error retreiving collection: \(error)") // Displays error if the listener fails
                     }
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
@@ -118,7 +118,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)
                 .addSnapshotListener { querySnapshot, error in
                     if let error = error {
-                        print("CHECKING CODE searchVC), viewDidLoad(): [else] - Error retreiving collection: \(error)") // Displays error if the listener fails
+                        print("CHECKING CODE (searchVC), viewDidLoad(): [else] - Error retreiving collection: \(error)") // Displays error if the listener fails
                     }
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()

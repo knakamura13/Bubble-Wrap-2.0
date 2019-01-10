@@ -127,62 +127,64 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
                 let email = userEmail
                 self.createUser(email: email!)
                 self.sendEmailVerification()
+                AuthenticationVC.getUserInformation()
             }
-        }
-        
-        // Get profile image from the UIView if it's defined, or apply a placeholder image to the user profile
-        if let profileImage = profileImageView.image {
-            print("BOOM: In Profile Image")
-            updateUserData(firstName: firstName, lastName: lastName, profileImage: profileImage)
-            AuthenticationVC.getUserInformation()
-        } else {
-            if let userID = Auth.auth().currentUser?.uid {
-                let userRef = Firestore.firestore().collection("users").document(String(userID))
-                userRef.updateData(([
-                    "firstName": firstName,
-                    "lastName": lastName,
-                    "profileImageURL": profileImageView
-                    ])) { (error) in
-                        if error != nil {
-                            print("KYLE: errorProfile \(error!)")
-                        }
-                        
-                        self.performSegue(withIdentifier: "segueNewUserToTabBar", sender: nil)
+            // Get profile image from the UIView if it's defined, or apply a placeholder image to the user profile
+            if let profileImage = self.profileImageView.image {
+                self.updateUserData(firstName: firstName, lastName: lastName, profileImage: profileImage)
+                AuthenticationVC.getUserInformation()
+            } else {
+                if let userID = Auth.auth().currentUser?.uid {
+                    let userRef = Firestore.firestore().collection("users").document(String(userID))
+                    userRef.updateData(([
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "profileImageURL": self.profileImageView
+                        ])) { (error) in
+                            if error != nil {
+                                print("KYLE: errorProfile \(error!)")
+                            }
+                            
+                            self.performSegue(withIdentifier: "segueNewUserToTabBar", sender: nil)
                     }
+                }
+                AuthenticationVC.getUserInformation()
             }
-            AuthenticationVC.getUserInformation()
         }
     }
     
     // Set firstName, lastName, and profileImageURL fields of the user's FireStore document
     func updateUserData(firstName: String, lastName: String, profileImage: UIImage?) {
-        print("In updateUserData")
         if let image = profileImage {
-            print("updateUserData print statement")
-            imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
-            }, completionBlock: { (fileURL, error) in
-                if error != nil {
-                    print("KYLE: errorItem \(error!)")
-                }
-                
-                if let url = fileURL?.absoluteString {
-                    print("SETTING THE INFOR")
-                    if let userID = Auth.auth().currentUser?.uid {
-                        // Update the user's FireStore data
-                        let userRef = Firestore.firestore().collection("users").document(String(userID))
-                        userRef.updateData([
-                            "firstName": firstName,
-                            "lastName": lastName,
-                            "profileImageURL": url
-                        ])
-                    } else {print("userID not not set")}
+            // delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
+                    }, completionBlock: { (fileURL, error) in
+                    if error != nil {
+                        print("KYLE: errorItem \(error!)")
+                    }
                     
-                    self.performSegue(withIdentifier: "segueNewUserToTabBar", sender: nil)
-                } else {
-                    print("KYLE: Undefined fileURL")
-                }
-                
-            })
+                    if let url = fileURL?.absoluteString {
+                        if let userID = Auth.auth().currentUser?.uid {
+                            // Update the user's FireStore data
+                            let userRef = Firestore.firestore().collection("users").document(String(userID))
+                            userRef.updateData([
+                                "firstName": firstName,
+                                "lastName": lastName,
+                                "profileImageURL": url
+                            ])
+                        } else {
+                            print("userID not not set")
+                            
+                        }
+
+                        self.performSegue(withIdentifier: "segueNewUserToTabBar", sender: nil)
+                    } else {
+                        print("KYLE: Undefined fileURL")
+                    }
+                    
+                })
+            }
         }
     }
     

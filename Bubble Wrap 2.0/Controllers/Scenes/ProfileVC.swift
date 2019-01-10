@@ -98,11 +98,11 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     */
     func updateContentsFromUserDefaults() {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.userNameLbl.text = UserDefaults.standard.string(forKey: "firstName")! + " " + UserDefaults.standard.string(forKey: "lastName")!
-            self.userBubbleField.text =  UserDefaults.standard.string(forKey: "bubbleCommunity")
+            self.userNameLbl.text = currentUser.firstName + " " + currentUser.lastName
+            self.userBubbleField.text =  currentUser.bubbleCommunity
             
             // Upload picture asynchronously.
-            if let imgURL = URL(string: UserDefaults.standard.string(forKey: "profileImgURL")!) {
+            if let imgURL = URL(string: userProfileImageURL) {
                 DispatchQueue.global().async {
                     let data = try? Data(contentsOf: imgURL)
                     DispatchQueue.main.async{
@@ -151,10 +151,12 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     func signOutUser() {
         do {
             try Auth.auth().signOut()
+            currentUser = nil
             let vc = storyboard?.instantiateViewController(withIdentifier: "AuthenticationVC")
             self.present(vc!, animated: true, completion: nil)
         } catch {
             // Handle error with sign out
+            print("HANDLING ERROR")
         }
     }
     

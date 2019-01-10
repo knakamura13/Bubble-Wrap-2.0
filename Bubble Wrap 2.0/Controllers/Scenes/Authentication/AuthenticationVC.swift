@@ -13,6 +13,12 @@ import FirebaseFirestore
 var userBubble: String!
 var userEmail: String!
 var userPassword: String!
+var userLastName: String!
+var userFirstName: String!
+var userRating: Double!
+var userItemsSold: Int!
+var userFollowers: Int!
+var userProfileImageURL: String!
 
 class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
@@ -52,7 +58,6 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        clearUserDefaults()
         
         if Auth.auth().currentUser != nil {
             print("CHECK: Start getinfo()")
@@ -233,47 +238,18 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                         if document.data() != nil {
                             if let user = User(dictionary: document.data()!, itemID: document.documentID) {
                                 userBubble = user.bubbleCommunity // Set the user's bubble community for the app
-                                UserDefaults.standard.set(user.firstName, forKey: "firstName")
-                                UserDefaults.standard.set(user.lastName, forKey: "lastName")
-                                UserDefaults.standard.set(user.bubbleCommunity, forKey: "bubbleCommunity")
-                                UserDefaults.standard.set(user.rating, forKey: "rating")
-                                UserDefaults.standard.set(user.itemsSold, forKey: "itemsSold")
-                                UserDefaults.standard.set(user.followers, forKey: "followers")
-                                UserDefaults.standard.set(user.profileImageURL, forKey: "profileImgURL")
+                                userLastName = user.lastName
+                                userFirstName = user.firstName
+                                userRating = user.rating
+                                userItemsSold = user.itemsSold
+                                userFollowers = user.followers
+                                userProfileImageURL = user.profileImageURL
                             }
                         }
                     }
                 }
             }
         }
-    }
-    
-    // Function to clear all the UserDefaults incase there is another user that wants to sign in, no information of pass user would be saved
-    func clearUserDefaults(){
-        let defaults = UserDefaults.standard
-        let dictionary = defaults.dictionaryRepresentation()
-        print(dictionary.count)
-        
-        dictionary.keys.forEach
-            { key in
-                print(key)
-                if checkKey(key: key) {
-                    print("old \(dictionary.index(forKey: key)!)")
-                    defaults.removeObject(forKey: key)
-                    print("new \(dictionary.index(forKey: key)!)")
-                }
-        }
-        print(dictionary.count)
-    }
-    
-    func checkKey(key: String!) -> Bool {
-        for index in 0..<userAttributes.count {
-            if(userAttributes[index] == key){
-                userAttributes.remove(at: index)
-                return true
-            }
-        }
-        return false
     }
     
     // Actions
