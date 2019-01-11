@@ -24,7 +24,10 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
     // Buttons
     @IBOutlet weak var letsGoBtn: UIButton!
     
-    // Contants
+    // MARK: Variables
+    let AuthVC = AuthenticationVC()
+    
+    // Constants
     let cornerRadius: CGFloat = 10
     let placeholderImageURL: String = "https://firebasestorage.googleapis.com/v0/b/bubble-wrap-2-16e4b.appspot.com/o/itemImages%2F1529951599.378715.jpg?alt=media&token=30cb4efb-8652-4441-84b9-619fbbdee3ed"
     private let imageUploadManager = ImageUploadManager()
@@ -33,10 +36,6 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
         super.viewDidLoad()
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
-        
-        if Auth.auth().currentUser == nil {
-            print("User is not authenticated")
-        }
 
         self.setupStyles()
         self.checkPermission()
@@ -127,12 +126,12 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
                 let email = userEmail
                 self.createUser(email: email!)
                 self.sendEmailVerification()
-                AuthenticationVC.getUserInformation()
+                self.AuthVC.getUserInformation()
             }
             // Get profile image from the UIView if it's defined, or apply a placeholder image to the user profile
             if let profileImage = self.profileImageView.image {
                 self.updateUserData(firstName: firstName, lastName: lastName, profileImage: profileImage)
-                AuthenticationVC.getUserInformation()
+                self.AuthVC.getUserInformation()
             } else {
                 if let userID = Auth.auth().currentUser?.uid {
                     let userRef = Firestore.firestore().collection("users").document(String(userID))
@@ -148,7 +147,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
                             self.performSegue(withIdentifier: "segueNewUserToTabBar", sender: nil)
                     }
                 }
-                AuthenticationVC.getUserInformation()
+            self.AuthVC.getUserInformation()
             }
         }
     }
@@ -157,7 +156,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
     func updateUserData(firstName: String, lastName: String, profileImage: UIImage?) {
         if let image = profileImage {
             // delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 self.imageUploadManager.uploadImage(image, progressBlock: { (percentage) in
                     }, completionBlock: { (fileURL, error) in
                     if error != nil {

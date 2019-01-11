@@ -45,40 +45,18 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var confirmPasswordStackView: UIStackView!
     
     // MARK: Variables
-    // Array to clear all userDefaults Keys with User information
-    var userAttributes = ["itemsSold",
-                          "rating",
-                          "lastName",
-                          "firstName",
-                          "profileImgURL",
-                          "bubbleCommunity",
-                          "followers"]
+    var firstTime = false // Checks whether to perfrom segue or not when `getUserInformation` is ran
     
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
+        firstTime = true
         if Auth.auth().currentUser != nil {
-            print("CHECK: Start getinfo()")
-             AuthenticationVC.getUserInformation()
-            
-            // Wait for 1/1000th of a second to ensure performSegue is not interrupted /*THIS GOT CHANGED IN TICKET 063 TO 1 SECOND BECAUSE IT WOULF NOT BE ABLE TO SET THE userBubble OTHERWISE*/
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
-                    print("CHECK: Move from getinfo()")
-                    self.performSegue(withIdentifier: "authenticatedSegue", sender: nil)
-                } else {
-                    // Passwords to not match, so alert user to try again
-                    let alert = UIAlertController(title: "Are you human...", message: "Or are you dancer? \n\nPlease verify your email and try signing in again.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Okay :(", style: .default) {
-                        UIAlertAction in
-                        self.emailTextField.text = Auth.auth().currentUser?.email
-                    }
-                    alert.addAction(action)
-                    self.present(alert, animated: true)
-                }
+            DispatchQueue.main.async {
+                self.getUserInformation()
             }
+            
         }
         
         self.setupStyles()
@@ -140,7 +118,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                     alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
                     self.present(alert, animated: true)
                 } else {
-                    AuthenticationVC.getUserInformation()
+                    self.getUserInformation()
                     
                     if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
                         self.performSegue(withIdentifier: "authenticatedSegue", sender: nil) 
@@ -229,7 +207,7 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
     
     
     // Load current user's profile information from Firebase and store in UserDeults
-    class func getUserInformation() {
+    func getUserInformation() {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if let uid = Auth.auth().currentUser?.uid  {
                 let userDocument = Firestore.firestore().collection("users").document(uid)
@@ -244,11 +222,34 @@ class AuthenticationVC: UIViewController, UITextFieldDelegate {
                                 userItemsSold = user.itemsSold
                                 userFollowers = user.followers
                                 userProfileImageURL = user.profileImageURL
+                                // Runs 'emailVerifcation()' when app is opened
+                                if self.firstTime == true {
+                                    self.emailVerification()
+                                    self.firstTime = false
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+    }
+    
+    func emailVerification(){
+        if Auth.auth().currentUser?.isEmailVerified ?? false || Auth.auth().currentUser?.email == "test@apu.edu" /* FOR TESTING PURPOSES */ {
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "authenticatedSegue", sender: self)
+            }
+            //performSegue(withIdentifier: "authenticatedSegue", sender: nil)
+        } else {
+            // Passwords to not match, so alert user to try again
+            let alert = UIAlertController(title: "Are you human...", message: "Or are you dancer? \n\nPlease verify your email and try signing in again.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay :(", style: .default) {
+                UIAlertAction in
+                self.emailTextField.text = Auth.auth().currentUser?.email
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true)
         }
     }
     
