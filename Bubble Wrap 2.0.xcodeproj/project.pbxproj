@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D109B9921D1796F00EE2CD9 /* ProfileItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D109B9821D1796F00EE2CD9 /* ProfileItemCell.swift */; };
 		0D72497421D5B0B500852F04 /* ImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0D72497321D5B0B400852F04 /* ImageClassifier.mlmodel */; };
 		0DEC161321D0A17C0010786B /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0DEC161221D0A17C0010786B /* MobileNet.mlmodel */; };
 		6684673520F2E1D8000A689B /* PlaceOfferVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6684673420F2E1D8000A689B /* PlaceOfferVC.swift */; };
 		66CFBDEB21AB97CC00F0690E /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */; };
 		66EA58C721D1600D00A85A4C /* OffersMadeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */; };
 		66EA58CB21D165AC00A85A4C /* OffersMadeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EA58CA21D165AC00A85A4C /* OffersMadeCell.swift */; };
-		0D109B9921D1796F00EE2CD9 /* ProfileItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D109B9821D1796F00EE2CD9 /* ProfileItemCell.swift */; };
-		6684673520F2E1D8000A689B /* PlaceOfferVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6684673420F2E1D8000A689B /* PlaceOfferVC.swift */; };
-		66CFBDEB21AB97CC00F0690E /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */; };
 		7D036F3C385BB56C5D415B44 /* Pods_Bubble_Wrap_2_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A8E28EA781EC0031950073 /* Pods_Bubble_Wrap_2_0.framework */; };
 		BF2412D520C89848004C1484 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF2412D420C89848004C1484 /* GoogleService-Info.plist */; };
 		BF27037520D2506C00F89FFD /* AuthenticationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF27037420D2506C00F89FFD /* AuthenticationVC.swift */; };
@@ -54,19 +52,16 @@
 
 /* Begin PBXFileReference section */
 		0A38B9172F8222973F149749 /* Pods-Bubble Wrap 2.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.debug.xcconfig"; sourceTree = "<group>"; };
+		0D109B9821D1796F00EE2CD9 /* ProfileItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemCell.swift; sourceTree = "<group>"; };
 		0D72497321D5B0B400852F04 /* ImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ImageClassifier.mlmodel; sourceTree = "<group>"; };
 		0DEC161221D0A17C0010786B /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
+		18A8E28EA781EC0031950073 /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A4444EDAABFC5E4DBC77605 /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46404F75FD78F487A748B724 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
 		6684673420F2E1D8000A689B /* PlaceOfferVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOfferVC.swift; sourceTree = "<group>"; };
 		66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
 		66EA58C621D1600D00A85A4C /* OffersMadeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersMadeVC.swift; sourceTree = "<group>"; };
 		66EA58CA21D165AC00A85A4C /* OffersMadeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersMadeCell.swift; sourceTree = "<group>"; };
-		0D109B9821D1796F00EE2CD9 /* ProfileItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemCell.swift; sourceTree = "<group>"; };
-		18A8E28EA781EC0031950073 /* Pods_Bubble_Wrap_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bubble_Wrap_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		46404F75FD78F487A748B724 /* Pods-Bubble Wrap 2.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bubble Wrap 2.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bubble Wrap 2.0/Pods-Bubble Wrap 2.0.release.xcconfig"; sourceTree = "<group>"; };
-		6684673420F2E1D8000A689B /* PlaceOfferVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOfferVC.swift; sourceTree = "<group>"; };
-		66CFBDEA21AB97CC00F0690E /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
 		BF2412D420C89848004C1484 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF27037420D2506C00F89FFD /* AuthenticationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationVC.swift; sourceTree = "<group>"; };
 		BF3EE79020CB3D4C00F6A24E /* TopProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProfileCell.swift; sourceTree = "<group>"; };
