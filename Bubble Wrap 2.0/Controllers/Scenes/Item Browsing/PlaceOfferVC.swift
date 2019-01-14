@@ -50,18 +50,83 @@ class PlaceOfferVC: UIViewController {
         }
     }
     @IBAction func placeOfferPressed(_ sender: Any) {
+        var offerPresentAlready = false
         // Ensure an offer is placed in text field
         if let userID = Auth.auth().currentUser?.uid{
-            if !placeOfferWasPressed{
-                    let price = Int(txtfldUserOffer.text!)
-                    let creator = Firestore.firestore().collection("users").document(userID)
-                    let itemID = selectedItem.itemID
-                    let recipient = selectedItem.owner
-                self.createOffer(price: price!, creator: creator, item: Firestore.firestore().collection("items").document(itemID!), recipient: recipient!)
-                    placeOfferWasPressed = true
-            } else{
-                placeOfferWasPressed = false
+            let userDocument: DocumentReference = Firestore.firestore().collection("users").document(userID)
+            let itemDocument: DocumentReference = Firestore.firestore().collection("items").document(selectedItem.itemID)
+            // Listen to "offers" collection WHERE "creator" is current user
+            Firestore.firestore()
+                .collection("offers")
+                .whereField("creator", isEqualTo: userDocument)
+                .whereField("item", isEqualTo: itemDocument)
+                .limit(to: 2)
+                .addSnapshotListener { querySnapshot, error in
+                    var offerID: String?
+                    offerID = nil
+                    if let error = error {
+                        print("CHECKING CODE (OffersVC), placeOfferPressed() - Error retreiving collection: \(error)") // Displays error if the listener fails
+                    }
+                    
+                    if let documents = querySnapshot?.documents {
+                        if documents.count != 0 {
+                            offerID = documents[0].documentID
+                            offerPresentAlready = true
+                        }
+                    }
+                    
+                    if !self.placeOfferWasPressed{
+                        /* Called when currentUser (creator) creates new offer*/
+                        if offerPresentAlready == false {
+                            let price = Int(self.txtfldUserOffer.text!)
+                            let creator = Firestore.firestore().collection("users").document(userID)
+                            let itemID = selectedItem.itemID
+                            let recipient = selectedItem.owner
+                            
+                            self.createOffer(price: price!, creator: creator, item: Firestore.firestore().collection("items").document(itemID!), recipient: recipient!)
+                            self.placeOfferWasPressed = true
+                            
+                        } else { /* Called when currentUser (creator) already has offer*/
+                            let alert = UIAlertController(title: "Hold Up!", message: "Looks like you already placed an offer for this item. Are you sure you want to replace it with a new one?", preferredStyle: .alert)
+                            
+                            // Action for alter
+                            let actionYes = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {
+                                _ in
+                                // Offer document in databse
+                                let offerDocument: DocumentReference = Firestore.firestore().collection("offers").document(offerID!)
+                                // Update data in the database
+                                offerDocument.updateData(([
+                                    "price": Int(self.txtfldUserOffer.text!)!
+                                    ])) { (error) in
+                                        if error != nil {
+                                            print("CHECK: errorPlaceOfferPressed \(error!)")
+                                        }
+                                }
+                                self.placeOfferWasPressed = true
+                                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+                                self.present(tabBarVC!, animated: true, completion: nil)
+                            })
+                            
+                            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+                                _ in
+                                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+                                self.present(tabBarVC!, animated: true, completion: nil)
+                            })
+                            
+                            // Add styles
+                            actionCancel.setValue(UIColor.red, forKey: "titleTextColor"
+                            )
+                            
+                            // Add actions
+                            alert.addAction(actionCancel)
+                            alert.addAction(actionYes)
+                            self.present(alert, animated: true)
+                        }
+                    } else {
+                        self.placeOfferWasPressed = false
+                    }
             }
+            
             
         }
     }
