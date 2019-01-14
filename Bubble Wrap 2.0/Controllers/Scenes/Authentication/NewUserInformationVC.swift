@@ -26,6 +26,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
     
     // MARK: Variables
     let AuthVC = AuthenticationVC()
+    let profileIcons = [#imageLiteral(resourceName: "Bubbles_Profile_Icon_Turquoise"), #imageLiteral(resourceName: "Bubbles_Profile_Icon_Yellow"), #imageLiteral(resourceName: "Bubbles_Profile_Icon_Blue"), #imageLiteral(resourceName: "Bubbles_Profile_Icon_Red"), #imageLiteral(resourceName: "Bubbles_Profile_Icon_Orange"), #imageLiteral(resourceName: "Bubbles_Profile_Icon_Purple"), #imageLiteral(resourceName: "Bubbles_Profile_Icon_DarkBlue"), #imageLiteral(resourceName: "Bubbles_Profile_Icon_Green")]
     
     // Constants
     let cornerRadius: CGFloat = 10
@@ -38,6 +39,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
         lastNameTextField.delegate = self
 
         self.setupStyles()
+        self.generateRandomProfilePicture()
         self.checkPermission()
     }
     
@@ -240,6 +242,12 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
         }
         self.dismiss(animated: true, completion: nil)
         
+    }
+    
+    func generateRandomProfilePicture(){
+        let randomInt = Int.random(in: 0..<(profileIcons.count-1))
+        print("random int: \(randomInt)")
+        profileImageView.image = profileIcons[randomInt]
     }
     
     //Prompts user to allow access to their Photo Library

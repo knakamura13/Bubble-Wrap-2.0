@@ -30,7 +30,6 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pkD-4l-xJK">
                                                         <rect key="frame" x="0.0" y="-1.5" width="375" height="376.5"/>
-                                                        <color key="backgroundColor" red="0.71373334389999998" green="0.14718988650000001" blue="0.122489889" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <gestureRecognizers/>
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="1gA-vY-e3z" appends="YES" id="6vV-rq-wdm"/>
@@ -544,7 +543,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6dj-cg-2DF" userLabel="userImageview" customClass="UIControl">
                                 <rect key="frame" x="127.5" y="89" width="120" height="120"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Portrait_Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Spx-Vc-2FJ">
+                                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Spx-Vc-2FJ">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         <gestureRecognizers/>
                                         <connections>
@@ -1342,7 +1341,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-pm-zhG">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fQZ-pm-zhG">
                                 <rect key="frame" x="112.5" y="141.5" width="150" height="150"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -1736,7 +1735,7 @@
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yv3-MN-lpw" userLabel="Image Container">
                                                     <rect key="frame" x="15" y="16" width="42" height="42"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Portrait_Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="IBz-la-dZo">
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IBz-la-dZo">
                                                             <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="42" id="rFv-NK-fS9"/>
@@ -1849,7 +1848,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Portrait_Placeholder" width="600" height="600"/>
         <image name="icon-Bubble-Wrap" width="401" height="401"/>
         <image name="icon-bubble" width="50" height="50"/>
         <image name="icon-camera" width="25" height="25"/>
@@ -1858,7 +1856,6 @@
         <image name="icon-offers" width="25" height="25"/>
         <image name="icon-password" width="25.5" height="25"/>
         <image name="icon-profile" width="25" height="25"/>
-        <image name="icon-profile-placeholder" width="100.08000183105469" height="104.63999938964844"/>
         <image name="icon-search" width="25" height="25"/>
         <namedColor name="chat_bubble_color_received">
             <color red="0.87800002098083496" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
