@@ -101,6 +101,7 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         } else {
             showMailError()
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // View for messaging

@@ -211,5 +211,6 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                 self.present(vc!, animated: true, completion: nil)
             }
         }
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
