@@ -11,6 +11,7 @@ import FirebaseFirestore
 struct User {
     var firstName: String!
     var lastName: String!
+    var email: String!
     var profileImageURL: String!
     var bubbleCommunity: String!
     var rating: Double!
@@ -18,11 +19,13 @@ struct User {
     var followers: Int!
     var offersCreated: [DocumentReference]!
     var offersReceived: [DocumentReference]!
+   
     
     init?(dictionary: [String: Any]?, itemID: String) {
         guard let dictionary = dictionary,
             let firstName = dictionary["firstName"] as? String,
             let lastName = dictionary["lastName"] as? String,
+            let email = dictionary["email"] as? String,
             let profileImageURL = dictionary["profileImageURL"] as? String,
             let bubbleCommunity = dictionary["bubbleCommunity"] as? String,
             let rating = dictionary["rating"] as? Double,
@@ -35,12 +38,13 @@ struct User {
         let created = dictionary["offersCreated"] as? [DocumentReference] ?? []
         let received = dictionary["offersReceived"] as? [DocumentReference] ?? []
         
-        self.init(firstName: firstName, lastName: lastName, profileImageURL: profileImageURL, bubbleCommunity: bubbleCommunity, rating: rating, itemsSold: itemsSold, followers: followers, offersCreated: created, offersReceived: received)
+        self.init(firstName: firstName, lastName: lastName, email: email, profileImageURL: profileImageURL, bubbleCommunity: bubbleCommunity, rating: rating, itemsSold: itemsSold, followers: followers, offersCreated: created, offersReceived: received)
     }
     
-    init(firstName: String?, lastName: String?, profileImageURL: String?, bubbleCommunity: String?, rating: Double?, itemsSold: Int?, followers: Int?, offersCreated: [DocumentReference]?, offersReceived: [DocumentReference]?) {
+    init(firstName: String?, lastName: String?, email: String?, profileImageURL: String?, bubbleCommunity: String?, rating: Double?, itemsSold: Int?, followers: Int?, offersCreated: [DocumentReference]?, offersReceived: [DocumentReference]?) {
         self.firstName = firstName
         self.lastName = lastName
+        self.email = email
         self.profileImageURL = profileImageURL
         self.bubbleCommunity = bubbleCommunity
         self.rating = rating
@@ -54,6 +58,7 @@ struct User {
         return [
             "firstName": firstName,
             "lastName": lastName,
+            "email": email,
             "profileImageURL": profileImageURL,
             "bubbleCommunity": bubbleCommunity,
             "rating": rating,

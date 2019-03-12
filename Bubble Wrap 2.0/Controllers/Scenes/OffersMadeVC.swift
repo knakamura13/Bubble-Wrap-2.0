@@ -10,8 +10,9 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestore
+import MessageUI
 
-class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
     // Outlets
     @IBOutlet weak var itemNameLbl: UILabel!
@@ -19,12 +20,11 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     // Variables
     var offersArray: [Offer] = []
-    
+    private var emailOfOfferCreator = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Run an async function in order to run through the arrayOfOffersMade first before displaying the table
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async {
             self.arrayOfOffersMade()
             self.offersMadeTbl.dataSource = self
             self.offersMadeTbl.delegate = self
@@ -32,7 +32,8 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         setStyles()
     }
-
+    
+    
     func arrayOfOffersMade(){
         // itemSelected is the DocumentRefernce for the currentItem selected by the user to check offers
         let itemSelected: DocumentReference = Firestore.firestore().collection("items").document(currentItem.itemID)
@@ -55,18 +56,19 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                             self.offersMadeTbl.reloadData()
                         }
                     }
+                    // Check whether there are any offers for this item
+                    if self.offersArray.count == 0 {
+                        let noOffersAlert = UIAlertController(title: "Sorry!", message: "There have been no offers on you item yet.", preferredStyle: .alert)
+                        noOffersAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                        self.present(noOffersAlert, animated: true)
+                    }
                 }
             }
         
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Set the amount of cells for the table depending on the number of offers in offersArray
-        if offersArray.count == 0 {
-            let noOffersAlert = UIAlertController(title: "Sorry!", message: "There have been no offers on you item yet.", preferredStyle: .alert)
-            noOffersAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-            self.present(noOffersAlert, animated: true)
-        }
+        // Set the amount of cells for the table depending on the number of offers in `offersArray`
         return offersArray.count
     }
     
@@ -74,19 +76,57 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         // Create cell so if the user where to scroll past cells no longer showing, instead of creating a whole new cell (which uses up memory) this reuses the cell no longer seen
         let cell = offersMadeTbl.dequeueReusableCell(withIdentifier: "OfferMadeCell") as? OffersMadeCell
         
-        // Make a query to the database to get the name and price of the person making the offer
+        // Make a query to the database to get the name, email, and price of the person making the offer
         Firestore.firestore().collection("users").document(offersArray[indexPath.row].creator.documentID).getDocument { (document, error) in
             if let error = error {
                 print("CHECKING CODE (OffersMadeVC), cellForRowAt() - Error retreiving collection: \(error)") // Displays error if the listener fails
             }
             let dictionary = document?.data()
             let user = User(dictionary: dictionary, itemID: (document?.documentID)!)
+            self.emailOfOfferCreator = (user?.email)!
             cell?.nameLbl.text = (user?.firstName)! + " " + (user?.lastName)!
             cell?.offerPriceLbl.text = "$\((self.offersArray[indexPath.row].price)!)"
         }
         
         return cell!
     }
+    
+    /*
+     * Sending email section.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mailComposeViewController = configuredMailController(email: emailOfOfferCreator)
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            showMailError()
+        }
+    }
+    
+    // View for messaging
+    func configuredMailController(email: String) -> MFMailComposeViewController{
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients([email])
+        mailComposerVC.setSubject("BubbleWrap: Counteroffer!")
+        // Can add html in the message body below you just have to make sure that `isHTML` is set to true
+        mailComposerVC.setMessageBody("I would <b>love</b> to counteroffer you for a price for <ENTER PRICE HERE>", isHTML: true)
+        
+        return mailComposerVC
+    }
+    
+    func showMailError(){
+        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device could not send email.", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        sendMailErrorAlert.addAction(dismiss)
+        self.present(sendMailErrorAlert, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    
     
     // Sets the title of the item
     func setStyles(){
@@ -168,11 +208,11 @@ class OffersMadeVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             // Verify that they meant to 'Sold it' if so do the following
             let actionYes = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: {
                 _ in
-                // itemSelected is the item the user want to edit
+                // `itemSelected` is the item the user wants to edit
                 let itemSelected = Firestore.firestore().collection("items").document(currentItem.itemID)
                 let refItemSelected: DocumentReference = Firestore.firestore().collection("items").document(currentItem.itemID)
                 
-                // Delete all offers that have refItemSelected as there item
+                // Delete all offers that have `refItemSelected` as there item
                 Firestore.firestore()
                     .collection("offers")
                     .whereField("item", isEqualTo: refItemSelected)

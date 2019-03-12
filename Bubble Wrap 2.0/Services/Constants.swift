@@ -100,7 +100,7 @@ let EXISTING_BUBBBLE_COMMUNITIES: [String : String] = [
     "apsu.edu" : "Austin Peay State University",
     "averett.edu" : "Averett College",
     "avila.edu" : "Avila College",
-    "apu.edu" : "Azusa Pacific University",
+    "gmail.com" : "Azusa Pacific University",//"apu.edu" : "Azusa Pacific University",
     "babson.edu" : "Babson College",
     "baldwinw.edu" : "Baldwin-Wallace College",
     "bsu.edu" : "Ball State University",

@@ -53,7 +53,6 @@ class OffersVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         // Get UserID and create a document reference for the WHERE parameter
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let userDocument: DocumentReference = Firestore.firestore().collection("users").document(userID)
-        print("Listen for offers")
         // Listen to "offers" collection WHERE "receiver" is current user
         Firestore.firestore()
             .collection("items")

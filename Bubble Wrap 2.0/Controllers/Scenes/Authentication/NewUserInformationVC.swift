@@ -204,7 +204,7 @@ class NewUserInformationVC: UIViewController, UITextFieldDelegate, UIImagePicker
                 userBubble = university
             }
         }
-        let user = User(firstName: "", lastName: "", profileImageURL: "", bubbleCommunity: userBubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
+        let user = User(firstName: "", lastName: "", email: Auth.auth().currentUser?.email , profileImageURL: "", bubbleCommunity: userBubble, rating: 0, itemsSold: 0, followers: 0, offersCreated: nil, offersReceived: nil)
         let data = user.dictionary()
         if let uid = Auth.auth().currentUser?.uid {
             Firestore.firestore().collection("users").document(uid).setData(data)
