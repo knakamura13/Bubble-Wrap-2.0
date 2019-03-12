@@ -44,18 +44,19 @@ class MessengerVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, U
         self.fetchAllMessages()
         
         // Get recipient's name for nav bar title
-        if let recipientRef = conversation?.recipient {
-            recipientRef.getDocument { (document, error) in
+        if let ref = conversation?.person1["ref"] as? DocumentReference {
+            ref.getDocument { (document, error) in
                 if let document = document {
                     self.title = document.data()!["firstName"] as? String
                 }
             }
         }
         
-        guard let recipientRef = conversation?.recipient else { return }
-        recipientRef.getDocument { (document, error) in
-            guard let document = document else { return }
-            self.title = document.data()!["firstName"] as? String
+        if let ref = conversation?.person2["ref"] as? DocumentReference {
+            ref.getDocument { (document, error) in
+                guard let document = document else { return }
+                self.title = document.data()!["firstName"] as? String
+            }
         }
     }
     

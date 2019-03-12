@@ -14,18 +14,25 @@ var selectedConversation: Conversation?
 
 class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
+    
+    // MARK: Properties
+    
     var allConversations: [Conversation] = []
     var searchConversations: [Conversation] = []
     var allMessageContents: [Message] = []
     var allThumbnails: [UIImage] = []
     var searchThumbnails: [UIImage] = []
     var selectedConversationRecipient: String = ""
-    
     private(set) var datasource = DataSource()  // Datasource for data listener
     
-    // Outlets
+    
+    // MARK: Outlets
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    
+    // MARK: View load and appear
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,25 +43,53 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
     }
     
+    
+    // MARK: Custom functions
+    
     // Data listener for current user's conversations
     func fetchAllConversations() {
         if let userID = Auth.auth().currentUser?.uid {
-            Firestore.firestore().collection("users").document(userID).collection("conversations").addSnapshotListener { (snapshot, err) in
+            // SELECT * FROM conversations
+            let collection = Firestore.firestore().collection("conversations")
+            // WHERE
+            // (person1.id = userID AND person1.didDelete = false)
+            collection
+                .whereField("person1.id", isEqualTo: userID)
+                .whereField("person1.didDelete", isEqualTo: false)
+                .getDocuments { (snapshot, error) in
                 if let documents = snapshot?.documents {
                     for document in documents {
-                        let conversation = Conversation(document: document)
-                        self.allConversations.append(conversation!)
-                        self.searchConversations = self.allConversations
-                        self.tableView.reloadData()
+                        print(document.data()["person1"])
+//                        if let conversation = Conversation(document: document) {
+//                            self.allConversations.append(conversation)
+//                            self.searchConversations = self.allConversations
+//                            self.tableView.reloadData()
+//                        }
+                    }
+                }
+            }
+            // OR
+            // (person2.id = userID AND person2.didDelete = false)
+            collection
+                .whereField("person2.id", isEqualTo: userID)
+                .whereField("person2.didDelete", isEqualTo: false)
+                .getDocuments { (snapshot, error) in
+                if let documents = snapshot?.documents {
+                    for document in documents {
+                        if let conversation = Conversation(document: document) {
+                            self.allConversations.append(conversation)
+                            self.searchConversations = self.allConversations
+                            self.tableView.reloadData()
+                        }
                     }
                 }
             }
         }
     }
     
-    /*
-     Mark: Table View
-     */
+    
+    // MARK: Table view
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchBar.text?.count == 0 {
             searchConversations = allConversations
@@ -62,10 +97,20 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return searchConversations.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath as IndexPath) as! MessagesCell
         
-        if let recipientRef = searchConversations[indexPath.item].recipient {
+        let person1 = searchConversations[indexPath.item].person1
+        let person2 = searchConversations[indexPath.item].person2
+        
+        if Auth.auth().currentUser?.uid == person1!["id"] as! String {
+            
+        } else if Auth.auth().currentUser?.uid == person2!["id"] as! String {
+            
+        }
+        
+        if let recipientRef = searchConversations[indexPath.item].person1 as! DocumentReference {
             recipientRef.getDocument { (document, error) in
                 if let document = document {
                     cell.cellNameLbl.text = document.data()!["firstName"] as? String
@@ -106,6 +151,7 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedConversation = searchConversations[indexPath.row]
         
@@ -121,9 +167,9 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         performSegue(withIdentifier: "messengerSegue", sender: nil)
     }
     
-    /*
-     MARK: SEARCH BAR
-     */
+    
+    // MARK: Search bar
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchConversations = []
         
@@ -142,6 +188,9 @@ class MessagesListVC: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.reloadData()
     }
+    
+    
+    // MARK: Segues and VC loading
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let secondViewController = segue.destination as! MessengerVC
