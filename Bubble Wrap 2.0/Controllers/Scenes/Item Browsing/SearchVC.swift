@@ -14,10 +14,14 @@ import FirebaseFirestore
 var currentUser: User!
 var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "", bubble: "", isSold: false)
 
-class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class SearchVC: UIViewController {
     
-    // Variables
-    let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
+    
+    
+    // MARK: Properties
+    
+    
+    let reuseIdentifier = "cell"
 
     var screenSize: CGRect!
     var screenWidth: CGFloat!
@@ -34,14 +38,21 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     private(set) var datasource = DataSource()  // Datasource for data listener
     
-    // outlets
+    
+    
+    // MARK: Outlets
+    
+    
     @IBOutlet weak var collectionView: UICollectionView?
     @IBOutlet weak var searchBar: UISearchBar!
     
-    // viewDidLoad: runs only once when the scene loads for the first time
+    
+    
+    // MARK: View loading/appearing
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("In Search")
         
         searchBar.delegate = self
         searchBar.showsBookmarkButton = true
@@ -52,7 +63,10 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         // NavBar title color
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
         
-        if !filterOn{ self.customizeView() } // Setup the view
+        if !filterOn {
+            self.customizeView()
+            
+        }
         
         // Load current user's profile information from Firebase
         if let userID = Auth.auth().currentUser?.uid {
@@ -65,16 +79,11 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                 }
             }
         }
-
-        // Add a data listener to the "items" database
         
         // When filter display all the itemas that fit the constraints within the search
         if filterOn {
             datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
                 .addSnapshotListener { querySnapshot, error in
-                    if let error = error {
-                        print("CHECKING CODE (searchVC), viewDidLoad(): [if] - Error retreiving collection: \(error)") // Displays error if the listener fails
-                    }
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
                         self.searchItems.removeAll()
@@ -87,7 +96,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                                     item.price.intValue <= self.maxPrice &&
                                     item.price.intValue >= self.minPrice
                                 {
-                                    print(item.title)
+
                                     self.allItems.append(item)
                                     self.searchItems.append(item)
                                 
@@ -113,13 +122,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
             }
             filterOn = false
         } else {
-   
-           
             datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)
                 .addSnapshotListener { querySnapshot, error in
-                    if let error = error {
-                        print("CHECKING CODE (searchVC), viewDidLoad(): [else] - Error retreiving collection: \(error)") // Displays error if the listener fails
-                    }
                     if let documents = querySnapshot?.documents {
                         self.allItems.removeAll()
                         self.searchItems.removeAll()
@@ -148,7 +152,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
-    // viewWillAppear: runs every time the scene is about to appear
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.applicationIconBadgeNumber = 0 // Reset the badge number on app launch
@@ -160,14 +164,16 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
+    
     override func viewWillDisappear(_ animated: Bool) {
         // Turn of the fitler search
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        print("Out of search")
         filterOn = false
     }
     
     
+    
+    // MARK: Custom functions
     
     
     func customizeView() {
@@ -185,46 +191,32 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         layout.minimumLineSpacing = 50      // row spacing
         collectionView!.collectionViewLayout = layout
     }
-    
-    /*
-     MARK: KEYBOARD AND SEARCH BAR
-     */
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBar.endEditing(true)
+}
+
+
+// Allows the tint to be changed for the filter view icons.
+extension UIImage {
+    func tinted(with color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        color.set()
+        withRenderingMode(.alwaysTemplate)
+            .draw(in: CGRect(origin: .zero, size: size))
+        
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        // Delay for 0.025 seconds
-        // Purpose: Cancel Button not dismissing keyboard immediately; forced delay required
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
-            self.searchBar.resignFirstResponder()   // Dismiss the keyboard
-        }
-    }
-    
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        //performSegue(withIdentifier: "FiltersVC", sender: nil)
-        let filterVC = self.storyboard?.instantiateViewController(withIdentifier: "FiltersVC") as! FiltersVC
-        filterVC.view.backgroundColor = .clear
-        filterVC.modalPresentationStyle = .overCurrentContext
-        filterVC.searchVC = self
-        self.present(filterVC, animated: true, completion: nil)
-    }
-    
-    
-    
-    
-    /*
-     MARK: COLLECTION VIEW
-     */
-    
-    // Set how many cells should display
+}
+
+
+extension SearchVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if searchBar.text!.count == 0 {
-            searchItems = allItems      // display every item
+            searchItems = allItems
         }
         
         return searchItems.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! MyCollectionViewCell
         
@@ -255,18 +247,17 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         cell.cellImg.layer.cornerRadius = cornerRadius
         cell.cellImg.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedItem = searchItems[indexPath.row]
         performSegue(withIdentifier: "singleItemSegue", sender: nil)
     }
-    
-   
-    /*
-     MARK: SEARCH BAR
-     */
+}
+
+
+extension SearchVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchItems = []
         for item in allItems {
@@ -277,16 +268,24 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         collectionView!.reloadData()
     }
-}
-
-/* Enables the tinted color function to work on the filter image (Chagnes the color of the image)*/
-extension UIImage {
-    func tinted(with color: UIColor) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        defer { UIGraphicsEndImageContext() }
-        color.set()
-        withRenderingMode(.alwaysTemplate)
-            .draw(in: CGRect(origin: .zero, size: size))
-        return UIGraphicsGetImageFromCurrentImageContext()
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        // Delay for 0.025 seconds
+        // Purpose: Cancel Button not dismissing keyboard immediately; forced delay required
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
+            self.searchBar.resignFirstResponder()   // Dismiss the keyboard
+        }
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        let filterVC = self.storyboard?.instantiateViewController(withIdentifier: "FiltersVC") as! FiltersVC
+        filterVC.view.backgroundColor = .clear
+        filterVC.modalPresentationStyle = .overCurrentContext
+        filterVC.searchVC = self
+        self.present(filterVC, animated: true, completion: nil)
     }
 }
