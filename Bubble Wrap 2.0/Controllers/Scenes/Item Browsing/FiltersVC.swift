@@ -107,9 +107,9 @@ class FiltersVC: UIViewController {
         }
         
         // Set the variables necessary to pass to SearchVC for the filter search
-        searchVC.catChoosen = categoryChoosen
-        searchVC.minPrice = Int(minTxtFld.text!)!
-        searchVC.maxPrice = Int(maxTxtFld.text!)!
+//        searchVC.catChoosen = categoryChoosen
+//        searchVC.minPrice = Int(minTxtFld.text!)!
+//        searchVC.maxPrice = Int(maxTxtFld.text!)!
         filterOn = true
         searchVC.viewDidLoad()
         self.dismiss(animated: true, completion: nil)

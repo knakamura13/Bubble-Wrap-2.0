@@ -20,6 +20,37 @@ class SearchVC: UIViewController {
     
     // MARK: Properties
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    
+    // MARK: View Load/Appear
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    
+    // MARK: Custom Functions
+    
+    
+}
+
+extension SearchVC {
+    
+}
+
+
+
+
+
+
+/*
+class SearchVC: UIViewController {
+    
+    
+    
+    // MARK: Properties
+    
     
     let reuseIdentifier = "cell"
 
@@ -289,3 +320,4 @@ extension SearchVC: UISearchBarDelegate {
         self.present(filterVC, animated: true, completion: nil)
     }
 }
+ */
