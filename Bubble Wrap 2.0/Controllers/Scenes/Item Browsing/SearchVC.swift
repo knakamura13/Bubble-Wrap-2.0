@@ -10,11 +10,12 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestore
+import NVActivityIndicatorView
 
 var currentUser: User!
 var selectedItem: Item = Item(title: "", price: 0, imageURL: "", owner: nil, itemID: "", category: "", bubble: "", isSold: false)
 
-class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate,  NVActivityIndicatorViewable {
     
     // Variables
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
@@ -42,7 +43,6 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         print("In Search")
-        
         searchBar.delegate = self
         searchBar.showsBookmarkButton = true
         let filterIcon = UIImage(named: "filter_slider")?.tinted(with: UIColor(red: 0.5961, green: 0.5961, blue: 0.6157, alpha: 1.0))
@@ -80,6 +80,9 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
                         self.searchItems.removeAll()
                         self.allItemImages.removeAll()
                         self.searchItemImages.removeAll()
+                        // In here you can check how many documents there are. Then dvide the amount of documents by numOfDocs/100 = x
+                        // Beecause when the number indicator is showing you want to keep increaing it by x till 100 is reached.
+                        // Now what determines when to trigger an increase on teh number being show, I do not konw.
                         
                         for document in documents {
                             if let item = Item(dictionary: document.data(), itemID: document.documentID) {

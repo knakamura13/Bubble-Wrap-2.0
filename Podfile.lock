@@ -121,6 +121,9 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - NVActivityIndicatorView (4.6.1):
+    - NVActivityIndicatorView/Presenter (= 4.6.1)
+  - NVActivityIndicatorView/Presenter (4.6.1)
   - Protobuf (3.6.1)
   - TextViewWithThreshHoldFrame (0.0.1)
 
@@ -131,6 +134,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
+  - NVActivityIndicatorView
   - TextViewWithThreshHoldFrame
 
 SPEC REPOS:
@@ -153,6 +157,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
     - Protobuf
     - TextViewWithThreshHoldFrame
 
@@ -175,9 +180,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   TextViewWithThreshHoldFrame: 80c0c1125eaf22ae369313c87294042a562c3a2b
 
-PODFILE CHECKSUM: 999970517fa3d77a7d31d8940d034b339eef1631
+PODFILE CHECKSUM: 9e30ea5f8cf2211a84b95224e1ceca5bf83d7058
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.6.0
