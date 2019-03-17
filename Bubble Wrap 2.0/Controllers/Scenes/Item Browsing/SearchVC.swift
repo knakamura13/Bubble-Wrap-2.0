@@ -18,7 +18,8 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     
     // Variables
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
-
+    let db = Firestore.firestore()
+ //   let collectionViewFooterReuseIdentifier = "loading-view"
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
@@ -27,10 +28,14 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
     var searchItems: [Item] = []
     var allItemImages: [UIImage] = []
     var searchItemImages: [UIImage] = []
+    var lastDocumentSnapshot: DocumentSnapshot!
+    var fetchingMore = false
     
     var catChoosen = ""
     var minPrice = 0
     var maxPrice = 0
+    
+    
     
     private(set) var datasource = DataSource()  // Datasource for data listener
     
@@ -49,6 +54,9 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         searchBar.setImage(filterIcon, for: .bookmark, state: .normal)
         searchBar.setPositionAdjustment(UIOffset(horizontal: 0, vertical: 0), for: .bookmark)
         
+        // Register class for spinner
+//        collectionView?.register(LoadingViewController.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: collectionViewFooterReuseIdentifier)
+        
         // NavBar title color
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:Constants.Colors.TextColors.primaryWhite, NSAttributedString.Key.font: UIFont(name: "Avenir-Medium", size: 21)!]
         
@@ -56,7 +64,7 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         // Load current user's profile information from Firebase
         if let userID = Auth.auth().currentUser?.uid {
-            let userDocument = Firestore.firestore().collection("users").document(userID)
+            let userDocument = db.collection("users").document(userID)
             userDocument.getDocument { (document, error) in
                 if let document = document {
                     if let user = User(dictionary: document.data(), itemID: document.documentID) {
@@ -68,83 +76,12 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
 
         // Add a data listener to the "items" database
         
-        // When filter display all the itemas that fit the constraints within the search
+        // When filter display all the items that fit the constraints within the search
         if filterOn {
-            datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)//.whereField("bubble", isEqualTo: userBubble)
-                .addSnapshotListener { querySnapshot, error in
-                    if let error = error {
-                        print("CHECKING CODE (searchVC), viewDidLoad(): [if] - Error retreiving collection: \(error)") // Displays error if the listener fails
-                    }
-                    if let documents = querySnapshot?.documents {
-                        self.allItems.removeAll()
-                        self.searchItems.removeAll()
-                        self.allItemImages.removeAll()
-                        self.searchItemImages.removeAll()
-                        
-                        for document in documents {
-                            if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                                if (item.category == self.catChoosen || "All" == self.catChoosen) &&
-                                    item.price.intValue <= self.maxPrice &&
-                                    item.price.intValue >= self.minPrice
-                                {
-                                    print(item.title)
-                                    self.allItems.append(item)
-                                    self.searchItems.append(item)
-                                
-                                    // Download the item's image and save as a UIImage
-                                    let url = URL(string: item.imageURL!)!
-                                    let data = try? Data(contentsOf: url)
-                                    if let imageData = data {
-                                        let image = UIImage(data: imageData)
-                                        self.allItemImages.append(image!)
-                                        self.searchItemImages.append(image!)
-                                    }
-                                    self.collectionView?.reloadData()
-                                }
-                            }
-                        }
-                        
-                        if self.allItems.count == 0{
-                            let alert = UIAlertController(title: "Sorry!", message: "There are no items with the filters you have applied.", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-                            self.present(alert, animated: true)
-                        }
-                    }
-            }
+            filterQuery()
             filterOn = false
         } else {
-   
-           
-            datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: nil)
-                .addSnapshotListener { querySnapshot, error in
-                    if let error = error {
-                        print("CHECKING CODE (searchVC), viewDidLoad(): [else] - Error retreiving collection: \(error)") // Displays error if the listener fails
-                    }
-                    if let documents = querySnapshot?.documents {
-                        self.allItems.removeAll()
-                        self.searchItems.removeAll()
-                        self.allItemImages.removeAll()
-                        self.searchItemImages.removeAll()
-
-                        for document in documents {
-                           
-                            if let item = Item(dictionary: document.data(), itemID: document.documentID) {
-                                self.allItems.append(item)
-                                self.searchItems.append(item)
-                                
-                                // Download the item's image and save as a UIImage
-                                let url = URL(string: item.imageURL!)!
-                                let data = try? Data(contentsOf: url)
-                                if let imageData = data {
-                                    let image = UIImage(data: imageData)
-                                    self.allItemImages.append(image!)
-                                    self.searchItemImages.append(image!)
-                                }
-                                self.collectionView?.reloadData()
-                            }
-                        }
-                    } 
-            }
+            initialQuery()
         }
     }
     
@@ -263,7 +200,92 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         performSegue(withIdentifier: "singleItemSegue", sender: nil)
     }
     
-   
+    /*
+     MARK: COLLECTION VIEEW PAGINATION
+     */
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        //print("offsetY: \(offsetY) | contHeight-scrollViewHeight: \(contentHeight-scrollView.frame.height)")
+        if offsetY > contentHeight - scrollView.frame.height - 50 {
+            // Bottom of the screen is reached
+            if !fetchingMore {
+                paginateData()
+            }
+        }
+    }
+    
+    
+    // Spinner
+    
+//    private func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) -> UICollectionReusableView{
+//        switch elementKind {
+//            case UICollectionView.elementKindSectionFooter:
+//            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: "Footer", for: indexPath)
+//
+//            footerView.backgroundColor = UIColor.green
+//            return footerView
+//
+//            default:
+//                assert(false, "Unexpected element kind")
+//        }
+//    }
+//
+
+    // Load more images more if user scrolls down
+    func paginateData(){
+        
+        fetchingMore = true
+        
+        var query: Query!
+        
+        if allItems.isEmpty {
+            query = db.collection("items").order(by: "title").limit(to: 6)
+            print("First 6 items loaded")
+        } else {
+            query = db.collection("items").start(afterDocument: lastDocumentSnapshot).limit(to: 4)
+            print("Next 4 items loaded")
+        }
+        
+        query.getDocuments{(snapshot, err) in
+            if let err = err {
+                print("\(err.localizedDescription)")
+            } else if snapshot!.isEmpty {
+                self.fetchingMore = false
+                return
+            } else {
+                if let documents = snapshot?.documents {
+                    for document in documents {
+                        
+                        if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                            self.allItems.append(item)
+                            self.searchItems.append(item)
+                            
+                            // Download the item's image and save as a UIImage
+                            let url = URL(string: item.imageURL!)!
+                            let data = try? Data(contentsOf: url)
+                            if let imageData = data {
+                                let image = UIImage(data: imageData)
+                                self.allItemImages.append(image!)
+                                self.searchItemImages.append(image!)
+                            }
+                            self.collectionView?.reloadData()
+                        }
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    self.collectionView?.reloadData()
+                    self.fetchingMore = false
+                })
+                
+                self.lastDocumentSnapshot = snapshot!.documents.last
+            }
+        }
+        
+    }
+
+    
+    
     /*
      MARK: SEARCH BAR
      */
@@ -277,6 +299,93 @@ class SearchVC: UIViewController, UICollectionViewDataSource, UICollectionViewDe
         
         collectionView!.reloadData()
     }
+    
+    /*
+     MARK: Item Queries
+     */
+    
+    func initialQuery () {
+        datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: 6)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("CHECKING CODE (searchVC), viewDidLoad(): [else] - Error retreiving collection: \(error)") // Displays error if the listener fails
+                }
+                if let documents = querySnapshot?.documents {
+                    self.allItems.removeAll()
+                    self.searchItems.removeAll()
+                    self.allItemImages.removeAll()
+                    self.searchItemImages.removeAll()
+                    
+                    for document in documents {
+                        
+                        if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                            self.allItems.append(item)
+                            self.searchItems.append(item)
+                            
+                            // Download the item's image and save as a UIImage
+                            let url = URL(string: item.imageURL!)!
+                            let data = try? Data(contentsOf: url)
+                            if let imageData = data {
+                                let image = UIImage(data: imageData)
+                                self.allItemImages.append(image!)
+                                self.searchItemImages.append(image!)
+                            }
+                        }
+                    }
+                     self.collectionView?.reloadData()
+                }
+            self.lastDocumentSnapshot = querySnapshot!.documents.last
+        }
+        
+    }
+    
+    func filterQuery () {
+        datasource.generalQuerySearch(collection: "items", orderBy: "title", limit: 6)//.whereField("bubble", isEqualTo: userBubble)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("CHECKING CODE (searchVC), viewDidLoad(): [if] - Error retreiving collection: \(error)") // Displays error if the listener fails
+                }
+                if let documents = querySnapshot?.documents {
+                    self.allItems.removeAll()
+                    self.searchItems.removeAll()
+                    self.allItemImages.removeAll()
+                    self.searchItemImages.removeAll()
+                    
+                    for document in documents {
+                        if let item = Item(dictionary: document.data(), itemID: document.documentID) {
+                            if (item.category == self.catChoosen || "All" == self.catChoosen) &&
+                                item.price.intValue <= self.maxPrice &&
+                                item.price.intValue >= self.minPrice
+                            {
+                                print(item.title)
+                                self.allItems.append(item)
+                                self.searchItems.append(item)
+                                
+                                // Download the item's image and save as a UIImage
+                                let url = URL(string: item.imageURL!)!
+                                let data = try? Data(contentsOf: url)
+                                if let imageData = data {
+                                    let image = UIImage(data: imageData)
+                                    self.allItemImages.append(image!)
+                                    self.searchItemImages.append(image!)
+                                }
+                            }
+                        }
+                    }
+                    self.collectionView?.reloadData()
+                    
+                    if self.allItems.count == 0{
+                        let alert = UIAlertController(title: "Sorry!", message: "There are no items with the filters you have applied.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                }
+        }
+    }
+    
+    
+    
+    
 }
 
 /* Enables the tinted color function to work on the filter image (Chagnes the color of the image)*/
